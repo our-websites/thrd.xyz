@@ -168,6 +168,11 @@ footer {background:#111;text-align:center;padding:30px 20px;font-size:0.9rem;col
     .hero h2{font-size:2.8rem;}
 }
 </style>
+<meta property="og:title" content="Thrd Hosting">
+  <meta property="og:description" content="Thrd Hosting offers lightning-fast secure and scalabe hosting for discord bots.">
+  <meta property="og:image" content="https://thrd.xyz/logo.png">
+  <meta property="og:url" content="https://thrd.xyz">
+  <meta property="og:type" content="website">
 </head>
 <body>
 
@@ -233,7 +238,7 @@ footer {background:#111;text-align:center;padding:30px 20px;font-size:0.9rem;col
 
 <script>
 const supabase = window.supabase.createClient(
-  "https://jmxlhugggzvgpuuwvyly.supabase.co", // <-- replace with your Supabase URL
+  "https://jmxlhugggzvgpuuwvyly.supabase.co",
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpteGxodWdnZ3p2Z3B1dXd2eWx5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA4MjA3NTQsImV4cCI6MjA3NjM5Njc1NH0.gDTnN7pSfGGUoXN2XTR8SpMDjJVW-K9KpiO8SAC3e4I" // <-- replace with your Supabase anon key
 );
 
@@ -241,7 +246,7 @@ async function signInWithDiscord() {
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: 'discord',
     options: {
-      redirectTo: window.location.origin + '/dashboard' // Redirect after login
+      redirectTo: window.location.origin + '/dashboard'
     }
   });
   if (error) {
@@ -250,11 +255,9 @@ async function signInWithDiscord() {
   }
 }
 
-// Attach event listeners to both buttons
 document.getElementById("loginBtn").addEventListener("click", signInWithDiscord);
 document.getElementById("getStartedBtn").addEventListener("click", signInWithDiscord);
 
-// Check session on load
 supabase.auth.getSession().then(({ data }) => {
   if (data.session) {
     document.getElementById("loginBtn").innerHTML = '<i class="fas fa-user"></i> Dashboard';
