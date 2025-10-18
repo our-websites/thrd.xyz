@@ -1,0 +1,2 @@
+# thrd.xyz
+thrd hosting
