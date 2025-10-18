@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thrd Hosting - Discord Bot Hosting</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+<style>
+/* Global Styles */
+* {margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;}
+body {background:#1a1a1a;color:#fff;overflow-x:hidden;}
+a {text-decoration:none;color:inherit;}
+
+/* Header */
+header {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px 50px;
+    background:linear-gradient(90deg, #ff7518, #ffb347);
+    box-shadow:0 5px 15px rgba(0,0,0,0.3);
+    position:sticky; top:0; z-index:100;
+}
+
+/* Header Right (Login + Status) */
+.header-right {
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+/* Login button */
+.login-btn {
+    display:flex;
+    align-items:center;
+    gap:10px;
+    background:#7289da;
+    padding:12px 25px;
+    border-radius:12px;
+    font-weight:bold;
+    transition:transform 0.3s ease,box-shadow 0.3s ease;
+}
+.login-btn:hover {
+    transform:translateY(-3px);
+    box-shadow:0 8px 20px rgba(114,137,218,0.5);
+}
+
+/* Status link */
+.status-link {
+    color:white;
+    font-weight:bold;
+    font-size:1rem;
+    text-decoration:none;
+    transition:color 0.3s ease;
+}
+.status-link:hover {
+    color:#ffb347;
+}
+
+/* Logo */
+header h1 {
+    font-size:2rem;
+    font-weight:bold;
+    letter-spacing:2px;
+    color:#1a1a1a;
+    text-shadow:1px 1px 2px #fff2;
+}
+
+/* Hero Section */
+.hero {
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+    padding:120px 20px 80px 20px;
+    background:linear-gradient(135deg,#ff7518,#1a1a1a);
+    clip-path:polygon(0 0, 100% 0, 100% 85%, 0 100%);
+}
+.hero h2 {
+    font-size:3.5rem;
+    margin-bottom:20px;
+    background:linear-gradient(90deg,#ffb347,#ff7518);
+    -webkit-text-fill-color:transparent;
+    animation:fadeInUp 1s ease forwards;
+}
+.hero p {
+    font-size:1.2rem;
+    max-width:700px;
+    margin-bottom:40px;
+    color:#f2f2f2;
+    animation:fadeInUp 1.3s ease forwards;
+}
+.hero .cta-btn {
+    background:linear-gradient(90deg,#ff7518,#ffb347);
+    color:#1a1a1a;
+    padding:15px 30px;
+    border-radius:12px;
+    font-weight:bold;
+    font-size:1.1rem;
+    transition:transform 0.3s ease, box-shadow 0.3s ease;
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    animation:fadeInUp 1.6s ease forwards;
+}
+.hero .cta-btn:hover {
+    transform:translateY(-5px);
+    box-shadow:0 10px 25px rgba(255,117,24,0.5);
+}
+
+/* Features Section */
+.features {
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:30px;
+    padding:80px 20px;
+    background:#111;
+}
+.feature-card {
+    background:linear-gradient(145deg,#222,#1a1a1a);
+    border-radius:20px;
+    padding:40px 30px;
+    text-align:center;
+    width:320px;
+    transition:transform 0.3s ease,box-shadow 0.3s ease;
+    position:relative;
+    overflow:hidden;
+}
+.feature-card::before {
+    content:'';
+    position:absolute;
+    top:-50%;
+    left:-50%;
+    width:200%;
+    height:200%;
+    background:radial-gradient(circle, rgba(255,117,24,0.3), transparent 70%);
+    opacity:0;
+    transition:opacity 0.5s ease;
+}
+.feature-card:hover::before {opacity:1;}
+.feature-card:hover {transform:translateY(-10px);box-shadow:0 15px 30px rgba(255,117,24,0.4);}
+.feature-card i {font-size:3rem;color:#ff7518;margin-bottom:20px;}
+.feature-card h3 {
+    font-size:1.6rem;
+    margin-bottom:15px;
+    background:linear-gradient(90deg,#ffb347,#ff7518);
+    -webkit-text-fill-color:transparent;
+}
+.feature-card p {font-size:1rem;color:#ccc;}
+
+/* Additional Sections */
+.section {padding:80px 20px;text-align:center;}
+.section h2 {
+    font-size:2.8rem;
+    margin-bottom:40px;
+    background:linear-gradient(90deg,#ffb347,#ff7518);
+    -webkit-text-fill-color:transparent;
+}
+.provide, .choose {display:flex;justify-content:center;flex-wrap:wrap;gap:30px;}
+.card {
+    background:linear-gradient(145deg,#222,#1a1a1a);
+    border-radius:20px;
+    padding:30px;
+    width:300px;
+    transition:transform 0.3s ease, box-shadow 0.3s ease;
+    position:relative;
+}
+.card:hover {transform:translateY(-10px);box-shadow:0 15px 30px rgba(255,117,24,0.4);}
+.card i {font-size:3rem;color:#ff7518;margin-bottom:15px;}
+.card h3 {font-size:1.4rem;margin-bottom:10px;color:#fff;}
+.card p {color:#ccc;font-size:1rem;}
+
+/* Footer */
+footer {background:#111;text-align:center;padding:30px 20px;font-size:0.9rem;color:#aaa;}
+
+/* Animations */
+@keyframes fadeInUp {0% { opacity:0; transform:translateY(30px);} 100% { opacity:1; transform:translateY(0);}}
+
+/* Responsive */
+@media (max-width:1000px){
+    .features,.provide,.choose{flex-direction:column;align-items:center;}
+    .hero h2{font-size:2.8rem;}
+}
+</style>
+</head>
+<body>
+
+<header>
+    <h1>Thrd Hosting</h1>
+    <div class="header-right">
+        <a class="status-link" href="/status">Status</a>
+        <a class="login-btn" href="#"><i class="fab fa-discord"></i>Login with Discord</a>
+    </div>
+</header>
+
+<section class="hero">
+    <h2>Next-Level Discord Bot Hosting</h2>
+    <p>Thrd Hosting offers lightning-fast, secure, and scalable hosting for all your Discord bots. Deploy instantly, manage easily, and enjoy unmatched reliability.</p>
+    <a class="cta-btn" href="#"><i class="fab fa-discord"></i>Get Started</a>
+</section>
+
+<section class="section">
+    <h2>What We Provide</h2>
+    <div class="provide">
+        <div class="card">
+            <i class="fas fa-server"></i>
+            <h3>Reliable Servers</h3>
+            <p>High-uptime servers optimized for Discord bot hosting with minimal latency.</p>
+        </div>
+        <div class="card">
+            <i class="fas fa-cloud-upload-alt"></i>
+            <h3>Instant Deployment</h3>
+            <p>Deploy bots in seconds with zero setup hassle and automated tools.</p>
+        </div>
+        <div class="card">
+            <i class="fas fa-life-ring"></i>
+            <h3>24/7 Support</h3>
+            <p>Our team is always available to help you with setup, troubleshooting, and optimization.</p>
+        </div>
+    </div>
+</section>
+
+<section class="section" style="background:#111;">
+    <h2>Why Choose Us</h2>
+    <div class="choose">
+        <div class="card">
+            <i class="fas fa-star"></i>
+            <h3>Trusted & Secure</h3>
+            <p>We ensure security and trust with reliable hosting infrastructure and monitoring.</p>
+        </div>
+        <div class="card">
+            <i class="fas fa-bolt"></i>
+            <h3>Performance</h3>
+            <p>Optimized hosting for fast bot response times and consistent uptime.</p>
+        </div>
+        <div class="card">
+            <i class="fas fa-heart"></i>
+            <h3>User Friendly</h3>
+            <p>Intuitive dashboard makes bot management simple, even for beginners.</p>
+        </div>
+    </div>
+</section>
+
+<footer>
+    Spooky Inc.
+</footer>
+
+</body>
+</html>
