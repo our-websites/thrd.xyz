@@ -4,14 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Thrd Hosting - Discord Bot Hosting</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-/* Global Styles */
 * {margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;}
 body {background:#1a1a1a;color:#fff;overflow-x:hidden;}
 a {text-decoration:none;color:inherit;}
 
-/* Header */
 header {
     display:flex;
     justify-content:space-between;
@@ -21,15 +20,11 @@ header {
     box-shadow:0 5px 15px rgba(0,0,0,0.3);
     position:sticky; top:0; z-index:100;
 }
-
-/* Header Right (Login + Status) */
 .header-right {
     display:flex;
     align-items:center;
     gap:15px;
 }
-
-/* Login button */
 .login-btn {
     display:flex;
     align-items:center;
@@ -39,13 +34,12 @@ header {
     border-radius:12px;
     font-weight:bold;
     transition:transform 0.3s ease,box-shadow 0.3s ease;
+    cursor:pointer;
 }
 .login-btn:hover {
     transform:translateY(-3px);
     box-shadow:0 8px 20px rgba(114,137,218,0.5);
 }
-
-/* Status link */
 .status-link {
     color:white;
     font-weight:bold;
@@ -53,11 +47,7 @@ header {
     text-decoration:none;
     transition:color 0.3s ease;
 }
-.status-link:hover {
-    color:#ffb347;
-}
-
-/* Logo */
+.status-link:hover { color:#ffb347; }
 header h1 {
     font-size:2rem;
     font-weight:bold;
@@ -66,7 +56,6 @@ header h1 {
     text-shadow:1px 1px 2px #fff2;
 }
 
-/* Hero Section */
 .hero {
     display:flex;
     flex-direction:column;
@@ -103,13 +92,13 @@ header h1 {
     align-items:center;
     gap:10px;
     animation:fadeInUp 1.6s ease forwards;
+    cursor:pointer;
 }
 .hero .cta-btn:hover {
     transform:translateY(-5px);
     box-shadow:0 10px 25px rgba(255,117,24,0.5);
 }
 
-/* Features Section */
 .features {
     display:flex;
     justify-content:center;
@@ -151,7 +140,6 @@ header h1 {
 }
 .feature-card p {font-size:1rem;color:#ccc;}
 
-/* Additional Sections */
 .section {padding:80px 20px;text-align:center;}
 .section h2 {
     font-size:2.8rem;
@@ -173,14 +161,8 @@ header h1 {
 .card i {font-size:3rem;color:#ff7518;margin-bottom:15px;}
 .card h3 {font-size:1.4rem;margin-bottom:10px;color:#fff;}
 .card p {color:#ccc;font-size:1rem;}
-
-/* Footer */
 footer {background:#111;text-align:center;padding:30px 20px;font-size:0.9rem;color:#aaa;}
-
-/* Animations */
 @keyframes fadeInUp {0% { opacity:0; transform:translateY(30px);} 100% { opacity:1; transform:translateY(0);}}
-
-/* Responsive */
 @media (max-width:1000px){
     .features,.provide,.choose{flex-direction:column;align-items:center;}
     .hero h2{font-size:2.8rem;}
@@ -193,14 +175,14 @@ footer {background:#111;text-align:center;padding:30px 20px;font-size:0.9rem;col
     <h1>Thrd Hosting</h1>
     <div class="header-right">
         <a class="status-link" href="/status">Status</a>
-        <a class="login-btn" href="#"><i class="fab fa-discord"></i>Login</a>
+        <div class="login-btn" id="loginBtn"><i class="fab fa-discord"></i>Login</div>
     </div>
 </header>
 
 <section class="hero">
     <h2>Next-Level Discord Bot Hosting</h2>
     <p>Thrd Hosting offers lightning-fast, secure, and scalable hosting for all your Discord bots. Deploy instantly, manage easily, and enjoy unmatched reliability.</p>
-    <a class="cta-btn" href="#"><i class="fab fa-discord"></i>Get Started</a>
+    <div class="cta-btn" id="getStartedBtn"><i class="fab fa-discord"></i>Get Started</div>
 </section>
 
 <section class="section">
@@ -248,6 +230,38 @@ footer {background:#111;text-align:center;padding:30px 20px;font-size:0.9rem;col
 <footer>
     Spooky Inc.
 </footer>
+
+<script>
+const supabase = window.supabase.createClient(
+  "https://jmxlhugggzvgpuuwvyly.supabase.co", // <-- replace with your Supabase URL
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpteGxodWdnZ3p2Z3B1dXd2eWx5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA4MjA3NTQsImV4cCI6MjA3NjM5Njc1NH0.gDTnN7pSfGGUoXN2XTR8SpMDjJVW-K9KpiO8SAC3e4I" // <-- replace with your Supabase anon key
+);
+
+async function signInWithDiscord() {
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: 'discord',
+    options: {
+      redirectTo: window.location.origin + '/dashboard' // Redirect after login
+    }
+  });
+  if (error) {
+    console.error("Login error:", error.message);
+    alert("Failed to login: " + error.message);
+  }
+}
+
+// Attach event listeners to both buttons
+document.getElementById("loginBtn").addEventListener("click", signInWithDiscord);
+document.getElementById("getStartedBtn").addEventListener("click", signInWithDiscord);
+
+// Check session on load
+supabase.auth.getSession().then(({ data }) => {
+  if (data.session) {
+    document.getElementById("loginBtn").innerHTML = '<i class="fas fa-user"></i> Dashboard';
+    document.getElementById("loginBtn").onclick = () => window.location.href = '/dashboard';
+  }
+});
+</script>
 
 </body>
 </html>
