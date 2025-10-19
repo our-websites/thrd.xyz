@@ -55,50 +55,46 @@
   const SUPABASE_URL = "https://jmxlhugggzvgpuuwvyly.supabase.co";
   const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpteGxodWdnZ3B2Z3B1dXd2eWx5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA4MjA3NTQsImV4cCI6MjA3NjM5Njc1NH0.gDTnN7pSfGGUoXN2XTR8SpMDjJVW-K9KpiO8SAC3e4I";
   const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
-
+  
   async function initDashboard() {
     const hash = new URLSearchParams(window.location.hash.slice(1));
     const accessToken = hash.get('access_token');
     const refreshToken = hash.get('refresh_token');
-
+  
     if (accessToken) {
-      // Set session from hash
       const { error } = await supabase.auth.setSession({
         access_token: accessToken,
         refresh_token: refreshToken
       });
-
+  
       if (error) {
         console.error("Failed to set session:", error.message);
         window.location.href = "/";
         return;
       }
-
-      // Remove hash so reload doesn't reuse token
+  
       window.history.replaceState(null, "", window.location.pathname);
     }
-
-    // Check if a session exists
+  
     const { data: { session }, error: sessionError } = await supabase.auth.getSession();
     if (sessionError || !session) {
       window.location.href = "/";
       return;
     }
-
-    // Get user info
+  
     const { data: { user }, error: userError } = await supabase.auth.getUser();
     if (userError || !user) {
       console.error("Failed to get user info:", userError?.message);
       window.location.href = "/";
       return;
     }
-
-    // Populate sidebar
+  
     document.getElementById('userAvatar').src = user.user_metadata?.avatar_url || "https://cdn.discordapp.com/embed/avatars/0.png";
     document.getElementById('userName').textContent = user.user_metadata?.full_name || user.email;
     document.getElementById('userEmail').textContent = user.email;
   }
-
+  
+  // Run initialization
   initDashboard();
 </script>
 </body>
