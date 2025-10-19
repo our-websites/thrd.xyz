@@ -87,14 +87,22 @@ a {text-decoration:none;color:inherit;}
 <div class="main">
   <h2>Manage your login keys</h2>
 
-  <div id="botFrame" class="bot-frame">
-    <h3>Credentials</h3>
-    <div>
-      <p class="copyable" id="username" title="Click to copy">Loading username...</p>
-      <p class="copyable" id="password" title="Click to copy">Loading password...</p>
-    </div>
+  <div id="botFrame" class="bot-frame w-full max-w-none">
+  <h3>Credentials</h3>
+  <div class="flex flex-col gap-2">
+    <p class="copyable w-full" id="username" title="Click to copy">Loading username...</p>
+    <p class="copyable w-full" id="password" title="Click to copy">Loading password...</p>
+    <p class="text-sm text-gray-400 mt-1">
+      Use this to access <a href="https://panel.thrd.xyz" target="_blank" class="text-orange-400 hover:underline">puffer panel</a>
+    </p>
   </div>
 </div>
+
+<!-- Toast notification -->
+<div id="toast" class="fixed bottom-5 left-1/2 transform -translate-x-1/2 bg-orange-500 text-white px-4 py-2 rounded shadow-lg opacity-0 transition-opacity duration-300 z-50">
+  Copied to clipboard!
+</div>
+
 
 <script type="module">
 import { createClient } from "https://cdn.skypack.dev/@supabase/supabase-js";
@@ -163,6 +171,34 @@ toggleBtn.onclick = () => {
   toggleBtn.firstElementChild.classList.toggle('fa-angle-left');
   toggleBtn.firstElementChild.classList.toggle('fa-angle-right');
 };
+
+function showToast(message) {
+  const toast = document.getElementById('toast');
+  toast.textContent = message;
+  toast.classList.add('opacity-100');
+  setTimeout(() => {
+    toast.classList.remove('opacity-100');
+  }, 2000);
+}
+
+if (!error && credentials) {
+  const usernameEl = document.getElementById('username');
+  const passwordEl = document.getElementById('password');
+
+  usernameEl.textContent = credentials.username;
+  passwordEl.textContent = credentials.password;
+
+  usernameEl.onclick = async () => {
+    await navigator.clipboard.writeText(credentials.username);
+    showToast("Username copied to clipboard!");
+  };
+
+  passwordEl.onclick = async () => {
+    await navigator.clipboard.writeText(credentials.password);
+    showToast("Password copied to clipboard!");
+  };
+}
+
 </script>
 
 </body>
