@@ -21,27 +21,35 @@
 body {background:#1a1a1a;color:#fff;overflow-x:hidden;}
 a {text-decoration:none;color:inherit;}
 
-.sidebar {width:64; background:#111; min-height:100vh; padding:2rem 1rem; display:flex; flex-direction:column; gap:2rem;}
-.sidebar .logo {display:flex; align-items:center; gap:0.5rem; margin-bottom:2rem;}
+/* Sidebar */
+.sidebar {width:72; background:#111; min-height:100vh; padding:2rem 1rem; display:flex; flex-direction:column; gap:2rem; transition:width 0.3s;}
+.sidebar.collapsed {width:20;}
+.sidebar .logo {display:flex; align-items:center; gap:0.5rem; margin-bottom:2rem; transition:opacity 0.3s;}
+.sidebar.collapsed .logo span {display:none;}
 .sidebar .logo img {height:40px; width:auto;}
-.sidebar .logo span {color:#ffb347; font-weight:bold; font-size:1.5rem;}
-.sidebar .user-info {text-align:center;}
+.sidebar .user-info {text-align:center; transition:opacity 0.3s;}
+.sidebar.collapsed .user-info {opacity:0; pointer-events:none;}
 .sidebar .user-info img {width:80px; height:80px; border-radius:9999px; margin:0 auto 0.5rem auto;}
 .sidebar .user-info h2 {color:#ffb347; font-weight:bold;}
 .sidebar .user-info p {color:#ccc; font-size:0.85rem;}
 .sidebar-btn {display:flex; align-items:center; gap:0.5rem; padding:0.75rem 1rem; border-radius:0.75rem; transition:0.2s; cursor:pointer; color:#fff;}
 .sidebar-btn:hover, .sidebar-btn.active {background:linear-gradient(90deg,#ff7518,#ffb347); color:#1a1a1a;}
+.sidebar-btn i {width:20px; text-align:center;}
+
+/* Main content */
 .main {flex:1; padding:2rem; display:flex; flex-direction:column; gap:2rem;}
 .main h1 {font-size:2.5rem; font-weight:bold; background:linear-gradient(90deg,#ffb347,#ff7518); -webkit-background-clip:text; -webkit-text-fill-color:transparent;}
-.card {background:linear-gradient(145deg,#222,#1a1a1a); border-radius:1rem; padding:2rem; transition:transform 0.3s ease, box-shadow 0.3s ease; display:flex; flex-direction:column; gap:1rem;}
-.card:hover {transform:translateY(-5px); box-shadow:0 10px 25px rgba(255,117,24,0.4);}
-.card i {font-size:2rem; color:#ff7518;}
+
+/* Loading */
 .loading-overlay {position:fixed; inset:0; background:rgba(0,0,0,0.8); display:flex; justify-content:center; align-items:center; z-index:50;}
 .spinner {border:4px solid rgba(255,255,255,0.2); border-top:4px solid #ff7518; border-radius:50%; width:50px; height:50px; animation:spin 1s linear infinite;}
 @keyframes spin {0% {transform:rotate(0deg);} 100% {transform:rotate(360deg);}}
+
+.toggle-btn {position:absolute; top:1rem; right:-1rem; background:#111; border:2px solid #ff7518; color:#ff7518; border-radius:9999px; width:2rem; height:2rem; display:flex; justify-content:center; align-items:center; cursor:pointer; z-index:10; transition:all 0.3s;}
+.toggle-btn:hover {background:#ff7518; color:#1a1a1a;}
 </style>
 </head>
-<body class="flex">
+<body class="flex relative">
 
 <!-- Loading overlay -->
 <div id="loadingOverlay" class="loading-overlay">
@@ -49,7 +57,9 @@ a {text-decoration:none;color:inherit;}
 </div>
 
 <!-- Sidebar -->
-<div class="sidebar">
+<div id="sidebar" class="sidebar relative">
+  <div class="toggle-btn" id="toggleSidebar"><i class="fas fa-angle-left"></i></div>
+
   <div class="logo">
     <img src="https://thrd.xyz/logo.png" alt="Logo">
     <span>Thrd</span>
@@ -69,16 +79,6 @@ a {text-decoration:none;color:inherit;}
 <!-- Main content -->
 <div class="main">
   <h1>Welcome to Thrd Dashboard</h1>
-  <div class="card">
-    <i class="fas fa-server"></i>
-    <h3>Your Servers</h3>
-    <p>Manage your Discord bots here. Click a bot to see details and resources allocated.</p>
-  </div>
-  <div class="card">
-    <i class="fas fa-cogs"></i>
-    <h3>Settings</h3>
-    <p>Update your credentials, tokens, and other settings for seamless bot management.</p>
-  </div>
 </div>
 
 <script type="module">
@@ -116,6 +116,15 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
   overlay.style.display = 'none';
 })();
+
+// Sidebar toggle functionality
+const sidebar = document.getElementById('sidebar');
+const toggleBtn = document.getElementById('toggleSidebar');
+toggleBtn.onclick = () => {
+  sidebar.classList.toggle('collapsed');
+  toggleBtn.firstElementChild.classList.toggle('fa-angle-left');
+  toggleBtn.firstElementChild.classList.toggle('fa-angle-right');
+};
 </script>
 
 </body>
