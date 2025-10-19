@@ -24,21 +24,29 @@ a {text-decoration:none;color:inherit;}
 /* Sidebar */
 .sidebar {width:280px; background:#111; min-height:100vh; padding:2rem 1rem; display:flex; flex-direction:column; gap:2rem; transition:width 0.3s;}
 .sidebar.collapsed {width:72px;}
-.sidebar .logo {display:flex; align-items:center; gap:0.5rem; margin-bottom:2rem; transition:opacity 0.3s;}
-.sidebar.collapsed .logo span {display:none;}
-.sidebar .logo img {height:40px; width:auto;}
-.sidebar .user-info {text-align:center; transition:opacity 0.3s;}
-.sidebar.collapsed .user-info {opacity:0; pointer-events:none;}
-.sidebar .user-info img {width:80px; height:80px; border-radius:9999px; margin:0 auto 0.5rem auto;}
-.sidebar .user-info h2 {color:#ffb347; font-weight:bold;}
-.sidebar .user-info p {color:#ccc; font-size:0.85rem;}
-.sidebar-btn {display:flex; align-items:center; gap:0.75rem; padding:0.75rem 1rem; border-radius:0.75rem; transition:0.2s; cursor:pointer; color:#fff;}
+.sidebar .logo {display:flex; align-items:center; gap:0.5rem; margin-bottom:2rem; transition:all 0.3s;}
+.sidebar.collapsed .logo img {height:32px; width:auto;}
+.sidebar.collapsed .logo span {display:none; opacity:0;}
+.sidebar .user-info {text-align:center; transition:all 0.3s; opacity:1;}
+.sidebar.collapsed .user-info {opacity:0; height:0; overflow:hidden; pointer-events:none;}
+.sidebar .user-info img {width:80px; height:80px; border-radius:9999px; margin:0 auto 0.5rem auto; transition:all 0.3s;}
+.sidebar.collapsed .user-info img {width:40px; height:40px;}
+.sidebar .user-info h2, .sidebar .user-info p {transition:all 0.3s;}
+.sidebar .user-info h2, .sidebar .user-info p {opacity:1;}
+.sidebar.collapsed .user-info h2, .sidebar.collapsed .user-info p {opacity:0;}
+
+.sidebar-btn {display:flex; align-items:center; gap:0.75rem; padding:0.75rem 1rem; border-radius:0.75rem; transition:0.2s; cursor:pointer; color:#fff; white-space:nowrap;}
 .sidebar-btn:hover, .sidebar-btn.active {background:linear-gradient(90deg,#ff7518,#ffb347); color:#1a1a1a;}
 .sidebar-btn i {width:24px; text-align:center;}
+.sidebar.collapsed .sidebar-btn span {display:none;}
 
 /* Main content */
 .main {flex:1; padding:2rem; display:flex; flex-direction:column; gap:2rem;}
 .main h1 {font-size:2.5rem; font-weight:bold; background:linear-gradient(90deg,#ffb347,#ff7518); -webkit-background-clip:text; -webkit-text-fill-color:transparent;}
+
+/* Frame for bot info */
+.bot-frame {background:#222; border-left:4px solid #ff7518; border-radius:12px; padding:1.5rem; width:300px; color:#fff; display:flex; flex-direction:column; gap:0.5rem;}
+.bot-frame h3 {font-size:1.2rem; font-weight:bold; color:#ffb347;}
 
 /* Loading */
 .loading-overlay {position:fixed; inset:0; background:rgba(0,0,0,0.8); display:flex; justify-content:center; align-items:center; z-index:50;}
@@ -72,15 +80,21 @@ a {text-decoration:none;color:inherit;}
   </div>
 
   <div class="flex flex-col gap-2 mt-4">
-    <div class="sidebar-btn active"><i class="fas fa-home"></i> <span class="btn-text">Dashboard</span></div>
-    <div class="sidebar-btn"><i class="fas fa-robot"></i> <span class="btn-text">Bots</span></div>
-    <div class="sidebar-btn"><i class="fas fa-key"></i> <span class="btn-text">Credentials</span></div>
+    <div class="sidebar-btn active"><i class="fas fa-home"></i> <span>Dashboard</span></div>
+    <div class="sidebar-btn"><i class="fas fa-robot"></i> <span>Bots</span></div>
+    <div class="sidebar-btn"><i class="fas fa-key"></i> <span>Credentials</span></div>
   </div>
 </div>
 
 <!-- Main content -->
 <div class="main">
   <h1>Welcome to Thrd Dashboard</h1>
+
+  <!-- Bot frame -->
+  <div id="botFrame" class="bot-frame">
+    <h3>Available Bots:</h3>
+    <p id="botCount">Loading...</p>
+  </div>
 </div>
 
 <script type="module">
@@ -112,9 +126,18 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
   const { data:{ user }, error: userError } = await supabase.auth.getUser();
   if (userError || !user) return window.location.href = "/";
 
+  // Update sidebar info
   document.getElementById('userAvatar').src = user.user_metadata?.avatar_url || "https://cdn.discordapp.com/embed/avatars/0.png";
   document.getElementById('userName').textContent = user.user_metadata?.full_name || user.email;
   document.getElementById('userEmail').textContent = user.email;
+
+  // Query number of bots remaining (example logic)
+  // Replace with your table name and columns
+  const maxBots = user.user_metadata?.max_bots || 5; 
+  const { data: botsData, error: botsError } = await supabase.from('bots').select('*').eq('user_id', user.id);
+  const usedBots = botsError ? 0 : botsData.length;
+  const remaining = maxBots - usedBots;
+  document.getElementById('botCount').textContent = `${remaining} / ${maxBots} bots remaining`;
 
   overlay.style.display = 'none';
 })();
@@ -124,17 +147,10 @@ const sidebar = document.getElementById('sidebar');
 const toggleBtn = document.getElementById('toggleSidebar');
 toggleBtn.onclick = () => {
   sidebar.classList.toggle('collapsed');
+
+  // Flip arrow
   toggleBtn.firstElementChild.classList.toggle('fa-angle-left');
   toggleBtn.firstElementChild.classList.toggle('fa-angle-right');
-
-  // Show/hide button text
-  document.querySelectorAll('.btn-text').forEach(span => {
-    if(sidebar.classList.contains('collapsed')){
-      span.style.display = 'none';
-    } else {
-      span.style.display = 'inline';
-    }
-  });
 };
 </script>
 
