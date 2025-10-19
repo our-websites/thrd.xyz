@@ -34,7 +34,8 @@ a {text-decoration:none;color:inherit;}
 .bot-frame {
   background:#222;border-left:4px solid #ff7518;border-radius:12px;padding:2rem;color:#fff;display:flex;flex-direction:column;gap:1rem;width:100%;max-width:none;
 }
-.bot-frame h3 {font-size:1.5rem;font-weight:bold;color:#ffb347;}
+.bot-frame h3 {font-size:1.5rem;font-weight:bold;color:#ffb347;margin-bottom:1rem;}
+.credential-label {font-weight:500; margin-bottom:0.25rem;}
 .copyable {background:#111;border:1px solid #ff7518;border-radius:8px;padding:0.75rem;font-family:monospace;cursor:pointer;transition:all 0.2s;width:100%;}
 .copyable:hover {background:#ff7518;color:#1a1a1a;}
 
@@ -45,6 +46,7 @@ a {text-decoration:none;color:inherit;}
 .toggle-btn {position:absolute;top:1rem;right:-1rem;background:#111;border:2px solid #ff7518;color:#ff7518;border-radius:9999px;width:2rem;height:2rem;display:flex;justify-content:center;align-items:center;cursor:pointer;z-index:10;transition:all 0.3s;}
 .toggle-btn:hover {background:#ff7518;color:#1a1a1a;}
 
+/* Toast styling and animation */
 #toast {
   position: fixed;
   bottom: -60px;
@@ -104,20 +106,27 @@ a {text-decoration:none;color:inherit;}
 </div>
 
 <div class="main">
-  <h2>Manage your login keys</h2>
+  <h2 class="text-2xl font-bold mb-4">Manage your login keys</h2>
 
   <div id="botFrame" class="bot-frame">
     <h3>Credentials</h3>
-    <div class="flex flex-col gap-2">
-      <p class="copyable" id="username" title="Click to copy">Loading username...</p>
-      <p class="copyable" id="password" title="Click to copy">Loading password...</p>
-      <p class="text-sm text-gray-400 mt-1">
-        Use this to access <a href="https://panel.thrd.xyz" target="_blank" class="text-blue-500 hover:underline">puffer panel</a>
+    <div class="flex flex-col gap-4">
+      <div>
+        <p class="credential-label">Username:</p>
+        <p class="copyable" id="username" title="Click to copy">Loading username...</p>
+      </div>
+      <div>
+        <p class="credential-label">Password:</p>
+        <p class="copyable" id="password" title="Click to copy">Loading password...</p>
+      </div>
+      <p class="text-sm text-gray-400 mt-2">
+        Use these credentials to access <a href="https://panel.thrd.xyz" target="_blank" class="text-blue-500 hover:underline">Puffer Panel</a>
       </p>
     </div>
   </div>
 </div>
 
+<!-- Toast notification -->
 <div id="toast">Copied to clipboard!</div>
 
 <script type="module">
