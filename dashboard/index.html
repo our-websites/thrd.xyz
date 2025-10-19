@@ -156,10 +156,11 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
   const res = await fetch(`https://jmxlhugggzvgpuuwvyly.supabase.co/rest/v1/resources?select=max_bots&user_id=${user.id}`, {
     headers: {
       'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpteGxodWdnZ3p2Z3B1dXd2eWx5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA4MjA3NTQsImV4cCI6MjA3NjM5Njc1NH0.gDTnN7pSfGGUoXN2XTR8SpMDjJVW-K9KpiO8SAC3e4I',
-      'Authorization': `Bearer ${YOUR_SUPABASE_ANON_KEY}`
+      'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpteGxodWdnZ3p2Z3B1dXd2eWx5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA4MjA3NTQsImV4cCI6MjA3NjM5Njc1NH0.gDTnN7pSfGGUoXN2XTR8SpMDjJVW-K9KpiO8SAC3e4I`
     }
   });
   const resourceData = await res.json();
+
 
 
   const maxBots = resourceData?.max_bots ?? 5;
