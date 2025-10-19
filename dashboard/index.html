@@ -99,17 +99,17 @@ footer {text-align:center;color:#666;font-size:0.85rem;margin-top:20px;}
 <script>
 const SUPABASE_URL = "https://jmxlhugggzvgpuuwvyly.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpteGxodWdnZ3p2Z3B1dXd2eWx5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA4MjA3NTQsImV4cCI6MjA3NjM5Njc1NH0.gDTnN7pSfGGUoXN2XTR8SpMDjJVW-K9KpiO8SAC3e4I";
-const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY); // use a different variable like 'sb'
+
 async function checkUser() {
-  let session = supabase.auth.getSession();
-  session = await session;
-  let user = session.data.session?.user;
+  let { data: { session } } = await sb.auth.getSession();
+  let user = session?.user;
   const urlParams = new URLSearchParams(window.location.search);
   if(urlParams.get('error_code')==='user_banned'){window.location.href='/ban.html'; return;}
   const hashParams = new URLSearchParams(window.location.hash.substring(1));
   if(hashParams.get('access_token')){
-    await supabase.auth.setSession({access_token: hashParams.get('access_token')});
-    user = (await supabase.auth.getUser()).data.user;
+    await sb.auth.setSession({access_token: hashParams.get('access_token')});
+    user = (await sb.auth.getUser()).data.user;
     window.history.replaceState({}, document.title, "/dashboard");
   }
   if(!user){window.location.href='/login'; return;}
