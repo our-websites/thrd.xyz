@@ -3,131 +3,115 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Thrd Hosting Dashboard</title>
-<link rel="icon" href="https://thrd.xyz/favicon.ico">
+<title>Thrd Hosting - Dashboard</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-* {margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;text-decoration:none;}
-body {background:#0f0f0f;color:#fff;}
-.container {display:flex;min-height:100vh;}
-.sidebar {width:260px;background:#161616;display:flex;flex-direction:column;padding:25px;gap:25px;border-right:1px solid #222;}
-.sidebar h2 {color:#ffb347;text-align:center;font-size:1.5rem;letter-spacing:1px;}
-.sidebar .user-card {background:#1f1f1f;padding:15px;border-radius:15px;text-align:center;box-shadow:0 0 15px rgba(255,117,24,0.15);}
-.sidebar .user-card img {width:70px;height:70px;border-radius:50%;margin-bottom:10px;border:2px solid #ffb347;object-fit:cover;}
-.sidebar .user-card p {font-weight:bold;margin-bottom:3px;}
-.sidebar .user-card small {color:#999;}
-.sidebar input {padding:10px 12px;border-radius:10px;border:none;width:100%;background:#222;color:#fff;outline:none;}
-.sidebar input::placeholder {color:#777;}
-.sidebar nav a {display:flex;align-items:center;gap:12px;padding:12px 15px;border-radius:10px;color:#ddd;transition:all 0.3s ease;}
-.sidebar nav a i {color:#ffb347;}
-.sidebar nav a:hover {background:linear-gradient(90deg,#ff7518,#ffb347);color:#1a1a1a;}
-.sidebar .signout {margin-top:auto;background:#222;padding:12px;border-radius:12px;text-align:center;cursor:pointer;font-weight:bold;transition:all 0.3s ease;}
-.sidebar .signout:hover {background:linear-gradient(90deg,#ff7518,#ffb347);color:#1a1a1a;}
-footer {text-align:center;color:#666;font-size:0.85rem;margin-top:20px;}
-.main {flex:1;padding:35px;display:flex;flex-direction:column;gap:30px;}
-.header {display:flex;justify-content:space-between;align-items:center;}
-.header h1 {font-size:2rem;color:#ffb347;display:flex;align-items:center;gap:10px;}
-.header h1 i {color:#ff7518;}
-.resource-grid {display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:20px;}
-.resource-card {background:#1b1b1b;padding:20px;border-radius:15px;text-align:center;box-shadow:0 4px 12px rgba(0,0,0,0.3);transition:transform 0.3s ease;}
-.resource-card:hover {transform:translateY(-5px);}
-.resource-card i {font-size:1.8rem;color:#ffb347;margin-bottom:10px;}
-.resource-card h3 {font-size:1rem;color:#bbb;margin-bottom:5px;}
-.resource-card p {font-size:1.4rem;font-weight:bold;color:#ff7518;}
-.bot-grid {display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;}
-.bot-card {background:#1b1b1b;padding:20px;border-radius:15px;transition:transform 0.3s ease,box-shadow 0.3s ease;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,0.25);}
-.bot-card:hover {transform:translateY(-5px);box-shadow:0 8px 20px rgba(255,117,24,0.3);}
-.bot-card h3 {margin-bottom:10px;}
-.bot-card .status {font-weight:bold;display:flex;align-items:center;gap:6px;}
-.status.online {color:#28a745;}
-.status.offline {color:#dc3545;}
-.create-card {display:flex;justify-content:center;align-items:center;background:linear-gradient(90deg,#ff7518,#ffb347);color:#1a1a1a;font-weight:bold;border-radius:15px;height:100px;font-size:1.2rem;cursor:pointer;transition:transform 0.3s ease, box-shadow 0.3s ease;}
-.create-card:hover {transform:translateY(-5px);box-shadow:0 8px 20px rgba(255,117,24,0.4);}
-.action-grid {display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;}
-.action-card {background:#1b1b1b;padding:20px;border-radius:15px;transition:transform 0.3s ease,box-shadow 0.3s ease;cursor:pointer;display:flex;align-items:center;gap:10px;}
-.action-card i {color:#ffb347;font-size:1.3rem;}
-.action-card:hover {transform:translateY(-5px);box-shadow:0 8px 20px rgba(255,117,24,0.3);}
+* {margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;}
+body {background:#1a1a1a;color:#fff;overflow-x:hidden;}
+a {text-decoration:none;color:inherit;}
+header {display:flex;justify-content:space-between;align-items:center;padding:20px 50px;background:linear-gradient(90deg, #ff7518, #ffb347);box-shadow:0 5px 15px rgba(0,0,0,0.3);position:sticky; top:0; z-index:100;}
+.header-right {display:flex;align-items:center;gap:15px;}
+.status-link {color:white;font-weight:bold;font-size:1rem;text-decoration:none;transition:color 0.3s ease;}
+.status-link:hover { color:#ffb347; }
+.dashboard-grid {display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;padding:40px;}
+.bot-card {background:linear-gradient(145deg,#222,#1a1a1a);padding:30px;border-radius:20px;text-align:center;cursor:pointer;transition:transform 0.3s ease,box-shadow 0.3s ease;position:relative;}
+.bot-card:hover {transform:translateY(-10px);box-shadow:0 15px 30px rgba(255,117,24,0.4);}
+.bot-card h3 {font-size:1.5rem;margin-bottom:10px;background:linear-gradient(90deg,#ffb347,#ff7518);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.bot-card p {color:#ccc;font-size:1rem;}
+.create-btn {grid-column:span 1;background:linear-gradient(90deg,#ff7518,#ffb347);color:#1a1a1a;padding:20px;border-radius:20px;font-weight:bold;font-size:1.2rem;display:flex;justify-content:center;align-items:center;cursor:pointer;transition:transform 0.3s ease,box-shadow 0.3s ease;}
+.create-btn:hover {transform:translateY(-5px);box-shadow:0 10px 25px rgba(255,117,24,0.5);}
+.modal {position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.3s ease;}
+.modal.active {opacity:1;pointer-events:auto;}
+.modal-content {background:#111;padding:30px;border-radius:20px;max-width:500px;width:90%;position:relative;text-align:left;}
+.modal-content h3 {background:linear-gradient(90deg,#ffb347,#ff7518);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:15px;}
+.modal-content p {color:#ccc;margin-bottom:10px;}
+.modal-close {position:absolute;top:15px;right:20px;font-size:1.5rem;cursor:pointer;color:#fff;}
 </style>
 </head>
 <body>
-<div class="container">
-<aside class="sidebar">
-<h2><i class="fas fa-server"></i> Thrd Hosting</h2>
-<div class="user-card">
-<img id="user-avatar" src="/assets/default-avatar.png" alt="User Avatar">
-<p id="user-name">User</p>
-<small id="user-plan">Default plan</small>
-</div>
-<input type="text" placeholder="Search...">
-<nav>
-<a href="#"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
-<a href="#"><i class="fas fa-robot"></i> My Bots</a>
-<a href="#"><i class="fas fa-server"></i> Servers</a>
-<a href="#"><i class="fas fa-key"></i> API Keys</a>
-<a href="#"><i class="fas fa-credit-card"></i> Billing</a>
-</nav>
-<div class="signout"><i class="fas fa-sign-out-alt"></i> Sign Out</div>
-<footer>&copy; 2025 Thrd Hosting</footer>
-</aside>
-<main class="main">
-<div class="header">
-<h1><i class="fas fa-gauge"></i> Dashboard</h1>
-<div></div>
-</div>
-<p>You currently have <strong>0 active servers</strong>.</p>
-<h2><i class="fas fa-chart-pie"></i> Available Resources</h2>
-<div class="resource-grid">
-<div class="resource-card"><i class="fas fa-microchip"></i><h3>CPU Cores</h3><p>0.5</p></div>
-<div class="resource-card"><i class="fas fa-memory"></i><h3>RAM</h3><p>0.5 GiB</p></div>
-<div class="resource-card"><i class="fas fa-hdd"></i><h3>Storage</h3><p>1 GiB</p></div>
-<div class="resource-card"><i class="fas fa-network-wired"></i><h3>Server Slots</h3><p>1</p></div>
-</div>
-<h2><i class="fas fa-robot"></i> Your Bots</h2>
-<div class="bot-grid">
-<div class="bot-card"><h3><i class="fas fa-circle-dot"></i> Bot Alpha</h3><p class="status online"><i class="fas fa-signal"></i> Online</p></div>
-<div class="bot-card"><h3><i class="fas fa-circle-dot"></i> Bot Beta</h3><p class="status offline"><i class="fas fa-xmark"></i> Offline</p></div>
-<div class="create-card"><i class="fas fa-plus"></i> Create New Bot</div>
-</div>
-<h2><i class="fas fa-bolt"></i> Actions</h2>
-<div class="action-grid">
-<div class="action-card"><i class="fas fa-user-cog"></i> Manage Account</div>
-<div class="action-card"><i class="fas fa-lock"></i> Upgrade Plan</div>
-<div class="action-card"><i class="fas fa-info-circle"></i> Support Center</div>
-</div>
-</main>
-</div>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.57.2/dist/supabase.min.js"></script>
-<script>
-const SUPABASE_URL = "https://jmxlhugggzvgpuuwvyly.supabase.co";
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpteGxodWdnZ3B2Z3B1dXd2eWx5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA4MjA3NTQsImV4cCI6MjA3NjM5Njc1NH0.gDTnN7pSfGGUoXN2XTR8SpMDjJVW-K9KpiO8SAC3e4I";
-const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-async function checkUser() {
-  let { data: { session } } = await sb.auth.getSession();
-  let user = session?.user;
-  const urlParams = new URLSearchParams(window.location.search);
-  if(urlParams.get('error_code')==='user_banned'){window.location.href='/ban.html'; return;}
-  const hashParams = new URLSearchParams(window.location.hash.substring(1));
-  if(!user && !hashParams.get('access_token')){window.location.href='/login.html'; return;}
-  if(!user && hashParams.get('access_token')){await sb.auth.setSession({access_token:hashParams.get('access_token')});}
-  let newSession = await sb.auth.getSession();
-  user = newSession.data.session?.user;
-  if(user){
-    sessionStorage.setItem('user', JSON.stringify(user));
-    const cleanUrl = window.location.href.split('#')[0].split('?')[0];
-    history.replaceState(null,null,cleanUrl);
-    document.getElementById('user-name').textContent = user.user_metadata?.full_name || user.email || 'User';
-    document.getElementById('user-avatar').src = user.user_metadata?.avatar_url || '/assets/default-avatar.png';
-  }
+<header>
+    <h1>Thrd Hosting</h1>
+    <div class="header-right">
+        <a class="status-link" href="/status">Status</a>
+        <div class="login-btn" id="loginBtn"><i class="fab fa-discord"></i>Login</div>
+    </div>
+</header>
+
+<section class="dashboard-grid" id="botGrid">
+    <div class="create-btn" id="createBotBtn"><i class="fas fa-plus"></i> Create New Bot</div>
+</section>
+
+<div class="modal" id="botModal">
+    <div class="modal-content">
+        <span class="modal-close" id="closeModal">&times;</span>
+        <h3 id="modalBotName"></h3>
+        <p><strong>Status:</strong> <span id="modalBotStatus"></span></p>
+        <p><strong>CPU:</strong> <span id="modalBotCPU"></span></p>
+        <p><strong>RAM:</strong> <span id="modalBotRAM"></span></p>
+        <p><strong>External:</strong> <a href="#" id="modalBotExternal" target="_blank">Open</a></p>
+    </div>
+</div>
+
+<script>
+const supabase = window.supabase.createClient(
+  "https://jmxlhugggzvgpuuwvyly.supabase.co",
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpteGxodWdnZ3B2Z3B1dXd2eWx5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA4MjA3NTQsImV4cCI6MjA3NjM5Njc1NH0.gDTnN7pSfGGUoXN2XTR8SpMDjJVW-K9KpiO8SAC3e4I"
+);
+
+async function signInWithDiscord() {
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: 'discord',
+    options: { redirectTo: window.location.origin + '/dashboard' }
+  });
+  if (error) alert("Failed to login: " + error.message);
 }
 
-checkUser();
+document.getElementById("loginBtn").addEventListener("click", signInWithDiscord);
 
-document.querySelector('.signout').addEventListener('click', async()=>{
-  await sb.auth.signOut();
-  sessionStorage.removeItem('user');
-  window.location.href='/login.html';
+supabase.auth.getSession().then(({ data }) => {
+  if (data.session) {
+    document.getElementById("loginBtn").innerHTML = '<i class="fas fa-user"></i> Dashboard';
+    document.getElementById("loginBtn").onclick = () => window.location.href = '/dashboard';
+    loadBots(data.session.user.id);
+  }
 });
+
+// Sample bot data fetch
+async function loadBots(userId) {
+    // Replace with your Supabase table 'bots' and user_id filter
+    let { data: bots, error } = await supabase.from('bots').select('*').eq('user_id', userId);
+    if (error) { console.error(error); return; }
+
+    const grid = document.getElementById("botGrid");
+    bots.forEach(bot => {
+        const card = document.createElement("div");
+        card.className = "bot-card";
+        card.innerHTML = `<h3>${bot.name}</h3><p>Status: ${bot.status}</p>`;
+        card.onclick = () => openModal(bot);
+        grid.appendChild(card);
+    });
+}
+
+document.getElementById("createBotBtn").addEventListener("click", () => {
+    alert("Redirect to bot creation page or open a form.");
+});
+
+// Modal
+const modal = document.getElementById("botModal");
+const closeModalBtn = document.getElementById("closeModal");
+function openModal(bot) {
+    document.getElementById("modalBotName").textContent = bot.name;
+    document.getElementById("modalBotStatus").textContent = bot.status;
+    document.getElementById("modalBotCPU").textContent = bot.cpu || 'N/A';
+    document.getElementById("modalBotRAM").textContent = bot.ram || 'N/A';
+    document.getElementById("modalBotExternal").href = bot.external_url || '#';
+    modal.classList.add("active");
+}
+closeModalBtn.onclick = () => modal.classList.remove("active");
+window.onclick = e => { if(e.target == modal) modal.classList.remove("active"); }
 </script>
+
 </body>
 </html>
