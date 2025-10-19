@@ -144,22 +144,43 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
   document.getElementById('userName').textContent = user.user_metadata?.full_name || user.email;
   document.getElementById('userEmail').textContent = user.email;
 
-  const { data: resourceData } = await supabase
-    .from("resources")
-    .select("max_bots")
-    .match({ user_id: user.id })
-    .single();
-
+ const userId = user.id; 
+  
+  const resResource = await fetch(
+    `https://jmxlhugggzvgpuuwvyly.supabase.co/rest/v1/resources?select=max_bots&user_id=${userId}`,
+    {
+      headers: {
+        apikey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpteGxodWdnZ3ZncHV1dnlseSIsInJvbGUiOiJhbm9uIiwiaWF0IjoxNzYwODIwNzU0LCJleHAiOjIwNzYzOTY3NTR9.gDTnN7pSfGGUoXN2XTR8SpMDjJVW-K9KpiO8SAC3e4I",
+        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpteGxodWdnZ3ZncHV1dnlseSIsInJvbGUiOiJhbm9uIiwiaWF0IjoxNzYwODIwNzU0LCJleHAiOjIwNzYzOTY3NTR9.gDTnN7pSfGGUoXN2XTR8SpMDjJVW-K9KpiO8SAC3e4I`,
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  
+  if (!resResource.ok) throw new Error("Failed to fetch resources");
+  const resourceDataArr = await resResource.json();
+  const resourceData = resourceDataArr[0] || {};
   const maxBots = resourceData?.max_bots ?? 5;
-
-  const { data: usedData } = await supabase
-    .from("used_bots")
-    .select("used")
-    .match({ user_id: user.id })
-    .single();
-
+  
+  const resUsed = await fetch(
+    `https://jmxlhugggzvgpuuwvyly.supabase.co/rest/v1/used_bots?select=used&user_id=${userId}`,
+    {
+      headers: {
+        apikey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpteGxodWdnZ3ZncHV1dnlseSIsInJvbGUiOiJhbm9uIiwiaWF0IjoxNzYwODIwNzU0LCJleHAiOjIwNzYzOTY3NTR9.gDTnN7pSfGGUoXN2XTR8SpMDjJVW-K9KpiO8SAC3e4I",
+        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpteGxodWdnZ3ZncHV1dnlseSIsInJvbGUiOiJhbm9uIiwiaWF0IjoxNzYwODIwNzU0LCJleHAiOjIwNzYzOTY3NTR9.gDTnN7pSfGGUoXN2XTR8SpMDjJVW-K9KpiO8SAC3e4I`,
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  
+  if (!resUsed.ok) throw new Error("Failed to fetch used bots");
+  const usedDataArr = await resUsed.json();
+  const usedData = usedDataArr[0] || {};
   const usedBots = usedData?.used ?? 0;
+  
   const remaining = Math.max(maxBots - usedBots, 0);
+  
+  console.log({ maxBots, usedBots, remaining });
 
   document.getElementById('botCount').textContent =
     `You can create ${remaining} more bots (${usedBots}/${maxBots} used)`;
