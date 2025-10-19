@@ -16,9 +16,6 @@
 <!-- Font Awesome -->
 <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 
-<!-- Supabase -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/supabase.min.js"></script>
-
 <style>
   body { font-family: 'Inter', sans-serif; }
   .bg-thrd-login { background-color: #0f0f0f; }
@@ -39,19 +36,20 @@
 </div>
 
 <!-- Right image background -->
-<div class="hidden md:flex flex-1 bg-cover bg-center justify-center items-center" style="background-image: url('https://thrd.xyz/orange-background.jpg');">
+<div class="hidden md:flex flex-1 bg-cover bg-center justify-center items-center" style="background-image: url('https://thrd.xyz/background.jpg');">
   <h2 class="text-white text-5xl font-bold bg-black/40 p-4 rounded">Welcome to Thrd</h2>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/supabase.min.js"></script>
-<script>
+<!-- Supabase module -->
+<script type="module">
+  import { createClient } from "https://cdn.skypack.dev/@supabase/supabase-js";
+
   const SUPABASE_URL = "https://jmxlhugggzvgpuuwvyly.supabase.co";
-  const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpteGxodWdnZ3B2Z3B1dXd2eWx5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA4MjA3NTQsImV4cCI6MjA3NjM5Njc1NH0.gDTnN7pSfGGUoXN2XTR8SpMDjJVW-K9KpiO8SAC3e4I";
+  const SUPABASE_KEY = "YOUR_SUPABASE_ANON_KEY";
 
-  // Initialize Supabase client correctly using the global `Supabase` object
-  const supabase = Supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+  const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
-  // Persist session
+  // Persist session and redirect
   supabase.auth.onAuthStateChange((event, session) => {
     if (session) {
       localStorage.setItem('sb-session', JSON.stringify(session));
@@ -75,7 +73,5 @@
   }
   checkSession();
 </script>
-
-
 </body>
 </html>
