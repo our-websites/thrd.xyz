@@ -100,21 +100,24 @@ footer {text-align:center;color:#666;font-size:0.85rem;margin-top:20px;}
 const SUPABASE_URL = "https://jmxlhugggzvgpuuwvyly.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpteGxodWdnZ3p2Z3B1dXd2eWx5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA4MjA3NTQsImV4cCI6MjA3NjM5Njc1NH0.gDTnN7pSfGGUoXN2XTR8SpMDjJVW-K9KpiO8SAC3e4I";
 const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-const query = new URLSearchParams(window.location.search);
-const hashParams = new URLSearchParams(window.location.hash.substring(1));
-if(query.get('error_code')==='user_banned'){window.location.href='/ban.html'}
-if(hashParams.get('access_token')){
-  const token = hashParams.get('access_token');
-  localStorage.setItem('access_token', token);
-  supabase.auth.setSession({access_token: token});
-  supabase.auth.getUser().then(({data})=>{
-    if(data.user){
-      document.getElementById('user-name').innerText = data.user.user_metadata.full_name||data.user.email;
-      document.getElementById('user-avatar').src = data.user.user_metadata.avatar_url || "https://via.placeholder.com/70";
-    }
-  });
-  window.history.replaceState({}, document.title, "/dashboard");
+async function checkUser() {
+  let session = supabase.auth.getSession();
+  session = await session;
+  let user = session.data.session?.user;
+  const urlParams = new URLSearchParams(window.location.search);
+  if(urlParams.get('error_code')==='user_banned'){window.location.href='/ban.html'; return;}
+  const hashParams = new URLSearchParams(window.location.hash.substring(1));
+  if(hashParams.get('access_token')){
+    await supabase.auth.setSession({access_token: hashParams.get('access_token')});
+    user = (await supabase.auth.getUser()).data.user;
+    window.history.replaceState({}, document.title, "/dashboard");
+  }
+  if(!user){window.location.href='/login'; return;}
+  sessionStorage.setItem('user', JSON.stringify(user));
+  document.getElementById('user-name').innerText = user.user_metadata.full_name || user.email;
+  document.getElementById('user-avatar').src = user.user_metadata.avatar_url || "https://via.placeholder.com/70";
 }
+checkUser();
 </script>
 </body>
 </html>
