@@ -6,13 +6,10 @@
 <link rel="icon" type="image/x-icon" href="https://thrd.xyz/favicon.ico">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!-- Tailwind CSS -->
 <script src="https://cdn.tailwindcss.com"></script>
 
-<!-- Inter Font -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-<!-- Font Awesome fallback for GitHub Pages -->
 <script src="https://kit.fontawesome.com/a2d9d6c8e7.js" crossorigin="anonymous"></script>
 
 <style>
@@ -51,7 +48,6 @@ a {text-decoration:none;color:inherit;}
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;
 }
 
-/* Bot frame */
 .bot-frame {
   background:#222;border-left:4px solid #ff7518;
   border-radius:12px;padding:1.5rem;width:320px;
@@ -82,12 +78,10 @@ a {text-decoration:none;color:inherit;}
 </head>
 <body class="flex relative">
 
-<!-- Loading overlay -->
 <div id="loadingOverlay" class="loading-overlay">
   <div class="spinner"></div>
 </div>
 
-<!-- Sidebar -->
 <div id="sidebar" class="sidebar relative">
   <div class="toggle-btn" id="toggleSidebar"><i class="fas fa-angle-left"></i></div>
 
@@ -109,7 +103,6 @@ a {text-decoration:none;color:inherit;}
   </div>
 </div>
 
-<!-- Main content -->
 <div class="main">
   <h1>Welcome to Thrd Dashboard</h1>
 
@@ -147,12 +140,10 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
   const { data:{ user } } = await supabase.auth.getUser();
   if (!user) return window.location.href = "/";
 
-  // Update sidebar info
   document.getElementById('userAvatar').src = user.user_metadata?.avatar_url || "https://cdn.discordapp.com/embed/avatars/0.png";
   document.getElementById('userName').textContent = user.user_metadata?.full_name || user.email;
   document.getElementById('userEmail').textContent = user.email;
 
-  // Fetch max bots from resources
   const { data: resourceData } = await supabase
     .from("resources")
     .select("max_bots")
@@ -161,7 +152,6 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
   const maxBots = resourceData?.max_bots ?? 5;
 
-  // Fetch used bots from used_bots table
   const { data: usedData } = await supabase
     .from("used_bots")
     .select("used")
@@ -177,7 +167,6 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
   overlay.style.display = 'none';
 })();
 
-// Sidebar toggle
 const sidebar = document.getElementById('sidebar');
 const toggleBtn = document.getElementById('toggleSidebar');
 toggleBtn.onclick = () => {
