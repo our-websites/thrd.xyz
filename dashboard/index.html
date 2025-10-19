@@ -53,7 +53,7 @@ footer {text-align:center;color:#666;font-size:0.85rem;margin-top:20px;}
 <aside class="sidebar">
 <h2><i class="fas fa-server"></i> Thrd Hosting</h2>
 <div class="user-card">
-<img id="user-avatar" src="default-avatar.png" alt="User Avatar">
+<img id="user-avatar" src="/assets/default-avatar.png" alt="User Avatar">
 <p id="user-name">User</p>
 <small id="user-plan">Default plan</small>
 </div>
@@ -95,7 +95,7 @@ footer {text-align:center;color:#666;font-size:0.85rem;margin-top:20px;}
 </div>
 </main>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.34.0/dist/supabase.min.js"></script>
+<script src="/assets/supabase.min.js"></script>
 <script>
 const SUPABASE_URL = "https://jmxlhugggzvgpuuwvyly.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpteGxodWdnZ3B2Z3B1dXd2eWx5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA4MjA3NTQsImV4cCI6MjA3NjM5Njc1NH0.gDTnN7pSfGGUoXN2XTR8SpMDjJVW-K9KpiO8SAC3e4I";
@@ -110,12 +110,12 @@ async function checkUser() {
   if(hashParams.get('access_token')){
     await sb.auth.setSession({access_token: hashParams.get('access_token')});
     user = (await sb.auth.getUser()).data.user;
-    window.history.replaceState({}, document.title, "/dashboard");
+    window.history.replaceState({}, document.title, "/dashboard.html");
   }
-  if(!user){window.location.href='/login'; return;}
+  if(!user){window.location.href='/login.html'; return;}
   sessionStorage.setItem('user', JSON.stringify(user));
   document.getElementById('user-name').innerText = user.user_metadata.full_name || user.email;
-  document.getElementById('user-avatar').src = user.user_metadata.avatar_url || 'default-avatar.png';
+  document.getElementById('user-avatar').src = user.user_metadata.avatar_url || '/assets/default-avatar.png';
 }
 
 checkUser();
@@ -123,7 +123,7 @@ checkUser();
 document.querySelector('.signout').addEventListener('click', async () => {
   await sb.auth.signOut();
   sessionStorage.clear();
-  window.location.href = '/login';
+  window.location.href = '/login.html';
 });
 </script>
 </body>
