@@ -105,7 +105,6 @@ const { url: SUPABASE_URL, key: SUPABASE_KEY } = await fetch('https://thrd.xyz/s
 
 if (!SUPABASE_URL || !SUPABASE_KEY) {
   window.location.href = "https://thrd.xyz/";
-  return;
 }
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
