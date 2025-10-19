@@ -22,8 +22,8 @@ body {background:#1a1a1a;color:#fff;overflow-x:hidden;}
 a {text-decoration:none;color:inherit;}
 
 /* Sidebar */
-.sidebar {width:72; background:#111; min-height:100vh; padding:2rem 1rem; display:flex; flex-direction:column; gap:2rem; transition:width 0.3s;}
-.sidebar.collapsed {width:20;}
+.sidebar {width:280px; background:#111; min-height:100vh; padding:2rem 1rem; display:flex; flex-direction:column; gap:2rem; transition:width 0.3s;}
+.sidebar.collapsed {width:72px;}
 .sidebar .logo {display:flex; align-items:center; gap:0.5rem; margin-bottom:2rem; transition:opacity 0.3s;}
 .sidebar.collapsed .logo span {display:none;}
 .sidebar .logo img {height:40px; width:auto;}
@@ -32,9 +32,9 @@ a {text-decoration:none;color:inherit;}
 .sidebar .user-info img {width:80px; height:80px; border-radius:9999px; margin:0 auto 0.5rem auto;}
 .sidebar .user-info h2 {color:#ffb347; font-weight:bold;}
 .sidebar .user-info p {color:#ccc; font-size:0.85rem;}
-.sidebar-btn {display:flex; align-items:center; gap:0.5rem; padding:0.75rem 1rem; border-radius:0.75rem; transition:0.2s; cursor:pointer; color:#fff;}
+.sidebar-btn {display:flex; align-items:center; gap:0.75rem; padding:0.75rem 1rem; border-radius:0.75rem; transition:0.2s; cursor:pointer; color:#fff;}
 .sidebar-btn:hover, .sidebar-btn.active {background:linear-gradient(90deg,#ff7518,#ffb347); color:#1a1a1a;}
-.sidebar-btn i {width:20px; text-align:center;}
+.sidebar-btn i {width:24px; text-align:center;}
 
 /* Main content */
 .main {flex:1; padding:2rem; display:flex; flex-direction:column; gap:2rem;}
@@ -64,15 +64,17 @@ a {text-decoration:none;color:inherit;}
     <img src="https://thrd.xyz/logo.png" alt="Logo">
     <span>Thrd</span>
   </div>
+
   <div class="user-info">
     <img id="userAvatar" src="https://cdn.discordapp.com/embed/avatars/0.png" alt="Avatar">
     <h2 id="userName">Loading...</h2>
     <p id="userEmail"></p>
   </div>
+
   <div class="flex flex-col gap-2 mt-4">
-    <div class="sidebar-btn active"><i class="fas fa-home"></i> Dashboard</div>
-    <div class="sidebar-btn"><i class="fas fa-robot"></i> Bots</div>
-    <div class="sidebar-btn"><i class="fas fa-key"></i> Credentials</div>
+    <div class="sidebar-btn active"><i class="fas fa-home"></i> <span class="btn-text">Dashboard</span></div>
+    <div class="sidebar-btn"><i class="fas fa-robot"></i> <span class="btn-text">Bots</span></div>
+    <div class="sidebar-btn"><i class="fas fa-key"></i> <span class="btn-text">Credentials</span></div>
   </div>
 </div>
 
@@ -124,6 +126,15 @@ toggleBtn.onclick = () => {
   sidebar.classList.toggle('collapsed');
   toggleBtn.firstElementChild.classList.toggle('fa-angle-left');
   toggleBtn.firstElementChild.classList.toggle('fa-angle-right');
+
+  // Show/hide button text
+  document.querySelectorAll('.btn-text').forEach(span => {
+    if(sidebar.classList.contains('collapsed')){
+      span.style.display = 'none';
+    } else {
+      span.style.display = 'inline';
+    }
+  });
 };
 </script>
 
