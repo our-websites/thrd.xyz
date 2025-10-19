@@ -129,9 +129,15 @@ a {text-decoration:none;color:inherit;}
 <script type="module">
 import { createClient } from "https://cdn.skypack.dev/@supabase/supabase-js";
 
-const SUPABASE_URL = "https://jmxlhugggzvgpuuwvyly.supabase.co";
-const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpteGxodWdnZ3p2Z3B1dXd2eWx5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA4MjA3NTQsImV4cCI6MjA3NjM5Njc1NH0.gDTnN7pSfGGUoXN2XTR8SpMDjJVW-K9KpiO8SAC3e4I";
-const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+const { url: SUPABASE_URL, key: SUPABASE_KEY } = await fetch('https://thrd.xyz/supabase.json')
+  .then(res => res.json())
+  .catch(() => ({ url: '', key: '' }));
+
+if (!SUPABASE_URL || !SUPABASE_KEY) {
+  alert('Failed to load Supabase credentials.');
+} else {
+  const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+}
 
 (async function() {
   const overlay = document.getElementById('loadingOverlay');

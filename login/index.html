@@ -48,10 +48,10 @@
 <script type="module">
   import { createClient } from "https://cdn.skypack.dev/@supabase/supabase-js";
 
-  const { url: SUPABASE_URL, key: SUPABASE_KEY } = await fetch('https://thrd.xyz/somelink')
+  const { url: SUPABASE_URL, key: SUPABASE_KEY } = await fetch('https://thrd.xyz/supabase.json')
     .then(res => res.json())
     .catch(() => ({ url: '', key: '' }));
-  
+
   if (!SUPABASE_URL || !SUPABASE_KEY) {
     alert('Failed to load Supabase credentials.');
   } else {
