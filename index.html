@@ -237,33 +237,7 @@ footer {background:#111;text-align:center;padding:30px 20px;font-size:0.9rem;col
 </footer>
 
 <script>
-const supabase = window.supabase.createClient(
-  "https://jmxlhugggzvgpuuwvyly.supabase.co",
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpteGxodWdnZ3p2Z3B1dXd2eWx5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA4MjA3NTQsImV4cCI6MjA3NjM5Njc1NH0.gDTnN7pSfGGUoXN2XTR8SpMDjJVW-K9KpiO8SAC3e4I" // <-- replace with your Supabase anon key
-);
-
-async function signInWithDiscord() {
-  const { data, error } = await supabase.auth.signInWithOAuth({
-    provider: 'discord',
-    options: {
-      redirectTo: window.location.origin + '/dashboard'
-    }
-  });
-  if (error) {
-    console.error("Login error:", error.message);
-    alert("Failed to login: " + error.message);
-  }
-}
-
-document.getElementById("loginBtn").addEventListener("click", signInWithDiscord);
-document.getElementById("getStartedBtn").addEventListener("click", signInWithDiscord);
-
-supabase.auth.getSession().then(({ data }) => {
-  if (data.session) {
-    document.getElementById("loginBtn").innerHTML = '<i class="fas fa-user"></i> Dashboard';
-    document.getElementById("loginBtn").onclick = () => window.location.href = '/dashboard';
-  }
-});
+document.getElementById("loginBtn").onclick = () => window.location.href = '/login';
 </script>
 
 </body>
