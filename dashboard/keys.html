@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Thrd Dashboard</title>
+<link rel="icon" type="image/x-icon" href="https://thrd.xyz/favicon.ico">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.3/dist/tailwind.min.css" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous">
+
+<style>
+* {margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
+body {background:#1a1a1a;color:#fff;overflow-x:hidden;display:flex;min-height:100vh;}
+a {text-decoration:none;color:inherit;}
+
+.sidebar {
+  width:280px;background:#111;display:flex;flex-direction:column;gap:2rem;
+  padding:2rem 1rem;transition:width 0.3s;flex-shrink:0;
+  position:relative;
+}
+.sidebar.collapsed {width:80px;}
+.sidebar .logo {display:flex;align-items:center;gap:0.5rem;margin-bottom:2rem;transition:all 0.3s;}
+.sidebar .logo img {width:32px;height:32px;}
+.sidebar.collapsed .logo span {display:none;}
+
+.sidebar .user-info {text-align:center;transition:all 0.3s;opacity:1;}
+.sidebar.collapsed .user-info {opacity:0;height:0;overflow:hidden;pointer-events:none;}
+.sidebar .user-info img {width:64px;height:64px;border-radius:9999px;margin:0 auto 0.5rem auto;}
+
+.sidebar-btn {
+  display:flex;align-items:center;gap:0.75rem;
+  padding:0.75rem 1rem;border-radius:0.75rem;
+  cursor:pointer;color:#fff;white-space:nowrap;
+  transition:background 0.2s,color 0.2s;
+}
+.sidebar-btn:hover, .sidebar-btn.active {
+  background:linear-gradient(90deg,#ff7518,#ffb347);
+  color:#1a1a1a;
+}
+.sidebar-btn i {width:24px;text-align:center;}
+.sidebar.collapsed .sidebar-btn span {display:none;}
+
+.main {flex:1;padding:2rem;display:flex;flex-direction:column;gap:2rem;overflow-x:hidden;}
+.main h1 {
+  font-size:2.5rem;font-weight:bold;
+  background:linear-gradient(90deg,#ffb347,#ff7518);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+
+.bot-frame {
+  background:#222;border-left:4px solid #ff7518;
+  border-radius:12px;padding:1.5rem;width:320px;
+  color:#fff;display:flex;flex-direction:column;gap:0.5rem;
+}
+.bot-frame h3 {font-size:1.2rem;font-weight:bold;color:#ffb347;}
+
+.loading-overlay {
+  position:fixed;inset:0;background:rgba(0,0,0,0.8);
+  display:flex;justify-content:center;align-items:center;z-index:50;
+}
+.spinner {
+  border:4px solid rgba(255,255,255,0.2);
+  border-top:4px solid #ff7518;
+  border-radius:50%;width:50px;height:50px;
+  animation:spin 1s linear infinite;
+}
+@keyframes spin {0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
+
+.toggle-btn {
+  position:absolute;top:1rem;right:-1rem;background:#111;
+  border:2px solid #ff7518;color:#ff7518;border-radius:9999px;
+  width:2rem;height:2rem;display:flex;justify-content:center;align-items:center;
+  cursor:pointer;z-index:10;transition:all 0.3s;
+}
+.toggle-btn:hover {background:#ff7518;color:#1a1a1a;}
+</style>
+</head>
+<body class="flex relative">
+
+<div id="loadingOverlay" class="loading-overlay">
+  <div class="spinner"></div>
+</div>
+
+<div id="sidebar" class="sidebar relative">
+  <div class="toggle-btn" id="toggleSidebar"><i class="fas fa-angle-left"></i></div>
+
+  <div class="logo">
+    <img src="https://thrd.xyz/logo.png" alt="Logo" class="w-8 h-8">
+    <span class="text-xl font-bold text-orange-400">Thrd</span>
+  </div>
+
+  <div class="user-info">
+    <img id="userAvatar" src="https://cdn.discordapp.com/embed/avatars/0.png" alt="Avatar">
+    <h2 id="userName">Loading...</h2>
+    <p id="userEmail"></p>
+  </div>
+
+  <div class="flex flex-col gap-2 mt-4">
+    <div class="sidebar-btn"><i class="fas fa-home"></i> <span>Dashboard</span></div>
+    <div class="sidebar-btn"><i class="fas fa-robot"></i> <span>Bots</span></div>
+    <div class="sidebar-btn active"><i class="fas fa-key"></i> <span>Keys</span></div>
+  </div>
+</div>
+
+<div class="main">
+  <h2>Manage your login keys</h2>
+
+  <div id="botFrame" class="bot-frame">
+    <h3>Username</h3>
+    <p id="botCount">Loading...</p>
+  </div>
+  <div id="botFrame" class="bot-frame">
+    <h3>Password</h3>
+    <p id="botCount">Loading...</p>
+  </div>
+</div>
+
+<script type="module">
+import { createClient } from "https://cdn.skypack.dev/@supabase/supabase-js";
+
+const SUPABASE_URL = "https://jmxlhugggzvgpuuwvyly.supabase.co";
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpteGxodWdnZ3p2Z3B1dXd2eWx5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA4MjA3NTQsImV4cCI6MjA3NjM5Njc1NH0.gDTnN7pSfGGUoXN2XTR8SpMDjJVW-K9KpiO8SAC3e4I";
+const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+(async function() {
+  const overlay = document.getElementById('loadingOverlay');
+  const hash = new URLSearchParams(window.location.hash.slice(1));
+  const accessToken = hash.get('access_token');
+  const refreshToken = hash.get('refresh_token');
+
+  if (accessToken) {
+    const { error } = await supabase.auth.setSession({
+      access_token: accessToken,
+      refresh_token: refreshToken
+    });
+    if (error) return window.location.href = "/";
+    window.history.replaceState(null, "", window.location.pathname);
+  }
+
+  const { data:{ session } } = await supabase.auth.getSession();
+  if (!session) return window.location.href = "/";
+
+  const { data:{ user } } = await supabase.auth.getUser();
+  if (!user) return window.location.href = "/";
+
+  document.getElementById('userAvatar').src = user.user_metadata?.avatar_url || "https://cdn.discordapp.com/embed/avatars/0.png";
+  document.getElementById('userName').textContent = user.user_metadata?.full_name || user.email;
+  document.getElementById('userEmail').textContent = user.email;
+
+ const userId = user.id;
+  
+  const res = await fetch(
+    `https://jmxlhugggzvgpuuwvyly.supabase.co/rest/v1/resources?select=max_bots,used_bots&user_id=eq.${userId}`,
+    {
+      headers: {
+        apikey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpteGxodWdnZ3p2Z3B1dXd2eWx5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA4MjA3NTQsImV4cCI6MjA3NjM5Njc1NH0.gDTnN7pSfGGUoXN2XTR8SpMDjJVW-K9KpiO8SAC3e4I",
+        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpteGxodWdnZ3p2Z3B1dXd2eWx5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA4MjA3NTQsImV4cCI6MjA3NjM5Njc1NH0.gDTnN7pSfGGUoXN2XTR8SpMDjJVW-K9KpiO8SAC3e4I`,
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  
+  if (!res.ok) throw new Error("Failed to fetch resources");
+  
+  const dataArr = await res.json();
+  const userData = dataArr[0] || { max_bots: 5, used_bots: 0 };
+  
+  const maxBots = userData.max_bots ?? 5;
+  const usedBots = userData.used_bots ?? 0;
+  const remaining = Math.max(maxBots - usedBots, 0);
+
+  document.getElementById('botCount').textContent =
+    `${usedBots}/${maxBots}`;
+
+  overlay.style.display = 'none';
+})();
+
+const sidebar = document.getElementById('sidebar');
+const toggleBtn = document.getElementById('toggleSidebar');
+toggleBtn.onclick = () => {
+  sidebar.classList.toggle('collapsed');
+  toggleBtn.firstElementChild.classList.toggle('fa-angle-left');
+  toggleBtn.firstElementChild.classList.toggle('fa-angle-right');
+};
+</script>
+
+</body>
+</html>
