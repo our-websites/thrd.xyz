@@ -147,7 +147,7 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
  const userId = user.id;
   
   const res = await fetch(
-    `https://jmxlhugggzvgpuuwvyly.supabase.co/rest/v1/resources?select=max_bots,used_bots&user_id=eq.${userId}`,
+    `https://jmxlhugggzvgpuuwvyly.supabase.co/rest/v1/resources?select=max_bots,used_bots&user_id=${userId}`,
     {
       headers: {
         apikey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpteGxodWdnZ3p2Z3B1dXd2eWx5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA4MjA3NTQsImV4cCI6MjA3NjM5Njc1NH0.gDTnN7pSfGGUoXN2XTR8SpMDjJVW-K9KpiO8SAC3e4I",
