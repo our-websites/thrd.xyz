@@ -1,1 +1,86 @@
-were working on the page atm
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Thrd Dashboard</title>
+<link rel="icon" type="image/x-icon" href="https://thrd.xyz/favicon.ico">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- Inter Font -->
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Font Awesome -->
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+<style>
+  body { font-family: 'Inter', sans-serif; }
+  .bg-thrd { background-color: #0f0f0f; }
+  .text-light { color: #e5e5e5; }
+  .sidebar-btn { padding: 0.75rem 1rem; border-radius: 0.5rem; transition: 0.2s; cursor: pointer; font-weight: 600; }
+  .sidebar-btn:hover { background-color: #1a1a1a; }
+</style>
+</head>
+<body class="flex min-h-screen bg-thrd">
+
+<!-- Sidebar -->
+<div class="w-64 flex flex-col p-6 bg-gray-900 text-light">
+  <!-- User info -->
+  <div class="flex flex-col items-center mb-8">
+    <img id="userAvatar" src="" alt="Avatar" class="h-20 w-20 rounded-full mb-2">
+    <h2 id="userName" class="text-xl font-bold"></h2>
+    <p id="userEmail" class="text-gray-400 text-sm"></p>
+  </div>
+
+  <!-- Sidebar buttons -->
+  <div class="flex flex-col gap-2">
+    <div class="sidebar-btn"><i class="fas fa-home mr-2"></i> Dashboard</div>
+    <div class="sidebar-btn"><i class="fas fa-robot mr-2"></i> Bots</div>
+    <div class="sidebar-btn"><i class="fas fa-key mr-2"></i> Credentials</div>
+  </div>
+</div>
+
+<!-- Main content -->
+<div class="flex-1 p-6">
+  <!-- Empty for now -->
+</div>
+
+<!-- Supabase module -->
+<script type="module">
+  import { createClient } from "https://cdn.skypack.dev/@supabase/supabase-js";
+
+  const SUPABASE_URL = "https://jmxlhugggzvgpuuwvyly.supabase.co";
+  const SUPABASE_KEY = "YOUR_SUPABASE_ANON_KEY";
+  const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  // Parse access token from URL hash
+  const hash = new URLSearchParams(window.location.hash.slice(1));
+  const accessToken = hash.get('access_token');
+
+  if (!accessToken) {
+    // Redirect to login if no token
+    window.location.href = "/";
+  } else {
+    // Set session in Supabase
+    await supabase.auth.setSession({
+      access_token: accessToken,
+      refresh_token: hash.get('refresh_token')
+    });
+
+    const { data: { user }, error } = await supabase.auth.getUser();
+    if (error) {
+      console.error(error);
+      window.location.href = "/";
+    } else {
+      // Populate sidebar
+      document.getElementById('userAvatar').src = user?.user_metadata?.avatar_url || "https://cdn.discordapp.com/embed/avatars/0.png";
+      document.getElementById('userName').textContent = user?.user_metadata?.full_name || user?.email;
+      document.getElementById('userEmail').textContent = user?.email || "";
+    }
+  }
+</script>
+</body>
+</html>
