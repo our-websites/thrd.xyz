@@ -43,15 +43,15 @@
   <h2 class="text-white text-5xl font-bold bg-black/40 p-4 rounded">Welcome to Thrd</h2>
 </div>
 
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/supabase.min.js"></script>
 <script>
   const SUPABASE_URL = "https://jmxlhugggzvgpuuwvyly.supabase.co";
   const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpteGxodWdnZ3B2Z3B1dXd2eWx5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA4MjA3NTQsImV4cCI6MjA3NjM5Njc1NH0.gDTnN7pSfGGUoXN2XTR8SpMDjJVW-K9KpiO8SAC3e4I";
 
-  // Correctly create client using global `supabase` from the CDN
-  const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+  // Initialize Supabase client correctly using the global `Supabase` object
+  const supabase = Supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
+  // Persist session
   supabase.auth.onAuthStateChange((event, session) => {
     if (session) {
       localStorage.setItem('sb-session', JSON.stringify(session));
@@ -59,6 +59,7 @@
     }
   });
 
+  // Discord OAuth login
   document.getElementById("discordLoginBtn").onclick = async () => {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'discord',
@@ -67,12 +68,14 @@
     if (error) console.error('Error logging in:', error.message);
   };
 
+  // Auto redirect if already logged in
   async function checkSession() {
     const { data } = await supabase.auth.getSession();
     if (data?.session) window.location.href = "/dashboard";
   }
   checkSession();
 </script>
+
 
 </body>
 </html>
