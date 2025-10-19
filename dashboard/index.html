@@ -156,7 +156,7 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
   const { data: resourceData } = await supabase
     .from("resources")
     .select("max_bots")
-    ("user_id", user.id)
+    .eq("user_id", user.id)
     .single();
 
   const maxBots = resourceData?.max_bots ?? 5;
@@ -165,7 +165,7 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
   const { data: usedData } = await supabase
     .from("used_bots")
     .select("used")
-    ("user_id", user.id)
+    .eq("user_id", user.id)
     .single();
 
   const usedBots = usedData?.used ?? 0;
