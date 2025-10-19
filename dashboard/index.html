@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Thrd Hosting Dashboard</title>
+<link rel="icon" href="https://thrd.xyz/favicon.ico">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <style>
 * {margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;text-decoration:none;}
@@ -95,7 +96,7 @@ footer {text-align:center;color:#666;font-size:0.85rem;margin-top:20px;}
 </div>
 </main>
 </div>
-<script src="/assets/supabase.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.57.2/dist/supabase.min.js"></script>
 <script>
 const SUPABASE_URL = "https://jmxlhugggzvgpuuwvyly.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpteGxodWdnZ3B2Z3B1dXd2eWx5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA4MjA3NTQsImV4cCI6MjA3NjM5Njc1NH0.gDTnN7pSfGGUoXN2XTR8SpMDjJVW-K9KpiO8SAC3e4I";
@@ -107,23 +108,25 @@ async function checkUser() {
   const urlParams = new URLSearchParams(window.location.search);
   if(urlParams.get('error_code')==='user_banned'){window.location.href='/ban.html'; return;}
   const hashParams = new URLSearchParams(window.location.hash.substring(1));
-  if(hashParams.get('access_token')){
-    await sb.auth.setSession({access_token: hashParams.get('access_token')});
-    user = (await sb.auth.getUser()).data.user;
-    window.history.replaceState({}, document.title, "/dashboard.html");
+  if(!user && !hashParams.get('access_token')){window.location.href='/login.html'; return;}
+  if(!user && hashParams.get('access_token')){await sb.auth.setSession({access_token:hashParams.get('access_token')});}
+  let newSession = await sb.auth.getSession();
+  user = newSession.data.session?.user;
+  if(user){
+    sessionStorage.setItem('user', JSON.stringify(user));
+    const cleanUrl = window.location.href.split('#')[0].split('?')[0];
+    history.replaceState(null,null,cleanUrl);
+    document.getElementById('user-name').textContent = user.user_metadata?.full_name || user.email || 'User';
+    document.getElementById('user-avatar').src = user.user_metadata?.avatar_url || '/assets/default-avatar.png';
   }
-  if(!user){window.location.href='/login.html'; return;}
-  sessionStorage.setItem('user', JSON.stringify(user));
-  document.getElementById('user-name').innerText = user.user_metadata.full_name || user.email;
-  document.getElementById('user-avatar').src = user.user_metadata.avatar_url || '/assets/default-avatar.png';
 }
 
 checkUser();
 
-document.querySelector('.signout').addEventListener('click', async () => {
+document.querySelector('.signout').addEventListener('click', async()=>{
   await sb.auth.signOut();
-  sessionStorage.clear();
-  window.location.href = '/login.html';
+  sessionStorage.removeItem('user');
+  window.location.href='/login.html';
 });
 </script>
 </body>
