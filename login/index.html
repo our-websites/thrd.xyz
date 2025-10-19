@@ -53,10 +53,11 @@
     .catch(() => ({ url: '', key: '' }));
 
   if (!SUPABASE_URL || !SUPABASE_KEY) {
-    alert('Failed to load Supabase credentials.');
-  } else {
-    const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+    window.location.href = "https://thrd.xyz/";
+    return;
   }
+
+  const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
   supabase.auth.onAuthStateChange((event, session) => {
     if (session) {
