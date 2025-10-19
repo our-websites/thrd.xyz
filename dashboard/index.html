@@ -107,7 +107,7 @@ a {text-decoration:none;color:inherit;}
   <h1>Welcome to Thrd Dashboard</h1>
 
   <div id="botFrame" class="bot-frame">
-    <h3>Your Bot Usage</h3>
+    <h3>Created Bots</h3>
     <p id="botCount">Loading...</p>
   </div>
 </div>
@@ -165,11 +165,9 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
   const maxBots = userData.max_bots ?? 5;
   const usedBots = userData.used_bots ?? 0;
   const remaining = Math.max(maxBots - usedBots, 0);
-  
-  console.log({ maxBots, usedBots, remaining });
 
   document.getElementById('botCount').textContent =
-    `You can create ${remaining} more bots (${usedBots}/${maxBots} used)`;
+    `${usedBots}/${maxBots}`;
 
   overlay.style.display = 'none';
 })();
