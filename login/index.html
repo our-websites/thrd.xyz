@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Thrd Login</title>
+<link rel="icon" type="image/x-icon" href="https://thrd.xyz/favicon.ico">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- Inter Font -->
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Font Awesome -->
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+<!-- Supabase -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/supabase.min.js"></script>
+
+<style>
+  body { font-family: 'Inter', sans-serif; }
+  .bg-thrd-login { background-color: #0f0f0f; }
+  .bg-thrd-orange { background-color: #ff6f00; }
+  .btn-discord { background-color: #5865F2; color: #fff; transition: 0.2s; border-radius: 0.5rem; padding: 0.75rem 1.5rem; display: flex; align-items: center; gap: 0.5rem; font-weight: 600; }
+  .btn-discord:hover { background-color: #4752c4; }
+</style>
+</head>
+<body class="min-h-screen flex">
+
+<!-- Left sidebar login -->
+<div class="flex-1 flex flex-col justify-center items-center bg-thrd-login p-8">
+  <img src="https://thrd.xyz/logo.png" alt="Thrd Logo" class="h-20 w-auto mb-8">
+  <h1 class="text-3xl font-bold text-thrd mb-4">Login to Thrd</h1>
+  <p class="text-gray-400 mb-8">Use your Discord account to sign in</p>
+  <button id="discordLoginBtn" class="btn-discord"><i class="fab fa-discord fa-lg"></i> Login with Discord</button>
+</div>
+
+<!-- Right orange background -->
+<div class="hidden md:flex flex-1 bg-thrd-orange justify-center items-center">
+  <h2 class="text-white text-5xl font-bold">Welcome to Thrd</h2>
+</div>
+
+<script>
+  const SUPABASE_URL = "https://jmxlhugggzvgpuuwvyly.supabase.co";
+  const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpteGxodWdnZ3B2Z3B1dXd2eWx5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA4MjA3NTQsImV4cCI6MjA3NjM5Njc1NH0.gDTnN7pSfGGUoXN2XTR8SpMDjJVW-K9KpiO8SAC3e4I";
+  const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  // Persist session via cookies
+  supabase.auth.onAuthStateChange((event, session) => {
+    if (session) {
+      // Store session in localStorage
+      localStorage.setItem('sb-session', JSON.stringify(session));
+      window.location.href = "/dashboard"; // redirect after login
+    }
+  });
+
+  // Discord OAuth
+  document.getElementById("discordLoginBtn").onclick = async () => {
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: 'discord',
+      options: {
+        redirectTo: window.location.origin + '/dashboard'
+      }
+    });
+    if (error) console.error('Error logging in:', error.message);
+  };
+
+  // Auto redirect if already logged in
+  async function checkSession() {
+    let session = supabase.auth.getSession();
+    if (session) window.location.href = "/dashboard";
+  }
+  checkSession();
+</script>
+</body>
+</html>
