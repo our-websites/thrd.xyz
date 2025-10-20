@@ -192,7 +192,7 @@ function showToast(message) {
     passwordEl.textContent = credentials.password;
 
     usernameEl.onclick = async () => {
-      await navigator.clipboard.writeText(credentials.username);
+      await navigator.clipboard.writeText(credentials.username + "#login@thrd.xyz");
       showToast("Username copied to clipboard!");
     };
 
