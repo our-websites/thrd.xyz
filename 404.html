@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>404 Not Found - Thrd</title>
+<link rel="icon" type="image/x-icon" href="https://thrd.xyz/favicon.ico">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.3/dist/tailwind.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous">
+
+<style>
+* {margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
+body {
+  background:#1a1a1a;
+  color:#fff;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  min-height:100vh;
+  text-align:center;
+  overflow:hidden;
+}
+.logo {
+  position:absolute;
+  top:1.5rem;
+  left:1.5rem;
+  display:flex;
+  align-items:center;
+  gap:0.5rem;
+}
+.logo img {
+  width:40px;
+  height:40px;
+}
+.logo span {
+  font-size:1.25rem;
+  font-weight:700;
+  color:#ffb347;
+}
+h1 {
+  font-size:8rem;
+  font-weight:bold;
+  background:linear-gradient(90deg,#ffb347,#ff7518);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+h2 {
+  font-size:2rem;
+  font-weight:600;
+  margin-top:1rem;
+}
+p {
+  color:#aaa;
+  margin:1rem 0 2rem 0;
+}
+.btn {
+  background:linear-gradient(90deg,#ff7518,#ffb347);
+  color:#1a1a1a;
+  padding:0.75rem 1.5rem;
+  border-radius:0.75rem;
+  font-weight:600;
+  transition:all 0.2s;
+}
+.btn:hover {
+  opacity:0.9;
+}
+</style>
+</head>
+<body>
+  <div class="logo">
+    <img src="https://thrd.xyz/logo.png" alt="Thrd Logo">
+    <span>Thrd</span>
+  </div>
+
+  <h1>404</h1>
+  <h2>Page Not Found</h2>
+  <p>The page you’re looking for doesn’t exist or has been moved.</p>
+  <a href="https://thrd.xyz" class="btn">
+    <i class="fas fa-arrow-left mr-2"></i>Return Home
+  </a>
+</body>
+</html>
