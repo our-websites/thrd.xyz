@@ -139,7 +139,7 @@ a {text-decoration:none;color:inherit;}
 <div id="toast">Copied to clipboard!</div>
 
 <script type="module">
-import { createClient } from "https://cdn.skypack.dev/@supabase/supabase-js";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const { url: SUPABASE_URL, key: SUPABASE_KEY } = await fetch('https://thrd.xyz/supabase.json')
   .then(res => res.json())
