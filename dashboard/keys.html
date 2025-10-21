@@ -231,7 +231,7 @@ createPanelBtn.onclick = async () => {
             headers: myHeaders,
             body: raw
         };
-        const res = await fetch(${SUPABASE_URL}/functions/v1 / create - panel - user, requestOptions);
+        const res = await fetch(`${SUPABASE_URL}/functions/v1/create/panel/user`, requestOptions);
         if (!res.ok) throw new Error("Failed to create panel user");
         showToast("Panel account created!");
         createPanelContainer.style.display = 'none';
