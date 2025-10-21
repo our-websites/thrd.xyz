@@ -216,27 +216,38 @@ function showToast(message) {
     createPanelContainer.style.display = 'block';
   }
 
-  createPanelBtn.onclick = async () => {
-  createPanelBtn.disabled = true;
-  createPanelBtn.textContent = "Creating...";
-  try {
-    // Call Supabase Edge Function using the user's session (anon key is fine if RLS allows it)
-    const { data, error } = await supabase.functions.invoke('create-panel-user', {
-      body: { user_id: userId }  // send the logged-in user's ID
-    });
-
-    if (error) throw error;
-
-    showToast("Panel account created!");
-    createPanelContainer.style.display = 'none';
-    botFrame.style.display = 'flex';
-    location.reload();
-  } catch (err) {
-    console.error(err);
-    showToast("Error creating account");
-    createPanelBtn.disabled = false;
-    createPanelBtn.textContent = "Create Panel Account";
-  }
+createPanelBtn.onclick = async () => {
+    createPanelBtn.disabled = true;
+    createPanelBtn.textContent = "Creating...";
+    try {
+        const myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        myHeaders.append("Authorization", Bearer $ {
+            SUPABASE_KEY
+        });
+        const raw = JSON.stringify({
+            user_id: userId
+        });
+        const requestOptions = {
+            method: "POST",
+            headers: myHeaders,
+            body: raw
+        };
+        const res = await fetch($ {
+                SUPABASE_URL
+            }
+            /functions/v1 / create - panel - user, requestOptions);
+        if (!res.ok) throw new Error("Failed to create panel user");
+        showToast("Panel account created!");
+        createPanelContainer.style.display = 'none';
+        botFrame.style.display = 'flex';
+        location.reload();
+    } catch (err) {
+        console.error(err);
+        showToast("Error creating account");
+        createPanelBtn.disabled = false;
+        createPanelBtn.textContent = "Create Panel Account";
+    }
 };
 })();
 
