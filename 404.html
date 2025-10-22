@@ -79,16 +79,20 @@ p {
   <h1>404</h1>
   <h2>Page Not Found</h2>
   <p>The page you’re looking for doesn’t exist or has been moved.</p>
-  <a href="https://thrd.xyz" class="btn">
+  <a href="" class="btn">
     <i class="fas fa-arrow-left mr-2"></i>Return To <div name="return">Unkown</div>
   </a>
   <script>
     const page = window.location.pathname.split('/')[1];
     const returnDiv = document.getElementsByName('return')[0];
+    const returnredirect = document.querySelector('.btn');
+
     if (page == "dashboard") {
       returnDiv.innerText = "Dashboard";
+      returnredirect.href = "https://thrd.xyz/dashboard";
     } else {
       returnDiv.innerText = "Home";
+      returnredirect.href = "https://thrd.xyz";
     }
   </script>
 </body>
