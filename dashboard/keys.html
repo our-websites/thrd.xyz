@@ -205,7 +205,7 @@ function showToast(message) {
     passwordEl.textContent = credentials.password;
 
     usernameEl.onclick = async () => {
-      await navigator.clipboard.writeText(credentials.username + "#login@thrd.xyz");
+      await navigator.clipboard.writeText("login+" + credentials.username + "@thrd.xyz");
       showToast("Username copied!");
     };
     passwordEl.onclick = async () => {
@@ -216,7 +216,6 @@ function showToast(message) {
     createPanelContainer.style.display = 'block';
   }
 
-  // ✅ UPDATED BUTTON HANDLER
   createPanelBtn.onclick = async () => {
     createPanelBtn.disabled = true;
     createPanelBtn.textContent = "Creating...";
