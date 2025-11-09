@@ -2,89 +2,225 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Thrd Dashboard</title>
-<link rel="icon" type="image/x-icon" href="https://thrd.xyz/favicon.ico">
+<title>Thrd Dashboard - API Keys</title>
+<link rel="icon" type="image/x-icon" href="https://beta.thrd.xyz/favicon.ico">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta property="og:title" content="Thrd Hosting - Dashboard (Keys)" />
 <meta property="og:description" content="Thrd Hosting offers lightning-fast secure and scalable hosting for discord bots." />
-<meta property="og:image" content="https://thrd.xyz/logo.png" />
-<meta property="og:url" content="https://thrd.xyz/login" />
+<meta property="og:image" content="https://beta.thrd.xyz/logo.png" />
+<meta property="og:url" content="https://beta.thrd.xyz/dashboard/keys" />
 <meta property="og:type" content="website" />
 
-
 <link href="https://cdn.tailwindcss.com" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous">
+<script src="/banner.js"></script>
 
 <style>
 * {margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
-body {background:#1a1a1a;color:#fff;overflow-x:hidden;display:flex;min-height:100vh;}
+body {background:#0f0f0f;color:#e0e0e0;overflow-x:hidden;display:flex;min-height:100vh;}
 a {text-decoration:none;color:inherit;}
 
-.sidebar {width:280px;background:#111;display:flex;flex-direction:column;gap:2rem;padding:2rem 1rem;transition:width 0.3s;flex-shrink:0;position:relative;}
-.sidebar.collapsed {width:80px;}
-.sidebar .logo {display:flex;align-items:center;gap:0.5rem;margin-bottom:2rem;transition:all 0.3s;}
-.sidebar .logo img {width:32px;height:32px;}
-.sidebar.collapsed .logo span {display:none;}
-.sidebar .user-info {text-align:center;transition:all 0.3s;opacity:1;}
-.sidebar.collapsed .user-info {opacity:0;height:0;overflow:hidden;pointer-events:none;}
-.sidebar .user-info img {width:64px;height:64px;border-radius:9999px;margin:0 auto 0.5rem auto;}
-.sidebar-btn {display:flex;align-items:center;gap:0.75rem;padding:0.75rem 1rem;border-radius:0.75rem;cursor:pointer;color:#fff;white-space:nowrap;transition:background 0.2s,color 0.2s;}
-.sidebar-btn:hover, .sidebar-btn.active {background:linear-gradient(90deg,#ff7518,#ffb347);color:#1a1a1a;}
-.sidebar-btn i {width:24px;text-align:center;}
-.sidebar.collapsed .sidebar-btn span {display:none;}
-
-.main {flex:1;padding:2rem;display:flex;flex-direction:column;gap:2rem;overflow-x:hidden;}
-.main h1 {font-size:2.5rem;font-weight:bold;background:linear-gradient(90deg,#ffb347,#ff7518);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
-
-.bot-frame {
-  background:#222;border-left:4px solid #ff7518;border-radius:12px;padding:2rem;color:#fff;display:flex;flex-direction:column;gap:1rem;width:100%;max-width:none;
+.sidebar {
+  width:280px;background:linear-gradient(180deg, #1a1a1a 0%, #141414 100%);
+  display:flex;flex-direction:column;gap:2rem;
+  padding:2rem 1rem;transition:width 0.3s ease;flex-shrink:0;
+  position:relative;border-right:1px solid #2a2a2a;
+  box-shadow:2px 0 10px rgba(0,0,0,0.4);
 }
-.bot-frame h3 {font-size:1.5rem;font-weight:bold;color:#ffb347;margin-bottom:1rem;}
-.credential-label {font-weight:500; margin-bottom:0.25rem;}
-.copyable {background:#111;border:1px solid #ff7518;border-radius:8px;padding:0.75rem;font-family:monospace;cursor:pointer;transition:all 0.2s;width:100%;}
-.copyable:hover {background:#ff7518;color:#1a1a1a;}
+.sidebar.collapsed {width:80px;}
+.sidebar-header {display:flex;align-items:center;gap:0.75rem;margin-bottom:1.5rem;transition:all 0.3s;}
+.sidebar-header img {width:40px;height:40px;filter:drop-shadow(0 2px 4px rgba(255,117,24,0.3));}
+.sidebar-header .brand-name {font-size:1.2rem;font-weight:700;background:linear-gradient(90deg,#ffb347,#ff7518);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.sidebar.collapsed .brand-name {display:none;}
 
-.loading-overlay {position:fixed;inset:0;background:rgba(0,0,0,0.8);display:flex;justify-content:center;align-items:center;z-index:50;}
-.spinner {border:4px solid rgba(255,255,255,0.2);border-top:4px solid #ff7518;border-radius:50%;width:50px;height:50px;animation:spin 1s linear infinite;}
+.user-card {
+  background:linear-gradient(135deg, #222 0%, #1a1a1a 100%);
+  border-radius:12px;padding:1rem;text-align:center;border:1px solid #2a2a2a;
+  transition:all 0.3s;margin-bottom:1rem;
+}
+.user-card:hover {border-color:#ff7518;box-shadow:0 4px 12px rgba(255,117,24,0.15);}
+.user-card img {width:64px;height:64px;border-radius:50%;margin:0 auto 0.75rem auto;border:2px solid #ff7518;}
+.user-card h2 {font-size:1.1rem;font-weight:600;margin-bottom:0.25rem;}
+.user-card p {font-size:0.85rem;color:#888;}
+.sidebar.collapsed .user-card {padding:0.5rem;text-align:center;}
+.sidebar.collapsed .user-card h2, .sidebar.collapsed .user-card p {display:none;}
+
+.nav-section {display:flex;flex-direction:column;gap:0.5rem;}
+.nav-section-title {font-size:0.75rem;text-transform:uppercase;letter-spacing:1px;color:#666;font-weight:600;padding:0 1rem;}
+.sidebar.collapsed .nav-section-title {display:none;}
+
+.nav-btn {
+  display:flex;align-items:center;gap:0.75rem;
+  padding:0.875rem 1rem;border-radius:10px;
+  cursor:pointer;color:#b0b0b0;white-space:nowrap;
+  transition:all 0.2s ease;border-left:3px solid transparent;
+  font-weight:500;
+}
+.nav-btn:hover {
+  background:rgba(255,117,24,0.1);color:#ffb347;border-left-color:#ff7518;
+}
+.nav-btn.active {
+  background:linear-gradient(90deg, rgba(255,117,24,0.2), transparent);
+  color:#ff7518;border-left-color:#ff7518;font-weight:600;
+}
+.nav-btn i {width:24px;text-align:center;font-size:1.1rem;}
+.sidebar.collapsed .nav-btn span {display:none;}
+.sidebar.collapsed .nav-btn {justify-content:center;padding:0.875rem;}
+
+.logout-btn {
+  margin-top:auto;padding:0.875rem 1rem;border-radius:10px;
+  background:rgba(220,53,69,0.15);color:#ff6b6b;
+  border:1px solid rgba(255,107,107,0.3);font-weight:500;
+  cursor:pointer;transition:all 0.2s ease;display:flex;align-items:center;gap:0.75rem;
+}
+.logout-btn:hover {background:rgba(220,53,69,0.25);border-color:rgba(255,107,107,0.6);}
+.sidebar.collapsed .logout-btn span {display:none;}
+.sidebar.collapsed .logout-btn {justify-content:center;}
+
+.toggle-btn {
+  position:absolute;top:1rem;right:-1rem;background:#1a1a1a;
+  border:2px solid #ff7518;color:#ff7518;border-radius:50%;
+  width:2.5rem;height:2.5rem;display:flex;justify-content:center;align-items:center;
+  cursor:pointer;z-index:10;transition:all 0.3s ease;
+  box-shadow:0 4px 12px rgba(255,117,24,0.2);
+}
+.toggle-btn:hover {background:#ff7518;color:#1a1a1a;box-shadow:0 6px 16px rgba(255,117,24,0.3);}
+
+.main {flex:1;padding:2.5rem;padding-top:3.5rem;display:flex;flex-direction:column;gap:2rem;overflow-y:auto;margin-top:48px;}
+.page-title {
+  font-size:2.5rem;font-weight:800;
+  background:linear-gradient(90deg,#ffb347,#ff7518);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  letter-spacing:-0.5px;
+  margin-bottom:1rem;
+}
+
+.section-title {
+  font-size:1.5rem;font-weight:700;color:#fff;
+  margin:1.5rem 0 1rem 0;
+  display:flex;align-items:center;gap:0.75rem;
+}
+.section-title i {color:#ff7518;font-size:1.3rem;}
+
+.credentials-grid {
+  display:grid;grid-template-columns:repeat(auto-fit, minmax(320px, 1fr));gap:1.5rem;
+}
+
+.credential-card {
+  background:linear-gradient(135deg, #1a1a1a 0%, #141414 100%);
+  border-radius:16px;padding:1.75rem;
+  border:1px solid #2a2a2a;transition:all 0.3s ease;
+  position:relative;overflow:hidden;
+}
+.credential-card::before {
+  content:'';position:absolute;top:-50%;right:-50%;width:200px;height:200px;
+  background:radial-gradient(circle, rgba(255,117,24,0.1), transparent);
+  opacity:0;transition:opacity 0.3s ease;
+}
+.credential-card:hover {
+  transform:translateY(-5px);border-color:#ff7518;
+  box-shadow:0 12px 24px rgba(255,117,24,0.15);
+}
+.credential-card:hover::before {opacity:1;}
+
+.credential-label {
+  font-size:0.9rem;text-transform:uppercase;letter-spacing:0.5px;
+  color:#888;font-weight:600;margin-bottom:0.75rem;
+}
+
+.credential-value {
+  background:#0f0f0f;border:1px solid #2a2a2a;border-radius:10px;
+  padding:1rem;font-family:'Courier New', monospace;font-size:0.95rem;
+  color:#fff;cursor:pointer;transition:all 0.2s ease;
+  position:relative;word-break:break-all;
+}
+.credential-value:hover {
+  border-color:#ff7518;background:#111;
+  box-shadow:inset 0 0 10px rgba(255,117,24,0.1);
+}
+.credential-value::after {
+  content:'Copy';position:absolute;right:0.75rem;top:50%;
+  transform:translateY(-50%);font-size:0.75rem;color:#ff7518;
+  opacity:0;transition:opacity 0.2s ease;background:#0f0f0f;
+  padding:0.25rem 0.5rem;border-radius:4px;
+}
+.credential-value:hover::after {opacity:1;}
+
+.cta-container {
+  display:flex;flex-direction:column;gap:1rem;
+  max-width:400px;
+}
+
+.create-btn {
+  display:flex;align-items:center;justify-content:center;gap:0.75rem;
+  background:#ff7518;color:#fff;
+  padding:1rem 2rem;border-radius:12px;font-weight:700;font-size:1rem;
+  cursor:pointer;transition:all 0.3s ease;border:2px solid transparent;
+  position:relative;overflow:hidden;
+}
+.create-btn:hover {
+  background:#e56a0f;
+  transform:translateY(-3px);box-shadow:0 8px 16px rgba(255,117,24,0.3);
+}
+.create-btn:active {
+  transform:translateY(-1px);
+}
+.create-btn:disabled {
+  opacity:0.6;cursor:not-allowed;transform:none;
+}
+
+.info-box {
+  background:rgba(255,117,24,0.1);border-left:4px solid #ff7518;
+  border-radius:10px;padding:1rem;margin-top:1.5rem;
+  color:#ffb347;font-size:0.95rem;
+}
+.info-box i {margin-right:0.5rem;}
+
+.empty-state {
+  text-align:center;padding:3rem;
+  background:linear-gradient(135deg, #1a1a1a 0%, #141414 100%);
+  border-radius:16px;border:1px solid #2a2a2a;
+}
+.empty-state i {font-size:3rem;color:#ff7518;margin-bottom:1rem;opacity:0.6;}
+.empty-state h3 {font-size:1.3rem;font-weight:700;margin-bottom:0.5rem;}
+.empty-state p {color:#888;margin-bottom:1.5rem;}
+
+.loading-overlay {
+  position:fixed;inset:0;background:rgba(0,0,0,0.8);
+  display:flex;justify-content:center;align-items:center;z-index:50;
+}
+.spinner {
+  border:4px solid rgba(255,255,255,0.1);
+  border-top:4px solid #ff7518;border-radius:50%;
+  width:50px;height:50px;animation:spin 1s linear infinite;
+}
 @keyframes spin {0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
 
-.toggle-btn {position:absolute;top:1rem;right:-1rem;background:#111;border:2px solid #ff7518;color:#ff7518;border-radius:9999px;width:2rem;height:2rem;display:flex;justify-content:center;align-items:center;cursor:pointer;z-index:10;transition:all 0.3s;}
-.toggle-btn:hover {background:#ff7518;color:#1a1a1a;}
-
-#toast {
-  position: fixed;
-  bottom: -60px;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #ff7518;
-  color: white;
-  padding: 0.75rem 1.5rem;
-  border-radius: 0.5rem;
-  font-weight: 500;
-  opacity: 0;
-  transition: all 0.3s ease-in-out;
-  z-index: 100;
+.toast {
+  position:fixed;bottom:-60px;left:50%;transform:translateX(-50%);
+  background:linear-gradient(90deg,#ff7518,#ffb347);color:#1a1a1a;
+  padding:1rem 1.5rem;border-radius:10px;font-weight:600;
+  opacity:0;transition:all 0.3s ease;z-index:100;
+  box-shadow:0 8px 20px rgba(255,117,24,0.3);
 }
-#toast.show { bottom: 20px; opacity: 1; }
+.toast.show {bottom:20px;opacity:1;}
 
-#createPanelBtn {
-  background: linear-gradient(90deg,#ffb347,#ff7518);
-  color: #1a1a1a;
-  font-weight: 600;
-  padding: 0.75rem 1.5rem;
-  border-radius: 0.75rem;
-  cursor: pointer;
-  text-align: center;
-  transition: all 0.2s;
-  width: fit-content;
-}
-#createPanelBtn:hover {
-  background: linear-gradient(90deg,#ff7518,#ffb347);
+@media (max-width:768px){
+  .sidebar {width:100%;height:auto;border-right:none;border-bottom:1px solid #2a2a2a;flex-direction:row;justify-content:space-between;}
+  body {flex-direction:column;}
+  .main {padding:1.5rem;}
+  .page-title {font-size:1.8rem;}
+  .credentials-grid {grid-template-columns:1fr;}
+  .nav-section {flex-direction:row;}
+  .nav-section-title {display:none;}
+  .sidebar.collapsed {width:100%;}
+  .sidebar.collapsed .nav-section {display:flex;flex-direction:row;gap:1rem;}
 }
 </style>
 </head>
-<body class="flex relative">
+<body>
+
 
 <div id="loadingOverlay" class="loading-overlay">
   <div class="spinner"></div>
@@ -93,79 +229,125 @@ a {text-decoration:none;color:inherit;}
 <div id="sidebar" class="sidebar relative">
   <div class="toggle-btn" id="toggleSidebar"><i class="fas fa-angle-left"></i></div>
 
-  <div class="logo">
-    <img src="https://thrd.xyz/logo.png" alt="Logo" class="w-8 h-8">
-    <span class="text-xl font-bold text-orange-400">Thrd</span>
+  <div class="sidebar-header">
+    <img src="https://beta.thrd.xyz/logo.png" alt="Logo">
+    <span class="brand-name">Thrd</span>
   </div>
 
-  <div class="user-info">
+  <div class="user-card">
     <img id="userAvatar" src="https://cdn.discordapp.com/embed/avatars/0.png" alt="Avatar">
     <h2 id="userName">Loading...</h2>
     <p id="userEmail"></p>
   </div>
 
-  <div class="flex flex-col gap-2 mt-4">
-    <a href="https://thrd.xyz/dashboard" class="sidebar-btn">
-      <i class="fas fa-home"></i><span>Dashboard</span>
+  <div class="nav-section">
+    <div class="nav-section-title">Main</div>
+    <a href="https://beta.thrd.xyz/dashboard" class="nav-btn">
+      <i class="fas fa-chart-line"></i>
+      <span>Dashboard</span>
     </a>
-    <a href="https://thrd.xyz/dashboard/bots" class="sidebar-btn">
-      <i class="fas fa-robot"></i><span>Bots</span>
-    </a>
-    <a href="https://thrd.xyz/dashboard/keys" class="sidebar-btn active">
-      <i class="fas fa-key"></i><span>Keys</span>
+
+    <a href="https://beta.thrd.xyz/dashboard/bots" class="nav-btn">
+      <i class="fas fa-robot"></i>
+      <span>Bots</span>
     </a>
   </div>
+
+  <div class="nav-section">
+    <div class="nav-section-title">Settings</div>
+    <a href="https://beta.thrd.xyz/dashboard/keys" class="nav-btn active">
+      <i class="fas fa-key"></i>
+      <span>API Keys</span>
+    </a>
+  </div>
+
+  <button class="logout-btn" id="logoutBtn">
+    <i class="fas fa-sign-out-alt"></i>
+    <span>Logout</span>
+  </button>
 </div>
 
 <div class="main">
-  <h2 class="text-2xl font-bold mb-4">Manage your login keys</h2>
+  <h1 class="page-title">API Keys & Credentials</h1>
 
-  <div id="botFrame" class="bot-frame" style="display:none;">
-    <h3>Credentials</h3>
-    <div class="flex flex-col gap-4">
-      <div>
-        <p class="credential-label">Username:</p>
-        <p class="copyable" id="username" title="Click to copy">Loading username...</p>
+  <div id="credentialsSection" style="display:none;">
+    <div class="section-title">
+      <i class="fas fa-lock"></i>
+      Panel Credentials
+    </div>
+    
+    <div class="credentials-grid">
+      <div class="credential-card">
+        <div class="credential-label">
+          <i class="fas fa-user" style="color:#ff7518;margin-right:0.5rem;"></i>
+          Username
+        </div>
+        <div class="credential-value" id="username" title="Click to copy">
+          Loading...
+        </div>
       </div>
-      <div>
-        <p class="credential-label">Password:</p>
-        <p class="copyable" id="password" title="Click to copy">Loading password...</p>
+
+      <div class="credential-card">
+        <div class="credential-label">
+          <i class="fas fa-key" style="color:#ff7518;margin-right:0.5rem;"></i>
+          Password
+        </div>
+        <div class="credential-value" id="password" title="Click to copy">
+          Loading...
+        </div>
       </div>
-      <p class="text-sm text-gray-400 mt-2">
-        Use these credentials to access <a href="https://panel.thrd.xyz" target="_blank" class="text-blue-500 hover:underline">Puffer Panel</a>
-      </p>
+    </div>
+
+    <div class="info-box">
+      <i class="fas fa-info-circle"></i>
+      Use these credentials to access <a href="https://panel.thrd.xyz" target="_blank" style="color:#fff;text-decoration:underline;">Control Panel</a> and manage your bot hosting.
     </div>
   </div>
 
-  <div id="createPanelContainer" style="display:none;">
-    <button id="createPanelBtn">Create Panel Account</button>
+  <div id="createPanelSection" style="display:none;">
+    <div class="section-title">
+      <i class="fas fa-key"></i>
+      Get Started
+    </div>
+
+    <div class="empty-state">
+      <i class="fas fa-lock-open"></i>
+      <h3>No Credentials Yet</h3>
+      <p>Create a panel account to access your hosting dashboard and manage your bots.</p>
+      <div class="cta-container">
+        <button class="create-btn" id="createPanelBtn">
+          <i class="fas fa-plus"></i>
+          Create Panel Account
+        </button>
+      </div>
+    </div>
   </div>
 </div>
 
-<div id="toast">Copied to clipboard!</div>
+<div id="toast" class="toast">Copied to clipboard!</div>
 
 <script type="module">
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
-const { url: SUPABASE_URL, key: SUPABASE_KEY } = await fetch('https://thrd.xyz/supabase.json')
+const { url: SUPABASE_URL, key: SUPABASE_KEY } = await fetch('/supabase.json')
   .then(res => res.json())
   .catch(() => ({ url: '', key: '' }));
 
-if (!SUPABASE_URL || !SUPABASE_KEY) window.location.href = "https://thrd.xyz/";
+if (!SUPABASE_URL || !SUPABASE_KEY) window.location.href = "https://beta.thrd.xyz/";
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
-function showToast(message) {
+function showToast(message, duration = 2000) {
   const toast = document.getElementById('toast');
   toast.textContent = message;
   toast.classList.add('show');
-  setTimeout(() => toast.classList.remove('show'), 2000);
+  setTimeout(() => toast.classList.remove('show'), duration);
 }
 
 (async function() {
   const overlay = document.getElementById('loadingOverlay');
-  const botFrame = document.getElementById('botFrame');
-  const createPanelContainer = document.getElementById('createPanelContainer');
+  const credentialsSection = document.getElementById('credentialsSection');
+  const createPanelSection = document.getElementById('createPanelSection');
   const createPanelBtn = document.getElementById('createPanelBtn');
 
   const hash = new URLSearchParams(window.location.hash.slice(1));
@@ -203,15 +385,15 @@ function showToast(message) {
   }
 
   if (credentials.created_account) {
-    botFrame.style.display = 'flex';
+    credentialsSection.style.display = 'block';
     const usernameEl = document.getElementById('username');
     const passwordEl = document.getElementById('password');
 
-    usernameEl.textContent = "login+" + credentials.username + "@thrd.xyz";
+    usernameEl.textContent = "login+" + credentials.username + "@beta.thrd.xyz";
     passwordEl.textContent = credentials.password;
 
     usernameEl.onclick = async () => {
-      await navigator.clipboard.writeText("login+" + credentials.username + "@thrd.xyz");
+      await navigator.clipboard.writeText("login+" + credentials.username + "@beta.thrd.xyz");
       showToast("Username copied!");
     };
     passwordEl.onclick = async () => {
@@ -219,14 +401,14 @@ function showToast(message) {
       showToast("Password copied!");
     };
   } else {
-    createPanelContainer.style.display = 'block';
+    createPanelSection.style.display = 'block';
   }
 
   createPanelBtn.onclick = async () => {
     createPanelBtn.disabled = true;
-    createPanelBtn.textContent = "Creating...";
+    createPanelBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating...';
     try {
-      const res = await fetch("https://api.thrd.xyz/create_account", {
+      const res = await fetch("https://beta.thrd.xyz/api/create_account", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -238,14 +420,14 @@ function showToast(message) {
       if (!res.ok) throw new Error(result.error || "Failed to create account");
 
       showToast("Panel account created!");
-      createPanelContainer.style.display = 'none';
-      botFrame.style.display = 'flex';
+      createPanelSection.style.display = 'none';
+      credentialsSection.style.display = 'block';
       location.reload();
     } catch (err) {
       console.error(err);
       showToast("Error creating account");
       createPanelBtn.disabled = false;
-      createPanelBtn.textContent = "Create Panel Account";
+      createPanelBtn.innerHTML = '<i class="fas fa-plus"></i> Create Panel Account';
     }
   };
 })();
@@ -256,6 +438,11 @@ toggleBtn.onclick = () => {
   sidebar.classList.toggle('collapsed');
   toggleBtn.firstElementChild.classList.toggle('fa-angle-left');
   toggleBtn.firstElementChild.classList.toggle('fa-angle-right');
+};
+
+document.getElementById('logoutBtn').onclick = async () => {
+  await supabase.auth.signOut();
+  window.location.href = "/";
 };
 </script>
 

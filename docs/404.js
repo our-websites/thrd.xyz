@@ -4,8 +4,8 @@ const page = window.location.pathname.split('/')[1];
 
     if (page == "dashboard") {
       returnDiv.innerText = "Back To Dashboard";
-      returnredirect.href = "https://thrd.xyz/dashboard";
+      returnredirect.href = "https://beta.thrd.xyz/dashboard";
     } else {
       returnDiv.innerText = "Back To Home";
-      returnredirect.href = "https://thrd.xyz";
+      returnredirect.href = "https://beta.thrd.xyz";
     }

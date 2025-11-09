@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>404 Not Found - Thrd</title>
-<link rel="icon" type="image/x-icon" href="https://thrd.xyz/favicon.ico">
+<link rel="icon" type="image/x-icon" href="https://beta.thrd.xyz/favicon.ico">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.3/dist/tailwind.min.css" rel="stylesheet">
@@ -57,21 +57,33 @@ p {
   margin:1rem 0 2rem 0;
 }
 .btn {
-  background:linear-gradient(90deg,#ff7518,#ffb347);
-  color:#1a1a1a;
-  padding:0.75rem 1.5rem;
-  border-radius:0.75rem;
-  font-weight:600;
-  transition:all 0.2s;
+  background:#ff7518;
+  color:#fff;
+  padding:0.9rem 2rem;
+  border-radius:12px;
+  font-weight:700;
+  transition:all 0.3s ease;
+  border:2px solid transparent;
+  position:relative;
+  overflow:hidden;
+  display:inline-flex;
+  align-items:center;
+  gap:0.5rem;
 }
 .btn:hover {
-  opacity:0.9;
+  background:#e56a0f;
+  transform:translateY(-3px);
+  box-shadow:0 8px 16px rgba(255,117,24,0.3);
+}
+.btn:active {
+  transform:translateY(-1px);
 }
 </style>
 </head>
 <body>
+  <div style="position:fixed;top:0;left:0;right:0;background:linear-gradient(90deg, #ff7518, #ffb347);color:#1a1a1a;text-align:center;padding:8px 20px;font-weight:bold;font-size:0.9rem;z-index:50;width:100%;">thrd.xyz beta</div>
   <div class="logo">
-    <img src="https://thrd.xyz/logo.png" alt="Thrd Logo">
+    <img src="https://beta.thrd.xyz/logo.png" alt="Thrd Logo">
     <span>Thrd</span>
   </div>
 
@@ -81,6 +93,6 @@ p {
   <a href="" class="btn">
     <i class="fas fa-arrow-left mr-2"></i><div name="return">Back To Unknown</div>
   </a>
-  <script src="https://thrd.xyz/404.js"></script>
+  <script src="https://beta.thrd.xyz/404.js"></script>
 </body>
 </html>

@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Thrd Dashboard</title>
+<title>Thrd Dashboard - Bots</title>
 <link rel="icon" type="image/x-icon" href="https://beta.thrd.xyz/favicon.ico">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta property="og:title" content="Thrd Hosting - Dashboard" />
+<meta property="og:title" content="Thrd Hosting - Dashboard (Bots)" />
 <meta property="og:description" content="Thrd Hosting offers lightning-fast secure and scalable hosting for discord bots." />
 <meta property="og:image" content="https://beta.thrd.xyz/logo.png" />
-<meta property="og:url" content="https://beta.thrd.xyz/dashboard" />
+<meta property="og:url" content="https://beta.thrd.xyz/dashboard/bots" />
 <meta property="og:type" content="website" />
 
 <link href="https://cdn.tailwindcss.com" rel="stylesheet">
@@ -88,51 +88,17 @@ a {text-decoration:none;color:inherit;}
 .toggle-btn:hover {background:#ff7518;color:#1a1a1a;box-shadow:0 6px 16px rgba(255,117,24,0.3);}
 
 .main {flex:1;padding:2.5rem;padding-top:3.5rem;display:flex;flex-direction:column;gap:2rem;overflow-y:auto;margin-top:48px;}
-.main-header {display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1rem;}
-.main-header h1 {
+.page-title {
   font-size:2.5rem;font-weight:800;
   background:linear-gradient(90deg,#ffb347,#ff7518);
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;
   letter-spacing:-0.5px;
-}
-.time-greeting {font-size:0.95rem;color:#888;}
-
-.stats-grid {
-  display:grid;grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));gap:1.5rem;
   margin-bottom:1rem;
 }
 
-.stat-card {
-  background:linear-gradient(135deg, #1a1a1a 0%, #141414 100%);
-  border-radius:16px;padding:1.5rem;
-  border:1px solid #2a2a2a;transition:all 0.3s ease;
-  position:relative;overflow:hidden;
-}
-.stat-card::before {
-  content:'';position:absolute;top:-50%;right:-50%;width:200px;height:200px;
-  background:radial-gradient(circle, rgba(255,117,24,0.1), transparent);
-  opacity:0;transition:opacity 0.3s ease;
-}
-.stat-card:hover {
-  transform:translateY(-5px);border-color:#ff7518;
-  box-shadow:0 12px 24px rgba(255,117,24,0.15);
-}
-.stat-card:hover::before {opacity:1;}
-
-.stat-icon {
-  font-size:2.5rem;color:#ff7518;margin-bottom:1rem;
-  display:inline-flex;align-items:center;justify-content:center;
-  width:60px;height:60px;background:rgba(255,117,24,0.1);border-radius:12px;
-}
-
-.stat-label {font-size:0.9rem;color:#888;text-transform:uppercase;letter-spacing:0.5px;font-weight:600;margin-bottom:0.5rem;}
-.stat-value {font-size:2rem;font-weight:800;color:#fff;margin-bottom:0.5rem;}
-.stat-change {font-size:0.85rem;color:#4ade80;display:flex;align-items:center;gap:0.25rem;}
-.stat-change.negative {color:#ef4444;}
-
 .section-title {
   font-size:1.5rem;font-weight:700;color:#fff;
-  margin-top:1.5rem;margin-bottom:1rem;
+  margin:1.5rem 0 1rem 0;
   display:flex;align-items:center;gap:0.75rem;
 }
 .section-title i {color:#ff7518;font-size:1.3rem;}
@@ -144,8 +110,7 @@ a {text-decoration:none;color:inherit;}
 .bot-card {
   background:linear-gradient(135deg, #1a1a1a 0%, #141414 100%);
   border-radius:16px;padding:1.5rem;
-  border-left:4px solid #ff7518;border:1px solid #2a2a2a;
-  border-left:4px solid #ff7518;
+  border:1px solid #2a2a2a;
   transition:all 0.3s ease;position:relative;overflow:hidden;
 }
 .bot-card::before {
@@ -155,18 +120,27 @@ a {text-decoration:none;color:inherit;}
 }
 .bot-card:hover {
   transform:translateY(-8px);box-shadow:0 16px 32px rgba(255,117,24,0.2);
+  border-color:#ff7518;
 }
 .bot-card:hover::before {opacity:1;}
 
 .bot-header {display:flex;justify-content:space-between;align-items:start;margin-bottom:1rem;}
+.bot-avatar {
+  width:50px;height:50px;border-radius:50%;
+  background:linear-gradient(135deg, #ff7518, #ffb347);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.8rem;margin-right:1rem;
+}
+.bot-info {flex:1;}
 .bot-name {font-size:1.3rem;font-weight:700;color:#fff;}
+.bot-id {font-size:0.85rem;color:#666;font-family:'Courier New', monospace;}
 .bot-status {
   padding:0.4rem 0.8rem;border-radius:8px;font-size:0.8rem;
   font-weight:600;background:rgba(74,222,128,0.15);color:#4ade80;
 }
 .bot-status.offline {background:rgba(239,68,68,0.15);color:#ef4444;}
 
-.bot-details {display:grid;gap:0.75rem;margin-bottom:1rem;}
+.bot-details {display:grid;gap:0.75rem;margin:1rem 0;}
 .bot-detail {display:flex;align-items:center;gap:0.75rem;font-size:0.95rem;color:#b0b0b0;}
 .bot-detail i {color:#ff7518;width:20px;text-align:center;}
 
@@ -185,28 +159,6 @@ a {text-decoration:none;color:inherit;}
 .action-btn:active {
   transform:translateY(0px);
 }
-
-.quick-actions {
-  background:linear-gradient(135deg, #1a1a1a 0%, #141414 100%);
-  border-radius:16px;padding:2rem;border:1px solid #2a2a2a;
-  display:grid;grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));gap:1rem;
-}
-.quick-action-btn {
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:1rem;padding:2rem;border-radius:14px;
-  background:#6366f1;border:2px solid #6366f1;
-  cursor:pointer;transition:all 0.3s ease;text-align:center;
-  position:relative;overflow:hidden;
-}
-.quick-action-btn:hover {
-  background:#4f46e5;border-color:#4f46e5;
-  transform:translateY(-4px);box-shadow:0 8px 16px rgba(99,102,241,0.3);
-}
-.quick-action-btn:active {
-  transform:translateY(-1px);
-}
-.quick-action-btn i {font-size:2rem;color:#ff7518;}
-.quick-action-btn span {font-weight:600;color:#fff;}
 
 .empty-state {
   text-align:center;padding:3rem;
@@ -244,13 +196,15 @@ a {text-decoration:none;color:inherit;}
 @keyframes spin {0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
 
 @media (max-width:768px){
-  .sidebar {width:100%;height:auto;border-right:none;border-bottom:1px solid #2a2a2a;}
+  .sidebar {width:100%;height:auto;border-right:none;border-bottom:1px solid #2a2a2a;flex-direction:row;justify-content:space-between;}
   body {flex-direction:column;}
   .main {padding:1.5rem;}
-  .main-header h1 {font-size:1.8rem;}
-  .stats-grid {grid-template-columns:1fr;}
+  .page-title {font-size:1.8rem;}
   .bots-grid {grid-template-columns:1fr;}
-  .quick-actions {grid-template-columns:1fr;}
+  .nav-section {flex-direction:row;}
+  .nav-section-title {display:none;}
+  .sidebar.collapsed {width:100%;}
+  .sidebar.collapsed .nav-section {display:flex;flex-direction:row;gap:1rem;}
 }
 </style>
 </head>
@@ -277,12 +231,12 @@ a {text-decoration:none;color:inherit;}
 
   <div class="nav-section">
     <div class="nav-section-title">Main</div>
-    <a href="https://beta.thrd.xyz/dashboard" class="nav-btn active">
+    <a href="https://beta.thrd.xyz/dashboard" class="nav-btn">
       <i class="fas fa-chart-line"></i>
       <span>Dashboard</span>
     </a>
     
-    <a href="https://beta.thrd.xyz/dashboard/bots" class="nav-btn">
+    <a href="https://beta.thrd.xyz/dashboard/bots" class="nav-btn active">
       <i class="fas fa-robot"></i>
       <span>Bots</span>
     </a>
@@ -303,36 +257,19 @@ a {text-decoration:none;color:inherit;}
 </div>
 
 <div class="main">
-  <div class="main-header">
-    <div>
-      <h1 id="greeting">Welcome back!</h1>
-      <div class="time-greeting" id="timeGreeting">Good morning</div>
-    </div>
+  <div>
+    <h1 class="page-title">Your Bots</h1>
   </div>
 
-  <div class="stats-grid">
-    <div class="stat-card">
-      <div class="stat-icon">
-        <i class="fas fa-robot"></i>
-      </div>
-      <div class="stat-label">Online Bots</div>
-      <div class="stat-value" id="onlineBots">0</div>
-    </div>
-
-    <div class="stat-card">
-      <div class="stat-icon">
-        <i class="fas fa-list"></i>
-      </div>
-      <div class="stat-label">Total Bots</div>
-      <div class="stat-value" id="totalBots">0</div>
-    </div>
-
-    <div class="stat-card">
-      <div class="stat-icon">
-        <i class="fas fa-inbox"></i>
-      </div>
-      <div class="stat-label">Bot Slots</div>
-      <div class="stat-value" id="botSlots">0</div>
+  <div id="botsContainer">
+    <div class="empty-state">
+      <i class="fas fa-robot"></i>
+      <h3>No Bots Yet</h3>
+      <p>You haven't deployed any bots yet. Get started by creating your first bot.</p>
+      <button class="empty-state-btn" id="deployBotBtn">
+        <i class="fas fa-plus"></i>
+        Deploy Bot
+      </button>
     </div>
   </div>
 </div>
@@ -350,21 +287,11 @@ if (!SUPABASE_URL || !SUPABASE_KEY) {
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
-function updateGreeting() {
-  const hour = new Date().getHours();
-  const greetingEl = document.getElementById('timeGreeting');
-  const mainGreeting = document.getElementById('greeting');
-  
-  let greeting = 'Good morning';
-  if (hour >= 12 && hour < 18) greeting = 'Good afternoon';
-  else if (hour >= 18) greeting = 'Good evening';
-  
-  greetingEl.textContent = greeting;
-  mainGreeting.textContent = `${greeting}!`;
-}
-
 (async function() {
   const overlay = document.getElementById('loadingOverlay');
+  const botsContainer = document.getElementById('botsContainer');
+  const deployBotBtn = document.getElementById('deployBotBtn');
+
   const hash = new URLSearchParams(window.location.hash.slice(1));
   const accessToken = hash.get('access_token');
   const refreshToken = hash.get('refresh_token');
@@ -388,38 +315,11 @@ function updateGreeting() {
   document.getElementById('userName').textContent = user.user_metadata?.full_name || user.email;
   document.getElementById('userEmail').textContent = user.email;
 
-  const userId = user.id;
-  
-  try {
-    const res = await fetch(
-      `https://jmxlhugggzvgpuuwvyly.supabase.co/rest/v1/resources?select=max_bots,used_bots,online_bots&user_id=eq.${userId}`,
-      {
-        headers: {
-          apikey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpteGxodWdnZ3p2Z3B1dXd2eWx5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA4MjA3NTQsImV4cCI6MjA3NjM5Njc1NH0.gDTnN7pSfGGUoXN2XTR8SpMDjJVW-K9KpiO8SAC3e4I",
-          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpteGxodWdnZ3p2Z3B1dXd2eWx5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA4MjA3NTQsImV4cCI6MjA3NjM5Njc1NH0.gDTnN7pSfGGUoXN2XTR8SpMDjJVW-K9KpiO8SAC3e4I`,
-          "Content-Type": "application/json",
-        },
-      }
-    );
-
-    if (res.ok) {
-      const dataArr = await res.json();
-      const userData = dataArr[0] || { max_bots: 5, used_bots: 0, online_bots: 0 };
-
-      const onlineBots = userData.online_bots ?? 0;
-      const totalBots = userData.used_bots ?? 0;
-      const maxBots = userData.max_bots ?? 5;
-
-      document.getElementById('onlineBots').textContent = onlineBots;
-      document.getElementById('totalBots').textContent = totalBots;
-      document.getElementById('botSlots').textContent = `${totalBots}/${maxBots}`;
-    }
-  } catch (error) {
-    console.error('Error fetching resources:', error);
-  }
-
-  updateGreeting();
   overlay.style.display = 'none';
+
+  deployBotBtn.onclick = () => {
+    alert('Deploy bot feature coming soon!');
+  };
 })();
 
 const sidebar = document.getElementById('sidebar');
