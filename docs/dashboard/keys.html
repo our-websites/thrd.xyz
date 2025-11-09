@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Thrd Dashboard - API Keys</title>
-<link rel="icon" type="image/x-icon" href="https://beta.thrd.xyz/favicon.ico">
+<link rel="icon" type="image/x-icon" href="https://thrd.xyz/favicon.ico">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta property="og:title" content="Thrd Hosting - Dashboard (Keys)" />
 <meta property="og:description" content="Thrd Hosting offers lightning-fast secure and scalable hosting for discord bots." />
-<meta property="og:image" content="https://beta.thrd.xyz/logo.png" />
-<meta property="og:url" content="https://beta.thrd.xyz/dashboard/keys" />
+<meta property="og:image" content="https://thrd.xyz/logo.png" />
+<meta property="og:url" content="https://thrd.xyz/dashboard/keys" />
 <meta property="og:type" content="website" />
 
 <link href="https://cdn.tailwindcss.com" rel="stylesheet">
@@ -230,7 +230,7 @@ a {text-decoration:none;color:inherit;}
   <div class="toggle-btn" id="toggleSidebar"><i class="fas fa-angle-left"></i></div>
 
   <div class="sidebar-header">
-    <img src="https://beta.thrd.xyz/logo.png" alt="Logo">
+    <img src="https://thrd.xyz/logo.png" alt="Logo">
     <span class="brand-name">Thrd</span>
   </div>
 
@@ -242,12 +242,12 @@ a {text-decoration:none;color:inherit;}
 
   <div class="nav-section">
     <div class="nav-section-title">Main</div>
-    <a href="https://beta.thrd.xyz/dashboard" class="nav-btn">
+    <a href="https://thrd.xyz/dashboard" class="nav-btn">
       <i class="fas fa-chart-line"></i>
       <span>Dashboard</span>
     </a>
 
-    <a href="https://beta.thrd.xyz/dashboard/bots" class="nav-btn">
+    <a href="https://thrd.xyz/dashboard/bots" class="nav-btn">
       <i class="fas fa-robot"></i>
       <span>Bots</span>
     </a>
@@ -255,7 +255,7 @@ a {text-decoration:none;color:inherit;}
 
   <div class="nav-section">
     <div class="nav-section-title">Settings</div>
-    <a href="https://beta.thrd.xyz/dashboard/keys" class="nav-btn active">
+    <a href="https://thrd.xyz/dashboard/keys" class="nav-btn active">
       <i class="fas fa-key"></i>
       <span>API Keys</span>
     </a>
@@ -333,7 +333,7 @@ const { url: SUPABASE_URL, key: SUPABASE_KEY } = await fetch('/supabase.json')
   .then(res => res.json())
   .catch(() => ({ url: '', key: '' }));
 
-if (!SUPABASE_URL || !SUPABASE_KEY) window.location.href = "https://beta.thrd.xyz/";
+if (!SUPABASE_URL || !SUPABASE_KEY) window.location.href = "https://thrd.xyz/";
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
@@ -389,11 +389,11 @@ function showToast(message, duration = 2000) {
     const usernameEl = document.getElementById('username');
     const passwordEl = document.getElementById('password');
 
-    usernameEl.textContent = "login+" + credentials.username + "@beta.thrd.xyz";
+    usernameEl.textContent = "login+" + credentials.username + "@thrd.xyz";
     passwordEl.textContent = credentials.password;
 
     usernameEl.onclick = async () => {
-      await navigator.clipboard.writeText("login+" + credentials.username + "@beta.thrd.xyz");
+      await navigator.clipboard.writeText("login+" + credentials.username + "@thrd.xyz");
       showToast("Username copied!");
     };
     passwordEl.onclick = async () => {
@@ -408,7 +408,7 @@ function showToast(message, duration = 2000) {
     createPanelBtn.disabled = true;
     createPanelBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating...';
     try {
-      const res = await fetch("https://beta.thrd.xyz/api/create_account", {
+      const res = await fetch("https://api.thrd.xyz/create_account", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
