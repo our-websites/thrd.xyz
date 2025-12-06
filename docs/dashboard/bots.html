@@ -257,17 +257,56 @@ a {text-decoration:none;color:inherit;}
     <h1 class="page-title">Your Bots</h1>
   </div>
 
-  <div id="botsContainer">
-    <div class="empty-state">
+  <div id="botsContainer" class="bots-grid"
+    <div class="empty-state" hidden>
       <i class="fas fa-robot"></i>
       <h3>No Bots Yet</h3>
       <p>You haven't deployed any bots yet. Get started by creating your first bot.</p>
-      <button class="empty-state-btn" id="deployBotBtn">
-        Create Bot
-      </button>
+      
+    </div>
+    <div class="bot-card" hidden>
+      <h3 id="name">Bot Name Here</h3>
+      <h2 id="status+">Bot Status Here</h2>
+      <p is="id">ServerID Here</p>
     </div>
   </div>
+  <button class="empty-state-btn" id="deployBotBtn">
+        Create Bot
+      </button>
 </div>
+
+<script>
+  // Bot container handler
+  const bot_container = document.getElementById("botsContainer");
+  const empty_state = bot_container.getElementsByClassName("empty-state")[0];
+  const bot_card = bot_container.getElementsByClassName("bot-card")[0];
+  const user_name = document.getElementById('userName').textContent = user.user_metadata?.full_name || user.email;
+
+
+  async function GetUsersBots() {
+    try {
+      const data = await fetch("https://api.thrd.xyz/get_user_servers?username=" + encodeURIComponent(user_name));
+      let res = await data.json();
+      res = res.servers;
+      if (res.length === 0) {
+        empty_state.hidden = false;
+      } else {
+        res.forEach(bot => {
+          const new_bot_card = bot_card.cloneNode();
+          new_bot_card.getElementById("name").textContent = bot.name;
+          if (bot.status === "running") {new_bot_card.getElementById("status").textContent = "Online"} else {new_bot_card.getElementById("status").textContent = "Offline"};
+          new_bot_card.getElementById("id").textContent = "Your Server ID Is " + bot.id;
+          new_bot_card.hidden = false;
+          bot_container.append(new_bot_card);
+        }); 
+      }
+    } catch (e) {
+      console.error("Failed to fetch bots:", e);
+      empty_state.hidden = false;
+    }
+  }
+  
+</script>
 
 <script type="module">
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
