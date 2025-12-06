@@ -1,8 +1,9 @@
 const bot_container = document.getElementById("botsContainer");
 const empty_state = document.getElementById("emptyState");
 const bot_card = document.getElementById("bot-card");
-const user_name = document.getElementById("userName").textContent
+
 async function GetUsersBots() {
+    const user_name = document.getElementById("userName").textContent
   try {
     const data = await fetch(
       "https://api.thrd.xyz/get_user_servers?username=" +
@@ -16,13 +17,13 @@ async function GetUsersBots() {
     } else {
       res.servers.forEach(bot => {
         const new_bot_card = bot_card.cloneNode();
-        new_bot_card.getElementById("name").textContent = bot.name;
+        document.getElementById("bot-name").textContent = bot.name;
         if (bot.status === "running") {
-          new_bot_card.getElementById("status").textContent = "Online";
+          document.getElementById("bot-status").textContent = "Online";
         } else {
-          new_bot_card.getElementById("status").textContent = "Offline";
+          document.getElementById("bot-status").textContent = "Offline";
         }
-        new_bot_card.getElementById("id").textContent = "Your Server ID Is " + bot.id;
+        document.getElementById("bot-id").textContent = "Your Server ID Is " + bot.id;
         new_bot_card.hidden = false;
         bot_container.appendChild(new_bot_card);
       });
@@ -32,4 +33,4 @@ async function GetUsersBots() {
     empty_state.hidden = false;
   }
 }
-setTimeout(()=>{GetUsersBots();},5000);
+setTimeout(()=>{GetUsersBots();},8000);
