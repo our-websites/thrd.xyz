@@ -19,7 +19,7 @@ async function GetUsersBots() {
         const new_bot_card = bot_card.cloneNode(true);
         let botName = bot.name;
         if (botName.startsWith("thrdbot-")) {
-            botName = displayName.replace("thrdbot-", "");
+            botName = botName.replace("thrdbot-", "");
         }
         new_bot_card.querySelector("#bot-name").textContent = botName;
         if (bot.status === "running") {
@@ -27,10 +27,13 @@ async function GetUsersBots() {
         } else {
           new_bot_card.querySelector("#bot-status").textContent = "Offline";
         }
-        new_bot_card.querySelector("#bot-id").textContent = "Your Server ID Is " + bot.id;
+        new_bot_card.querySelector("#bot-id").textContent = "Bot ID: " + bot.id;
         new_bot_card.hidden = false;
         //new_bot_card.id = "bot-card-" + bot.id;
         //new_bot_card.className = "bot-card-" + bot.id; // Can't change the name otherwise CSS doesn't apply
+        new_bot_card.onclick = () => {
+            window.location.href = `https://panel.thrd.xyz/servers/view/${bot.id}`;
+        };
         bot_container.appendChild(new_bot_card);
       });
     }
