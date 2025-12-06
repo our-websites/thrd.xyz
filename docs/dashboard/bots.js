@@ -22,9 +22,12 @@ async function GetUsersBots() {
         } else {
           new_bot_card.getElementById("status").textContent = "Offline";
         }
-        new_bot_card.getElementById("id").textContent =
-          "Your Server ID Is " + bot.id;
-        new_bot_card.hidden = false;
+        new_bot_card.getElementById("id").textContent = "Your Server ID Is " + bot.id;
+        try {
+            new_bot_card.hidden = false;
+        } catch (e) {
+            console.error(e);
+        }
         bot_container.append(new_bot_card);
       });
     }
