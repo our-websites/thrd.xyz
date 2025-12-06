@@ -2,7 +2,7 @@ const page = window.location.pathname.split("/")[1];
 const returnDiv = document.getElementsByName("return")[0];
 const returnredirect = document.querySelector(".btn");
 
-if (page == "dashboard") {
+if (page.includes("dashboard")) {
   returnDiv.innerText = "Back To Dashboard";
   returnredirect.href = "https://thrd.xyz/dashboard";
 } else {
