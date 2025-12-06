@@ -1,4 +1,3 @@
-// Bot container handler
 const bot_container = document.getElementById("botsContainer");
 const empty_state = document.getElementById("emptyState");
 const bot_card = bot_container.getElementById("bot-card");
@@ -36,4 +35,5 @@ async function GetUsersBots() {
     empty_state.hidden = false;
   }
 }
+
 GetUsersBots();
