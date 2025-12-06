@@ -1,6 +1,6 @@
 const bot_container = document.getElementById("botsContainer");
 const empty_state = document.getElementById("emptyState");
-const bot_card = bot_container.getElementById("bot-card");
+const bot_card = document.getElementById("bot-card");
 const user_name = document.getElementById("userName").textContent
 async function GetUsersBots() {
   try {
