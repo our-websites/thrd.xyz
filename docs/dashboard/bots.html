@@ -276,7 +276,7 @@ a {text-decoration:none;color:inherit;}
   </div>
 </div>
 
-<script type="module">
+<script type="module" defer>
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const { url: SUPABASE_URL, key: SUPABASE_KEY } = await fetch('/supabase.json')
@@ -364,6 +364,6 @@ document.getElementById('logoutBtn').onclick = async () => {
   window.location.href = "/";
 };
 </script>
-<script src="bots.js"></script>
+<script src="bots.js" defer></script>
 </body>
 </html>
