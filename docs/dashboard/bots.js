@@ -25,8 +25,8 @@ async function GetUsersBots() {
         }
         new_bot_card.querySelector("#bot-id").textContent = "Your Server ID Is " + bot.id;
         new_bot_card.hidden = false;
-        new_bot_card.id = "bot-card-" + bot.id;
-        new_bot_card.className = "bot-card-" + bot.id;
+        //new_bot_card.id = "bot-card-" + bot.id;
+        //new_bot_card.className = "bot-card-" + bot.id; // Can't change the name otherwise CSS doesn't apply
         bot_container.appendChild(new_bot_card);
       });
     }
