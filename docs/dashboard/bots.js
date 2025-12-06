@@ -9,7 +9,7 @@ async function GetUsersBots() {
         encodeURIComponent(user_name)
     );
     let res = await data.json();
-    res = res.servers;
+    res = res.servers[0];
     if (res.length === 0) {
       empty_state.hidden = false;
     } else {
