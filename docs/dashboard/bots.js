@@ -26,6 +26,7 @@ async function GetUsersBots() {
         new_bot_card.querySelector("#bot-id").textContent = "Your Server ID Is " + bot.id;
         new_bot_card.hidden = false;
         new_bot_card.id = "bot-card-" + bot.id;
+        new_bot_card.className = "bot-card-" + bot.id;
         bot_container.appendChild(new_bot_card);
       });
     }
@@ -34,4 +35,4 @@ async function GetUsersBots() {
     empty_state.hidden = false;
   }
 }
-setTimeout(()=>{GetUsersBots();},4000);
+setTimeout(()=>{GetUsersBots();},2000);

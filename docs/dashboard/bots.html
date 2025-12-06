@@ -1,369 +1,703 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<title>Thrd Dashboard - Bots</title>
-<link rel="icon" type="image/x-icon" href="https://thrd.xyz/favicon.ico">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta property="og:title" content="Thrd Hosting - Dashboard (Bots)" />
-<meta property="og:description" content="Thrd Hosting offers lightning-fast secure and scalable hosting for discord bots." />
-<meta property="og:image" content="https://thrd.xyz/logo.png" />
-<meta property="og:url" content="https://thrd.xyz/dashboard/bots" />
-<meta property="og:type" content="website" />
-<link href="https://cdn.tailwindcss.com" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous">
-<script src="/banner.js"></script>
-<style>
-* {margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
-body {background:#0f0f0f;color:#e0e0e0;overflow-x:hidden;display:flex;min-height:100vh;}
-a {text-decoration:none;color:inherit;}
+  <meta charset="UTF-8">
+  <title>Thrd Dashboard - Bots</title>
+  <link rel="icon" type="image/x-icon" href="https://thrd.xyz/favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta property="og:title" content="Thrd Hosting - Dashboard (Bots)" />
+  <meta property="og:description"
+    content="Thrd Hosting offers lightning-fast secure and scalable hosting for discord bots." />
+  <meta property="og:image" content="https://thrd.xyz/logo.png" />
+  <meta property="og:url" content="https://thrd.xyz/dashboard/bots" />
+  <meta property="og:type" content="website" />
+  <link href="https://cdn.tailwindcss.com" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    crossorigin="anonymous">
+  <script src="/banner.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
 
-.sidebar {
-  width:280px;background:linear-gradient(180deg, #1a1a1a 0%, #141414 100%);
-  display:flex;flex-direction:column;gap:2rem;
-  padding:2rem 1rem;transition:width 0.3s ease;flex-shrink:0;
-  position:relative;border-right:1px solid #2a2a2a;
-  box-shadow:2px 0 10px rgba(0,0,0,0.4);
-}
-.sidebar.collapsed {width:80px;}
-.sidebar-header {display:flex;align-items:center;gap:0.75rem;margin-bottom:1.5rem;transition:all 0.3s;}
-.sidebar-header img {width:40px;height:40px;filter:drop-shadow(0 2px 4px rgba(255,117,24,0.3));}
-.sidebar-header .brand-name {font-size:1.2rem;font-weight:700;background:linear-gradient(90deg,#ffb347,#ff7518);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
-.sidebar.collapsed .brand-name {display:none;}
+    body {
+      background: #0f0f0f;
+      color: #e0e0e0;
+      overflow-x: hidden;
+      display: flex;
+      min-height: 100vh;
+    }
 
-.user-card {
-  background:linear-gradient(135deg, #222 0%, #1a1a1a 100%);
-  border-radius:12px;padding:1rem;text-align:center;border:1px solid #2a2a2a;
-  transition:all 0.3s;margin-bottom:1rem;
-}
-.user-card:hover {border-color:#ff7518;box-shadow:0 4px 12px rgba(255,117,24,0.15);}
-.user-card img {width:64px;height:64px;border-radius:50%;margin:0 auto 0.75rem auto;border:2px solid #ff7518;}
-.user-card h2 {font-size:1.1rem;font-weight:600;margin-bottom:0.25rem;}
-.user-card p {font-size:0.85rem;color:#888;}
-.sidebar.collapsed .user-card {padding:0.5rem;text-align:center;}
-.sidebar.collapsed .user-card h2, .sidebar.collapsed .user-card p {display:none;}
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
 
-.nav-section {display:flex;flex-direction:column;gap:0.5rem;}
-.nav-section-title {font-size:0.75rem;text-transform:uppercase;letter-spacing:1px;color:#666;font-weight:600;padding:0 1rem;}
-.sidebar.collapsed .nav-section-title {display:none;}
+    .sidebar {
+      width: 280px;
+      background: linear-gradient(180deg, #1a1a1a 0%, #141414 100%);
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      padding: 2rem 1rem;
+      transition: width 0.3s ease;
+      flex-shrink: 0;
+      position: relative;
+      border-right: 1px solid #2a2a2a;
+      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.4);
+    }
 
-.nav-btn {
-  display:flex;align-items:center;gap:0.75rem;
-  padding:0.875rem 1rem;border-radius:10px;
-  cursor:pointer;color:#b0b0b0;white-space:nowrap;
-  transition:all 0.2s ease;border-left:3px solid transparent;
-  font-weight:500;
-}
-.nav-btn:hover {
-  background:rgba(255,117,24,0.1);color:#ffb347;border-left-color:#ff7518;
-}
-.nav-btn.active {
-  background:linear-gradient(90deg, rgba(255,117,24,0.2), transparent);
-  color:#ff7518;border-left-color:#ff7518;font-weight:600;
-}
-.nav-btn i {width:24px;text-align:center;font-size:1.1rem;}
-.sidebar.collapsed .nav-btn span {display:none;}
-.sidebar.collapsed .nav-btn {justify-content:center;padding:0.875rem;}
+    .sidebar.collapsed {
+      width: 80px;
+    }
 
-.logout-btn {
-  margin-top:auto;padding:0.875rem 1rem;border-radius:10px;
-  background:rgba(220,53,69,0.15);color:#ff6b6b;
-  border:1px solid rgba(255,107,107,0.3);font-weight:500;
-  cursor:pointer;transition:all 0.2s ease;display:flex;align-items:center;gap:0.75rem;
-}
-.logout-btn:hover {background:rgba(220,53,69,0.25);border-color:rgba(255,107,107,0.6);}
-.sidebar.collapsed .logout-btn span {display:none;}
-.sidebar.collapsed .logout-btn {justify-content:center;}
+    .sidebar-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+      transition: all 0.3s;
+    }
 
-.toggle-btn {
-  position:absolute;top:1rem;right:-1rem;background:#1a1a1a;
-  border:2px solid #ff7518;color:#ff7518;border-radius:50%;
-  width:2.5rem;height:2.5rem;display:flex;justify-content:center;align-items:center;
-  cursor:pointer;z-index:10;transition:all 0.3s ease;
-  box-shadow:0 4px 12px rgba(255,117,24,0.2);
-}
-.toggle-btn:hover {background:#ff7518;color:#1a1a1a;box-shadow:0 6px 16px rgba(255,117,24,0.3);}
+    .sidebar-header img {
+      width: 40px;
+      height: 40px;
+      filter: drop-shadow(0 2px 4px rgba(255, 117, 24, 0.3));
+    }
 
-.main {flex:1;padding:2.5rem;padding-top:3.5rem;display:flex;flex-direction:column;gap:2rem;overflow-y:auto;margin-top:48px;}
-.page-title {
-  font-size:2.5rem;font-weight:800;
-  background:linear-gradient(90deg,#ffb347,#ff7518);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  letter-spacing:-0.5px;
-  margin-bottom:1rem;
-}
+    .sidebar-header .brand-name {
+      font-size: 1.2rem;
+      font-weight: 700;
+      background: linear-gradient(90deg, #ffb347, #ff7518);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
 
-.section-title {
-  font-size:1.5rem;font-weight:700;color:#fff;
-  margin:1.5rem 0 1rem 0;
-  display:flex;align-items:center;gap:0.75rem;
-}
-.section-title i {color:#ff7518;font-size:1.3rem;}
+    .sidebar.collapsed .brand-name {
+      display: none;
+    }
 
-.bots-grid {
-  display:grid;grid-template-columns:repeat(auto-fill, minmax(300px, 1fr));gap:1.5rem;
-}
+    .user-card {
+      background: linear-gradient(135deg, #222 0%, #1a1a1a 100%);
+      border-radius: 12px;
+      padding: 1rem;
+      text-align: center;
+      border: 1px solid #2a2a2a;
+      transition: all 0.3s;
+      margin-bottom: 1rem;
+    }
 
-.bot-card {
-  background:linear-gradient(135deg, #1a1a1a 0%, #141414 100%);
-  border-radius:16px;padding:1.5rem;
-  border:1px solid #2a2a2a;
-  transition:all 0.3s ease;position:relative;overflow:hidden;
-}
-.bot-card::before {
-  content:'';position:absolute;top:0;right:0;width:150px;height:150px;
-  background:radial-gradient(circle, rgba(255,117,24,0.1), transparent);
-  opacity:0;transition:opacity 0.3s ease;
-}
-.bot-card:hover {
-  transform:translateY(-8px);box-shadow:0 16px 32px rgba(255,117,24,0.2);
-  border-color:#ff7518;
-}
-.bot-card:hover::before {opacity:1;}
+    .user-card:hover {
+      border-color: #ff7518;
+      box-shadow: 0 4px 12px rgba(255, 117, 24, 0.15);
+    }
 
-.bot-header {display:flex;justify-content:space-between;align-items:start;margin-bottom:1rem;}
-.bot-avatar {
-  width:50px;height:50px;border-radius:50%;
-  background:linear-gradient(135deg, #ff7518, #ffb347);
-  display:flex;align-items:center;justify-content:center;
-  font-size:1.8rem;margin-right:1rem;
-}
-.bot-info {flex:1;}
-.bot-name {font-size:1.3rem;font-weight:700;color:#fff;}
-.bot-id {font-size:0.85rem;color:#666;font-family:'Courier New', monospace;}
-.bot-status {
-  padding:0.4rem 0.8rem;border-radius:8px;font-size:0.8rem;
-  font-weight:600;background:rgba(74,222,128,0.15);color:#4ade80;
-}
-.bot-status.offline {background:rgba(239,68,68,0.15);color:#ef4444;}
+    .user-card img {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      margin: 0 auto 0.75rem auto;
+      border: 2px solid #ff7518;
+    }
 
-.bot-details {display:grid;gap:0.75rem;margin:1rem 0;}
-.bot-detail {display:flex;align-items:center;gap:0.75rem;font-size:0.95rem;color:#b0b0b0;}
-.bot-detail i {color:#ff7518;width:20px;text-align:center;}
+    .user-card h2 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
 
-.bot-actions {display:flex;gap:0.75rem;margin-top:1.25rem;}
-.action-btn {
-  flex:1;padding:0.7rem 0.8rem;border-radius:12px;font-size:0.9rem;
-  font-weight:600;cursor:pointer;transition:all 0.3s ease;
-  border:2px solid #64748b;color:#fff;
-  background:#64748b;
-}
-.action-btn:hover {
-  background:#475569;border-color:#475569;
-  transform:translateY(-2px);
-  box-shadow:0 6px 12px rgba(100,116,139,0.2);
-}
-.action-btn:active {
-  transform:translateY(0px);
-}
+    .user-card p {
+      font-size: 0.85rem;
+      color: #888;
+    }
 
-.empty-state {
-  text-align:center;padding:3rem;
-  background:linear-gradient(135deg, #1a1a1a 0%, #141414 100%);
-  border-radius:16px;border:1px solid #2a2a2a;
-}
-.empty-state i {font-size:3rem;color:#ff7518;margin-bottom:1rem;opacity:0.6;}
-.empty-state h3 {font-size:1.3rem;font-weight:700;margin-bottom:0.5rem;}
-.empty-state p {color:#888;margin-bottom:1.5rem;}
-.empty-state-btn {
-  display:inline-flex;align-items:center;gap:0.5rem;
-  padding:0.9rem 1.8rem;border-radius:12px;
-  background:#ff7518;color:#fff;
-  font-weight:700;cursor:pointer;transition:all 0.3s ease;
-  border:2px solid transparent;
-  position:relative;overflow:hidden;
-}
-.empty-state-btn:hover {
-  background:#e56a0f;
-  transform:translateY(-3px);box-shadow:0 8px 16px rgba(255,117,24,0.3);
-}
-.empty-state-btn:active {
-  transform:translateY(-1px);
-}
+    .sidebar.collapsed .user-card {
+      padding: 0.5rem;
+      text-align: center;
+    }
 
-.loading-overlay {
-  position:fixed;inset:0;background:rgba(0,0,0,0.8);
-  display:flex;justify-content:center;align-items:center;z-index:50;
-}
-.spinner {
-  border:4px solid rgba(255,255,255,0.1);
-  border-top:4px solid #ff7518;border-radius:50%;
-  width:50px;height:50px;animation:spin 1s linear infinite;
-}
-@keyframes spin {0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
+    .sidebar.collapsed .user-card h2,
+    .sidebar.collapsed .user-card p {
+      display: none;
+    }
 
-@media (max-width:768px){
-  .sidebar {width:100%;height:auto;border-right:none;border-bottom:1px solid #2a2a2a;flex-direction:row;justify-content:space-between;}
-  body {flex-direction:column;}
-  .main {padding:1.5rem;}
-  .page-title {font-size:1.8rem;}
-  .bots-grid {grid-template-columns:1fr;}
-  .nav-section {flex-direction:row;}
-  .nav-section-title {display:none;}
-  .sidebar.collapsed {width:100%;}
-  .sidebar.collapsed .nav-section {display:flex;flex-direction:row;gap:1rem;}
-}
-</style>
+    .nav-section {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .nav-section-title {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #666;
+      font-weight: 600;
+      padding: 0 1rem;
+    }
+
+    .sidebar.collapsed .nav-section-title {
+      display: none;
+    }
+
+    .nav-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.875rem 1rem;
+      border-radius: 10px;
+      cursor: pointer;
+      color: #b0b0b0;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+      border-left: 3px solid transparent;
+      font-weight: 500;
+    }
+
+    .nav-btn:hover {
+      background: rgba(255, 117, 24, 0.1);
+      color: #ffb347;
+      border-left-color: #ff7518;
+    }
+
+    .nav-btn.active {
+      background: linear-gradient(90deg, rgba(255, 117, 24, 0.2), transparent);
+      color: #ff7518;
+      border-left-color: #ff7518;
+      font-weight: 600;
+    }
+
+    .nav-btn i {
+      width: 24px;
+      text-align: center;
+      font-size: 1.1rem;
+    }
+
+    .sidebar.collapsed .nav-btn span {
+      display: none;
+    }
+
+    .sidebar.collapsed .nav-btn {
+      justify-content: center;
+      padding: 0.875rem;
+    }
+
+    .logout-btn {
+      margin-top: auto;
+      padding: 0.875rem 1rem;
+      border-radius: 10px;
+      background: rgba(220, 53, 69, 0.15);
+      color: #ff6b6b;
+      border: 1px solid rgba(255, 107, 107, 0.3);
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .logout-btn:hover {
+      background: rgba(220, 53, 69, 0.25);
+      border-color: rgba(255, 107, 107, 0.6);
+    }
+
+    .sidebar.collapsed .logout-btn span {
+      display: none;
+    }
+
+    .sidebar.collapsed .logout-btn {
+      justify-content: center;
+    }
+
+    .toggle-btn {
+      position: absolute;
+      top: 1rem;
+      right: -1rem;
+      background: #1a1a1a;
+      border: 2px solid #ff7518;
+      color: #ff7518;
+      border-radius: 50%;
+      width: 2.5rem;
+      height: 2.5rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      z-index: 10;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(255, 117, 24, 0.2);
+    }
+
+    .toggle-btn:hover {
+      background: #ff7518;
+      color: #1a1a1a;
+      box-shadow: 0 6px 16px rgba(255, 117, 24, 0.3);
+    }
+
+    .main {
+      flex: 1;
+      padding: 2.5rem;
+      padding-top: 3.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      overflow-y: auto;
+      margin-top: 48px;
+    }
+
+    .page-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      background: linear-gradient(90deg, #ffb347, #ff7518);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -0.5px;
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #fff;
+      margin: 1.5rem 0 1rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .section-title i {
+      color: #ff7518;
+      font-size: 1.3rem;
+    }
+
+    .bots-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .bot-card {
+      background: linear-gradient(135deg, #1a1a1a 0%, #141414 100%);
+      border-radius: 16px;
+      padding: 1.5rem;
+      border: 1px solid #2a2a2a;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .bot-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 150px;
+      height: 150px;
+      background: radial-gradient(circle, rgba(255, 117, 24, 0.1), transparent);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .bot-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 16px 32px rgba(255, 117, 24, 0.2);
+      border-color: #ff7518;
+    }
+
+    .bot-card:hover::before {
+      opacity: 1;
+    }
+
+    .bot-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      margin-bottom: 1rem;
+    }
+
+    .bot-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #ff7518, #ffb347);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      margin-right: 1rem;
+    }
+
+    .bot-info {
+      flex: 1;
+    }
+
+    .bot-name {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .bot-id {
+      font-size: 0.85rem;
+      color: #666;
+      font-family: 'Courier New', monospace;
+    }
+
+    .bot-status {
+      padding: 0.4rem 0.8rem;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      background: rgba(74, 222, 128, 0.15);
+      color: #4ade80;
+    }
+
+    .bot-status.offline {
+      background: rgba(239, 68, 68, 0.15);
+      color: #ef4444;
+    }
+
+    .bot-details {
+      display: grid;
+      gap: 0.75rem;
+      margin: 1rem 0;
+    }
+
+    .bot-detail {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.95rem;
+      color: #b0b0b0;
+    }
+
+    .bot-detail i {
+      color: #ff7518;
+      width: 20px;
+      text-align: center;
+    }
+
+    .bot-actions {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 1.25rem;
+    }
+
+    .action-btn {
+      flex: 1;
+      padding: 0.7rem 0.8rem;
+      border-radius: 12px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 2px solid #64748b;
+      color: #fff;
+      background: #64748b;
+    }
+
+    .action-btn:hover {
+      background: #475569;
+      border-color: #475569;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(100, 116, 139, 0.2);
+    }
+
+    .action-btn:active {
+      transform: translateY(0px);
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 3rem;
+      background: linear-gradient(135deg, #1a1a1a 0%, #141414 100%);
+      border-radius: 16px;
+      border: 1px solid #2a2a2a;
+    }
+
+    .empty-state i {
+      font-size: 3rem;
+      color: #ff7518;
+      margin-bottom: 1rem;
+      opacity: 0.6;
+    }
+
+    .empty-state h3 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .empty-state p {
+      color: #888;
+      margin-bottom: 1.5rem;
+    }
+
+    .empty-state-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.9rem 1.8rem;
+      border-radius: 12px;
+      background: #ff7518;
+      color: #fff;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .empty-state-btn:hover {
+      background: #e56a0f;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 16px rgba(255, 117, 24, 0.3);
+    }
+
+    .empty-state-btn:active {
+      transform: translateY(-1px);
+    }
+
+    .loading-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 50;
+    }
+
+    .spinner {
+      border: 4px solid rgba(255, 255, 255, 0.1);
+      border-top: 4px solid #ff7518;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    @media (max-width:768px) {
+      .sidebar {
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid #2a2a2a;
+        flex-direction: row;
+        justify-content: space-between;
+      }
+
+      body {
+        flex-direction: column;
+      }
+
+      .main {
+        padding: 1.5rem;
+      }
+
+      .page-title {
+        font-size: 1.8rem;
+      }
+
+      .bots-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-section {
+        flex-direction: row;
+      }
+
+      .nav-section-title {
+        display: none;
+      }
+
+      .sidebar.collapsed {
+        width: 100%;
+      }
+
+      .sidebar.collapsed .nav-section {
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-<div id="loadingOverlay" class="loading-overlay">
-  <div class="spinner"></div>
-</div>
-
-<div id="sidebar" class="sidebar">
-  <div class="toggle-btn" id="toggleSidebar"><i class="fas fa-angle-left"></i></div>
-
-  <div class="sidebar-header">
-    <img src="https://thrd.xyz/logo.png" alt="Logo">
-    <span class="brand-name">Thrd</span>
+  <div id="loadingOverlay" class="loading-overlay">
+    <div class="spinner"></div>
   </div>
 
-  <div class="user-card">
-    <img id="userAvatar" src="https://cdn.discordapp.com/embed/avatars/0.png" alt="Avatar">
-    <h2 id="userName">Loading...</h2>
-    <p id="userEmail"></p>
-  </div>
+  <div id="sidebar" class="sidebar">
+    <div class="toggle-btn" id="toggleSidebar"><i class="fas fa-angle-left"></i></div>
 
-  <div class="nav-section">
-    <div class="nav-section-title">Main</div>
-    <a href="https://thrd.xyz/dashboard" class="nav-btn">
-      <i class="fas fa-chart-line"></i>
-      <span>Dashboard</span>
-    </a>
-    <a href="https://thrd.xyz/dashboard/bots" class="nav-btn active">
-      <i class="fas fa-robot"></i>
-      <span>Bots</span>
-    </a>
-  </div>
-
-  <div class="nav-section">
-    <div class="nav-section-title">Settings</div>
-    <a href="https://thrd.xyz/dashboard/keys" class="nav-btn">
-      <i class="fas fa-key"></i>
-      <span>API Keys</span>
-    </a>
-  </div>
-
-  <button class="logout-btn" id="logoutBtn">
-    <i class="fas fa-sign-out-alt"></i>
-    <span>Logout</span>
-  </button>
-</div>
-
-<div class="main">
-  <div>
-    <h1 class="page-title">Your Bots</h1>
-  </div>
-
-  <div id="botsContainer" class="bots-grid">
-    <div class="empty-state" id="emptyState" hidden>
-      <i class="fas fa-robot"></i>
-      <h3>No Bots Yet</h3>
-      <p>You haven't deployed any bots yet. Get started by creating your first bot.</p>
-      
+    <div class="sidebar-header">
+      <img src="https://thrd.xyz/logo.png" alt="Logo">
+      <span class="brand-name">Thrd</span>
     </div>
-    <div class="bot-card" id="bot-card" hidden>
-      <h3 id="bot-name">Bot Name Here</h3>
-      <h2 id="bot-status">Bot Status Here</h2>
-      <p id="bot-id">ServerID Here</p>
+
+    <div class="user-card">
+      <img id="userAvatar" src="https://cdn.discordapp.com/embed/avatars/0.png" alt="Avatar">
+      <h2 id="userName">Loading...</h2>
+      <p id="userEmail"></p>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-section-title">Main</div>
+      <a href="https://thrd.xyz/dashboard" class="nav-btn">
+        <i class="fas fa-chart-line"></i>
+        <span>Dashboard</span>
+      </a>
+      <a href="https://thrd.xyz/dashboard/bots" class="nav-btn active">
+        <i class="fas fa-robot"></i>
+        <span>Bots</span>
+      </a>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-section-title">Settings</div>
+      <a href="https://thrd.xyz/dashboard/keys" class="nav-btn">
+        <i class="fas fa-key"></i>
+        <span>API Keys</span>
+      </a>
+    </div>
+
+    <button class="logout-btn" id="logoutBtn">
+      <i class="fas fa-sign-out-alt"></i>
+      <span>Logout</span>
+    </button>
+  </div>
+
+  <div class="main">
+    <div>
+      <h1 class="page-title">Your Bots</h1>
+    </div>
+
+    <div id="botsContainer" class="bots-grid">
+      <div class="empty-state" id="emptyState" hidden>
+        <i class="fas fa-robot"></i>
+        <h3>No Bots Yet</h3>
+        <p>You haven't deployed any bots yet. Get started by creating your first bot.</p>
+      </div>
+      <div class="bot-card" id="bot-card" hidden>
+        <h3 id="bot-name">Bot Name Here</h3>
+        <h2 id="bot-status">Bot Status Here</h2>
+        <p id="bot-id">ServerID Here</p>
+      </div>
     </div>
     <button class="empty-state-btn" id="deployBotBtn">
-        Create Bot
-      </button>
-    </div>
+      Create Bot
+    </button>
   </div>
-</div>
 
-<script type="module" async>
-import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+  <script type="module" async>
+    import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
-const { url: SUPABASE_URL, key: SUPABASE_KEY } = await fetch('/supabase.json')
-  .then(res => res.json())
-  .catch(() => ({ url: '', key: '' }));
+    const { url: SUPABASE_URL, key: SUPABASE_KEY } = await fetch('/supabase.json')
+      .then(res => res.json())
+      .catch(() => ({ url: '', key: '' }));
 
-if (!SUPABASE_URL || !SUPABASE_KEY) {
-  window.location.href = "https://thrd.xyz/";
-}
+    if (!SUPABASE_URL || !SUPABASE_KEY) {
+      window.location.href = "https://thrd.xyz/";
+    }
 
-const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+    const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
-(async function() {
-  const overlay = document.getElementById('loadingOverlay');
-  const deployBotBtn = document.getElementById('deployBotBtn');
+    (async function () {
+      const overlay = document.getElementById('loadingOverlay');
+      const deployBotBtn = document.getElementById('deployBotBtn');
 
-  const hash = new URLSearchParams(window.location.hash.slice(1));
-  const accessToken = hash.get('access_token');
-  const refreshToken = hash.get('refresh_token');
+      const hash = new URLSearchParams(window.location.hash.slice(1));
+      const accessToken = hash.get('access_token');
+      const refreshToken = hash.get('refresh_token');
 
-  if (accessToken) {
-    const { error } = await supabase.auth.setSession({
-      access_token: accessToken,
-      refresh_token: refreshToken
-    });
-    if (error) return window.location.href = "/";
-    window.history.replaceState(null, "", window.location.pathname);
-  }
+      if (accessToken) {
+        const { error } = await supabase.auth.setSession({
+          access_token: accessToken,
+          refresh_token: refreshToken
+        });
+        if (error) return window.location.href = "/";
+        window.history.replaceState(null, "", window.location.pathname);
+      }
 
-  const { data:{ session } } = await supabase.auth.getSession();
-  if (!session) return window.location.href = "/";
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) return window.location.href = "/";
 
-  const { data:{ user } } = await supabase.auth.getUser();
-  if (!user) return window.location.href = "/";
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return window.location.href = "/";
 
-  document.getElementById('userAvatar').src = user.user_metadata?.avatar_url || "https://cdn.discordapp.com/embed/avatars/0.png";
-  document.getElementById('userName').textContent = user.user_metadata?.full_name || user.email;
-  document.getElementById('userEmail').textContent = user.email;
+      document.getElementById('userAvatar').src = user.user_metadata?.avatar_url || "https://cdn.discordapp.com/embed/avatars/0.png";
+      document.getElementById('userName').textContent = user.user_metadata?.full_name || user.email;
+      document.getElementById('userEmail').textContent = user.email;
 
-  overlay.style.display = 'none';
+      overlay.style.display = 'none';
 
-  deployBotBtn.onclick = async () => {
-    const botName = prompt("Enter a name for your new bot:");
-    if (!botName) return;
+      deployBotBtn.onclick = async () => {
+        const botName = prompt("Enter a name for your new bot:");
+        if (!botName) return;
 
-    const payload = {
-      user_id: user.id,
-      bot_name: botName
+        const payload = {
+          user_id: user.id,
+          bot_name: botName
+        };
+
+        try {
+          overlay.style.display = 'flex';
+          const res = await fetch("https://api.thrd.xyz/create_server", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+          });
+
+          const result = await res.json();
+          overlay.style.display = 'none';
+
+          if (!res.ok) {
+            alert("Error creating bot: " + (result.error || res.statusText));
+          } else {
+            alert("Bot created successfully!");
+            location.reload();
+          }
+        } catch (err) {
+          overlay.style.display = 'none';
+          alert("Failed to create bot: " + err.message);
+        }
+      };
+    })();
+
+    const sidebar = document.getElementById('sidebar');
+    const toggleBtn = document.getElementById('toggleSidebar');
+    toggleBtn.onclick = () => {
+      sidebar.classList.toggle('collapsed');
+      toggleBtn.firstElementChild.classList.toggle('fa-angle-left');
+      toggleBtn.firstElementChild.classList.toggle('fa-angle-right');
     };
 
-    try {
-      overlay.style.display = 'flex';
-      const res = await fetch("https://api.thrd.xyz/create_server", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
-      });
-
-      const result = await res.json();
-      overlay.style.display = 'none';
-
-      if (!res.ok) {
-        alert("Error creating bot: " + (result.error || res.statusText));
-      } else {
-        alert("Bot created successfully!");
-        location.reload();
-      }
-    } catch (err) {
-      overlay.style.display = 'none';
-      alert("Failed to create bot: " + err.message);
-    }
-  };
-})();
-
-const sidebar = document.getElementById('sidebar');
-const toggleBtn = document.getElementById('toggleSidebar');
-toggleBtn.onclick = () => {
-  sidebar.classList.toggle('collapsed');
-  toggleBtn.firstElementChild.classList.toggle('fa-angle-left');
-  toggleBtn.firstElementChild.classList.toggle('fa-angle-right');
-};
-
-document.getElementById('logoutBtn').onclick = async () => {
-  await supabase.auth.signOut();
-  window.location.href = "/";
-};
-</script>
-<script src="bots.js" async></script>
+    document.getElementById('logoutBtn').onclick = async () => {
+      await supabase.auth.signOut();
+      window.location.href = "/";
+    };
+  </script>
+  <script src="bots.js" async></script>
 </body>
+
 </html>
