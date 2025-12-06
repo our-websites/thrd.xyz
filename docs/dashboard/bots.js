@@ -9,11 +9,12 @@ async function GetUsersBots() {
         encodeURIComponent(user_name)
     );
     let res = await data.json();
-    res = res.servers[0];
+    console.log(res.servers);
+    console.log(res.servers[0]);
     if (res.length === 0) {
       empty_state.hidden = false;
     } else {
-      res.forEach((bot) => {
+      res.servers.forEach(bot => {
         const new_bot_card = bot_card.cloneNode();
         new_bot_card.getElementById("name").textContent = bot.name;
         if (bot.status === "running") {
@@ -31,5 +32,4 @@ async function GetUsersBots() {
     empty_state.hidden = false;
   }
 }
-
-GetUsersBots();
+setTimeout(()=>{GetUsersBots();},5000);
