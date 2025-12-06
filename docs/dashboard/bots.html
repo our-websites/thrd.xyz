@@ -280,7 +280,7 @@ a {text-decoration:none;color:inherit;}
   const bot_container = document.getElementById("botsContainer");
   const empty_state = bot_container.getElementsByClassName("empty-state")[0];
   const bot_card = bot_container.getElementsByClassName("bot-card")[0];
-  const user_name = document.getElementById('userName').textContent = user.user_metadata?.full_name || user.email;
+  const user_name = document.getElementById('userName').textContent;
 
 
   async function GetUsersBots() {
