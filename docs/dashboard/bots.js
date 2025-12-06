@@ -17,13 +17,13 @@ async function GetUsersBots() {
     } else {
       res.servers.forEach(bot => {
         const new_bot_card = bot_card.cloneNode(true);
-        document.getElementById("bot-name").textContent = bot.name;
+        new_bot_card.querySelector("#bot-name").textContent = bot.name;
         if (bot.status === "running") {
-          document.getElementById("bot-status").textContent = "Online";
+          new_bot_card.querySelector("#bot-status").textContent = "Online";
         } else {
-          document.getElementById("bot-status").textContent = "Offline";
+          new_bot_card.querySelector("#bot-status").textContent = "Offline";
         }
-        document.getElementById("bot-id").textContent = "Your Server ID Is " + bot.id;
+        new_bot_card.querySelector("bot-id").textContent = "Your Server ID Is " + bot.id;
         new_bot_card.hidden = false;
         bot_container.appendChild(new_bot_card);
       });
