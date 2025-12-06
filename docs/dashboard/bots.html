@@ -258,15 +258,15 @@ a {text-decoration:none;color:inherit;}
   </div>
 
   <div id="botsContainer" class="bots-grid"
-    <div class="empty-state" hidden>
+    <div class="empty-state" id="empty-state" hidden>
       <i class="fas fa-robot"></i>
       <h3>No Bots Yet</h3>
       <p>You haven't deployed any bots yet. Get started by creating your first bot.</p>
       
     </div>
-    <div class="bot-card" hidden>
+    <div class="bot-card" id="bot-card" hidden>
       <h3 id="name">Bot Name Here</h3>
-      <h2 id="status+">Bot Status Here</h2>
+      <h2 id="status">Bot Status Here</h2>
       <p is="id">ServerID Here</p>
     </div>
     <button class="empty-state-btn" id="deployBotBtn">
@@ -275,8 +275,6 @@ a {text-decoration:none;color:inherit;}
     </div>
   </div>
 </div>
-  
-<script src="bots.js" async></script>
 
 <script type="module">
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
@@ -366,5 +364,6 @@ document.getElementById('logoutBtn').onclick = async () => {
   window.location.href = "/";
 };
 </script>
+<script src="bots.js"></script>
 </body>
 </html>

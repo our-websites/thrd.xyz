@@ -1,7 +1,7 @@
 // Bot container handler
 const bot_container = document.getElementById("botsContainer");
-const empty_state = bot_container.getElementsByClassName("empty-state")[0];
-const bot_card = bot_container.getElementsByClassName("bot-card")[0];
+const empty_state = document.getElementById("emptyState");
+const bot_card = bot_container.getElementById("bot-card");
 const user_name = document.getElementById("userName").textContent
 async function GetUsersBots() {
   try {
