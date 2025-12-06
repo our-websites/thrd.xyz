@@ -17,7 +17,11 @@ async function GetUsersBots() {
     } else {
       res.servers.forEach(bot => {
         const new_bot_card = bot_card.cloneNode(true);
-        new_bot_card.querySelector("#bot-name").textContent = bot.name;
+        let botName = bot.name;
+        if (botName.startsWith("thrdbot-")) {
+            botName = displayName.replace("thrdbot-", "");
+        }
+        new_bot_card.querySelector("#bot-name").textContent = botName;
         if (bot.status === "running") {
           new_bot_card.querySelector("#bot-status").textContent = "Online";
         } else {
