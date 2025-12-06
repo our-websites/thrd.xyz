@@ -25,6 +25,7 @@ async function GetUsersBots() {
         }
         new_bot_card.querySelector("bot-id").textContent = "Your Server ID Is " + bot.id;
         new_bot_card.hidden = false;
+        new_bot_card.id = "bot-card-" + bot.id;
         bot_container.appendChild(new_bot_card);
       });
     }
