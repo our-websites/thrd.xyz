@@ -35,4 +35,4 @@ async function GetUsersBots() {
     empty_state.hidden = false;
   }
 }
-setTimeout(()=>{GetUsersBots();},2000);
+setTimeout(()=>{GetUsersBots();},3500);
