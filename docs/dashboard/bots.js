@@ -22,12 +22,8 @@ async function GetUsersBots() {
           new_bot_card.getElementById("status").textContent = "Offline";
         }
         new_bot_card.getElementById("id").textContent = "Your Server ID Is " + bot.id;
-        try {
-            new_bot_card.hidden = false;
-        } catch (e) {
-            console.error(e);
-        }
-        bot_container.append(new_bot_card);
+        new_bot_card.hidden = false;
+        bot_container.appendChild(new_bot_card);
       });
     }
   } catch (e) {
