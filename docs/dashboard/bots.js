@@ -16,7 +16,7 @@ async function GetUsersBots() {
       empty_state.hidden = false;
     } else {
       res.servers.forEach(bot => {
-        const new_bot_card = bot_card.cloneNode();
+        const new_bot_card = bot_card.cloneNode(true);
         document.getElementById("bot-name").textContent = bot.name;
         if (bot.status === "running") {
           document.getElementById("bot-status").textContent = "Online";
