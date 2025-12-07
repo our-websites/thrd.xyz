@@ -444,7 +444,7 @@ function updateGreeting() {
       res.servers.forEach(bot => {
         
         if (bot.status === "running") {
-          online++
+          online_bots++
         };
       });
       document.getElementById('onlineBots').textContent = online_bots;
