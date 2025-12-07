@@ -609,9 +609,18 @@
     <button class="empty-state-btn" id="deployBotBtn-js">
       Create discord.js Bot
     </button>
+
+    <div id="toast" class="toast"></div>
   
   <script type="module" async>
     import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+
+    function showToast(message, duration = 2000) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), duration);
+    }
 
     const { url: SUPABASE_URL, key: SUPABASE_KEY } = await fetch('/supabase.json')
       .then(res => res.json())
@@ -674,14 +683,14 @@
           overlay.style.display = 'none';
 
           if (!res.ok) {
-            alert("Error creating bot: " + (result.error || res.statusText));
+            showToast("Error creating bot: " + (result.error || res.statusText));
           } else {
-            alert("Bot created successfully!");
+            showToast("Bot created successfully!");
             location.reload();
           }
         } catch (err) {
           overlay.style.display = 'none';
-          alert("Failed to create bot: " + err.message);
+          showToast("Failed to create bot: " + err.message);
         }
       };
 
@@ -706,14 +715,14 @@
           overlay.style.display = 'none';
 
           if (!res.ok) {
-            alert("Error creating bot: " + (result.error || res.statusText));
+            showToast("Error creating bot: " + (result.error || res.statusText));
           } else {
-            alert("Bot created successfully!");
+            showToast("Bot created successfully!");
             location.reload();
           }
         } catch (err) {
           overlay.style.display = 'none';
-          alert("Failed to create bot: " + err.message);
+          showToast("Failed to create bot: " + err.message);
         }
       };
     })();
