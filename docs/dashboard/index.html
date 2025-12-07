@@ -328,7 +328,7 @@ a {text-decoration:none;color:inherit;}
         <i class="fas fa-robot"></i>
       </div>
       <div class="stat-label">Online Bots</div>
-      <div class="stat-value" id="onlineBots">0</div>
+      <div class="stat-value" id="onlineBots">Loading...</div>
     </div>
 
     <div class="stat-card">
@@ -336,7 +336,7 @@ a {text-decoration:none;color:inherit;}
         <i class="fas fa-list"></i>
       </div>
       <div class="stat-label">Total Bots</div>
-      <div class="stat-value" id="totalBots">0</div>
+      <div class="stat-value" id="totalBots">Loading...</div>
     </div>
 
     <div class="stat-card">
@@ -344,13 +344,15 @@ a {text-decoration:none;color:inherit;}
         <i class="fas fa-inbox"></i>
       </div>
       <div class="stat-label">Bot Slots</div>
-      <div class="stat-value" id="botSlots">0</div>
+      <div class="stat-value" id="botSlots">Loading.../Loading...</div>
     </div>
   </div>
 </div>
 
 <script type="module">
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+
+let maxBots = 1;
 
 const { url: SUPABASE_URL, key: SUPABASE_KEY } = await fetch('/supabase.json')
   .then(res => res.json())
@@ -420,11 +422,7 @@ function updateGreeting() {
 
       const onlineBots = userData.online_bots ?? 0;
       const totalBots = userData.used_bots ?? 0;
-      const maxBots = userData.max_bots ?? 5;
-
-      document.getElementById('onlineBots').textContent = onlineBots;
-      document.getElementById('totalBots').textContent = totalBots;
-      document.getElementById('botSlots').textContent = `${totalBots}/${maxBots}`;
+      maxBots = userData.max_bots ?? 5;
     }
   } catch (error) {
     console.error('Error fetching resources:', error);
@@ -433,6 +431,27 @@ function updateGreeting() {
   updateGreeting();
   overlay.style.display = 'none';
 })();
+
+  async function GetUsersBots() {
+    const user_name = document.getElementById("userName").textContent;
+    try {
+      const data = await fetch("https://api.thrd.xyz/get_user_servers?username=" + encodeURIComponent(user_name));
+      let res = await data.json();
+      // console.log(res.servers);
+      res.servers.forEach(bot => {
+        let online_bots = 0;
+        let total_bots = 0;
+        if (bot.status === "running") {
+          online++
+        };
+      };
+      document.getElementById('onlineBots').textContent = online_bots;
+      document.getElementById('totalBots').textContent = total_bots;
+      document.getElementById('botSlots').textContent = `${total_bots}/${maxBots}`;
+    } catch (e) {
+      console.error("Failed to fetch bots:", e);
+    }
+  }
 
 const sidebar = document.getElementById('sidebar');
 const toggleBtn = document.getElementById('toggleSidebar');
