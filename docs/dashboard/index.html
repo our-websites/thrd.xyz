@@ -444,7 +444,7 @@ function updateGreeting() {
         if (bot.status === "running") {
           online++
         };
-      };
+      });
       document.getElementById('onlineBots').textContent = online_bots;
       document.getElementById('totalBots').textContent = total_bots;
       document.getElementById('botSlots').textContent = `${total_bots}/${maxBots}`;
