@@ -440,9 +440,10 @@ function updateGreeting() {
     try {
       const data = await fetch("https://api.thrd.xyz/get_user_servers?username=" + encodeURIComponent(user_name));
       let res = await data.json();
+      total_bots = res.amount
       // console.log(res.servers);
+      
       res.servers.forEach(bot => {
-        
         if (bot.status === "running") {
           online_bots++
         };
