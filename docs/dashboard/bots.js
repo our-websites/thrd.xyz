@@ -12,7 +12,7 @@ async function GetUsersBots() {
     );
     let res = await data.json();
     // console.log(res.servers);
-    if (res.servers.length === 0) {
+    if (res.amount === 0) {
       empty_state.hidden = false;
     } else {
       res.servers.forEach(bot => {
