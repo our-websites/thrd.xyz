@@ -432,7 +432,7 @@ function updateGreeting() {
   overlay.style.display = 'none';
 })();
 
-  async function GetUsersBots() {
+  (async function() {
     const user_name = document.getElementById("userName").textContent;
     try {
       const data = await fetch("https://api.thrd.xyz/get_user_servers?username=" + encodeURIComponent(user_name));
@@ -451,7 +451,7 @@ function updateGreeting() {
     } catch (e) {
       console.error("Failed to fetch bots:", e);
     }
-  }
+  })();
 
 const sidebar = document.getElementById('sidebar');
 const toggleBtn = document.getElementById('toggleSidebar');
