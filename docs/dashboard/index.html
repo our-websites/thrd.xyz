@@ -434,8 +434,8 @@ function updateGreeting() {
 
   setInterval(async function() {
     const user_name = document.getElementById("userName").textContent;
-    const online_bots = 0;
-    const total_bots = 0;
+    let online_bots = 0;
+    let total_bots = 0;
     
     try {
       const data = await fetch("https://api.thrd.xyz/get_user_servers?username=" + encodeURIComponent(user_name));
