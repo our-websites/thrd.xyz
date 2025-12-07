@@ -432,15 +432,17 @@ function updateGreeting() {
   overlay.style.display = 'none';
 })();
 
-  (async function() {
+  setInterval(async function() {
     const user_name = document.getElementById("userName").textContent;
+    const online_bots = 0;
+    const total_bots = 0;
+    
     try {
       const data = await fetch("https://api.thrd.xyz/get_user_servers?username=" + encodeURIComponent(user_name));
       let res = await data.json();
       // console.log(res.servers);
       res.servers.forEach(bot => {
-        let online_bots = 0;
-        let total_bots = 0;
+        
         if (bot.status === "running") {
           online++
         };
@@ -451,7 +453,7 @@ function updateGreeting() {
     } catch (e) {
       console.error("Failed to fetch bots:", e);
     }
-  })();
+  }, 1000);
 
 const sidebar = document.getElementById('sidebar');
 const toggleBtn = document.getElementById('toggleSidebar');
