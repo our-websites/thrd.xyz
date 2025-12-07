@@ -3,16 +3,16 @@ const empty_state = document.getElementById("emptyState");
 const bot_card = document.getElementById("bot-card");
 
 async function GetUsersBots() {
-    const user_name = document.getElementById("userName").textContent
+    bot_container.innerHTML = "";
+    const user_name = document.getElementById("userName").textContent;
   try {
     const data = await fetch(
       "https://api.thrd.xyz/get_user_servers?username=" +
         encodeURIComponent(user_name)
     );
     let res = await data.json();
-    console.log(res.servers);
-    console.log(res.servers[0]);
-    if (res.length === 0) {
+    // console.log(res.servers);
+    if (res.servers.length === 0) {
       empty_state.hidden = false;
     } else {
       res.servers.forEach(bot => {
@@ -42,4 +42,4 @@ async function GetUsersBots() {
     empty_state.hidden = false;
   }
 }
-setTimeout(()=>{GetUsersBots();},3500);
+setTimeout(()=>{GetUsersBots();},3500);setInterval(GetUsersBots, 4000);
