@@ -596,19 +596,20 @@
   <h3>No Bots Yet</h3>
   <p>You haven't deployed any bots yet. Get started by creating your first bot.</p>
 </div>
-    <div id="botsContainer" class="bots-grid">
-      
+    <div id="botsContainer" class="bots-grid"> 
       <div class="bot-card" id="bot-card" hidden>
         <h3 id="bot-name">Bot Name Here</h3>
         <h2 id="bot-status">Bot Status Here</h2>
         <p id="bot-id">ServerID Here</p>
       </div>
     </div>
-    <button class="empty-state-btn" id="deployBotBtn">
-      Create Bot
+  <button class="empty-state-btn" id="deployBotBtn-py">
+    Create discord.py Bot
+  </button>
+    <button class="empty-state-btn" id="deployBotBtn-js">
+      Create discord.js Bot
     </button>
-  </div>
-
+  
   <script type="module" async>
     import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
@@ -624,7 +625,8 @@
 
     (async function () {
       const overlay = document.getElementById('loadingOverlay');
-      const deployBotBtn = document.getElementById('deployBotBtn');
+      const deployBotBtn_py = document.getElementById('deployBotBtn-py');
+      const deployBotBtn_js = document.getElementById('deployBotBtn-js');
 
       const hash = new URLSearchParams(window.location.hash.slice(1));
       const accessToken = hash.get('access_token');
@@ -651,7 +653,7 @@
 
       overlay.style.display = 'none';
 
-      deployBotBtn.onclick = async () => {
+      deployBotBtn_py.onclick = async () => {
         const botName = prompt("Enter a name for your new bot:");
         if (!botName) return;
 
@@ -662,7 +664,40 @@
 
         try {
           overlay.style.display = 'flex';
-          const res = await fetch("https://api.thrd.xyz/create_server", {
+          const res = await fetch("https://api.thrd.xyz/create_server/py", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+          });
+
+          const result = await res.json();
+          overlay.style.display = 'none';
+
+          if (!res.ok) {
+            alert("Error creating bot: " + (result.error || res.statusText));
+          } else {
+            alert("Bot created successfully!");
+            location.reload();
+          }
+        } catch (err) {
+          overlay.style.display = 'none';
+          alert("Failed to create bot: " + err.message);
+        }
+      };
+    })();
+
+    deployBotBtn_js.onclick = async () => {
+        const botName = prompt("Enter a name for your new bot:");
+        if (!botName) return;
+
+        const payload = {
+          user_id: user.id,
+          bot_name: botName
+        };
+
+        try {
+          overlay.style.display = 'flex';
+          const res = await fetch("https://api.thrd.xyz/create_server/js", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(payload)
