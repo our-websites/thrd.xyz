@@ -42,4 +42,5 @@ async function GetUsersBots() {
     empty_state.hidden = false;
   }
 }
-setTimeout(()=>{GetUsersBots();},3500);setInterval(GetUsersBots, 10000);
+// setTimeout(()=>{GetUsersBots();},3500); // We don't need to wait anymore since it updates every 10 seconds :)
+GetUsersBots();setInterval(GetUsersBots, 10000);
