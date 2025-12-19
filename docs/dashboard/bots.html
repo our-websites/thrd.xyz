@@ -37,6 +37,16 @@
       text-decoration: none;
       color: inherit;
     }
+    
+    .toast {
+      position:fixed;bottom:-60px;left:50%;transform:translateX(-50%);
+      background:linear-gradient(90deg,#ff7518,#ffb347);color:#1a1a1a;
+      padding:1rem 1.5rem;border-radius:10px;font-weight:600;
+      opacity:0;transition:all 0.3s ease;z-index:100;
+      box-shadow:0 8px 20px rgba(255,117,24,0.3);
+    }
+    
+    .toast.show {bottom:20px;opacity:1;}
 
     .sidebar {
       width: 280px;
@@ -609,8 +619,8 @@
     <button class="empty-state-btn" id="deployBotBtn-js">
       Create discord.js Bot
     </button>
-
-    <div id="toast" class="toast"></div>
+    
+  <div id="toast" class="toast"></div>
   
   <script type="module" async>
     import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
