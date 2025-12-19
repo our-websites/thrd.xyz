@@ -1,2 +1,56 @@
-const _0x5e8e06=_0x43a5;(function(_0x358246,_0x3ab7ea){const _0x58d94f=_0x43a5,_0x18c4a0=_0x358246();while(!![]){try{const _0x122bde=parseInt(_0x58d94f(0x16a))/0x1+parseInt(_0x58d94f(0x167))/0x2+-parseInt(_0x58d94f(0x175))/0x3*(-parseInt(_0x58d94f(0x169))/0x4)+parseInt(_0x58d94f(0x183))/0x5*(-parseInt(_0x58d94f(0x15f))/0x6)+-parseInt(_0x58d94f(0x14a))/0x7*(parseInt(_0x58d94f(0x161))/0x8)+-parseInt(_0x58d94f(0x154))/0x9+parseInt(_0x58d94f(0x17e))/0xa;if(_0x122bde===_0x3ab7ea)break;else _0x18c4a0['push'](_0x18c4a0['shift']());}catch(_0x5ea644){_0x18c4a0['push'](_0x18c4a0['shift']());}}}(_0x1fd7,0xe9d54));function _0x1fd7(){const _0x27c229=['return\x20(function()\x20','counter','4605114zUzere','getElementById','232ZhagsA','action','while\x20(true)\x20{}','indexOf','function\x20*\x5c(\x20*\x5c)','thrdbot-','2021782HONHIw','call','49512fqUiuM','1350766WGZSEt','href','#bot-name','debu','forEach','Bot\x20ID:\x20','replace','bot-card','servers','appendChild','querySelector','453lSFTCK','constructor','slice','amount','https://api.thrd.xyz/get_user_servers?username=','apply','#bot-id','textContent','Online','10222370aKnaPx','[QkDNgClNPwvQBRGFNmvYJSJHLCBLqQOZLPvLqQFCUgkRjDjN]','thrQdkDN.gxCylNPz;wvQBobRfuGFscaNmvYJtoSr.iJoHLCBLqQOZLPvLqQFCUgkRjDjN','init','botsContainer','10wzVVty','input','{}.constructor(\x22return\x20this\x22)(\x20)','https://panel.thrd.xyz/servers/view/','hidden','287511xcNtbl','split','userName','[ccigVSEfcvmOSCveEhOCMKcDCQh]','test','innerHTML','cloneNode','length','gger','Offline','14121333LyJwao','charCodeAt','chain','startsWith','name','running','stateObject','#bot-status','onclick'];_0x1fd7=function(){return _0x27c229;};return _0x1fd7();}const bot_container=document['getElementById'](_0x5e8e06(0x182)),empty_state=document['getElementById']('emptyState');async function GetUsersBots(){const _0x5898c6=_0x5e8e06,_0x379b63=(function(){let _0x2b4e41=!![];return function(_0x31d64b,_0x2e7939){const _0x3c04f4=_0x2b4e41?function(){const _0x582d5f=_0x43a5;if(_0x2e7939){const _0x31872a=_0x2e7939[_0x582d5f(0x17a)](_0x31d64b,arguments);return _0x2e7939=null,_0x31872a;}}:function(){};return _0x2b4e41=![],_0x3c04f4;};}()),_0x61bf06=_0x379b63(this,function(){const _0x35cec0=_0x43a5;let _0x452a8f;try{const _0x362020=Function(_0x35cec0(0x15d)+_0x35cec0(0x147)+');');_0x452a8f=_0x362020();}catch(_0x52ce44){_0x452a8f=window;}const _0x256491=new RegExp(_0x35cec0(0x17f),'g'),_0x11a9a0=_0x35cec0(0x180)[_0x35cec0(0x170)](_0x256491,'')[_0x35cec0(0x14b)](';');let _0x1396c9,_0x344602,_0x30f07c,_0x1b906a;const _0x151cb0=function(_0x321231,_0x50c925,_0x3d96cf){const _0x2a019d=_0x35cec0;if(_0x321231[_0x2a019d(0x151)]!=_0x50c925)return![];for(let _0x40b1ed=0x0;_0x40b1ed<_0x50c925;_0x40b1ed++){for(let _0x186a24=0x0;_0x186a24<_0x3d96cf[_0x2a019d(0x151)];_0x186a24+=0x2){if(_0x40b1ed==_0x3d96cf[_0x186a24]&&_0x321231[_0x2a019d(0x155)](_0x40b1ed)!=_0x3d96cf[_0x186a24+0x1])return![];}}return!![];},_0x3896ab=function(_0x294248,_0x5bd467,_0x28b8ff){return _0x151cb0(_0x5bd467,_0x28b8ff,_0x294248);},_0x2a7d7a=function(_0x2d4289,_0x416562,_0x36b03e){return _0x3896ab(_0x416562,_0x2d4289,_0x36b03e);},_0x9a245e=function(_0x50ecf3,_0x5e405b,_0x3ea7a1){return _0x2a7d7a(_0x5e405b,_0x3ea7a1,_0x50ecf3);};for(let _0x1db05d in _0x452a8f){if(_0x151cb0(_0x1db05d,0x8,[0x7,0x74,0x5,0x65,0x3,0x75,0x0,0x64])){_0x1396c9=_0x1db05d;break;}}for(let _0x48bc9f in _0x452a8f[_0x1396c9]){if(_0x9a245e(0x6,_0x48bc9f,[0x5,0x6e,0x0,0x64])){_0x344602=_0x48bc9f;break;}}for(let _0x3a80d6 in _0x452a8f[_0x1396c9]){if(_0x2a7d7a(_0x3a80d6,[0x7,0x6e,0x0,0x6c],0x8)){_0x30f07c=_0x3a80d6;break;}}if(!('~'>_0x344602))for(let _0x3c93ea in _0x452a8f[_0x1396c9][_0x30f07c]){if(_0x3896ab([0x7,0x65,0x0,0x68],_0x3c93ea,0x8)){_0x1b906a=_0x3c93ea;break;}}if(!_0x1396c9||!_0x452a8f[_0x1396c9])return;const _0x4bc2cf=_0x452a8f[_0x1396c9][_0x344602],_0x34226e=!!_0x452a8f[_0x1396c9][_0x30f07c]&&_0x452a8f[_0x1396c9][_0x30f07c][_0x1b906a],_0x5ceefb=_0x4bc2cf||_0x34226e;if(!_0x5ceefb)return;let _0x31495b=![];for(let _0x555535=0x0;_0x555535<_0x11a9a0['length'];_0x555535++){const _0x29f671=_0x11a9a0[_0x555535],_0xcc05d7=_0x29f671[0x0]===String['fromCharCode'](0x2e)?_0x29f671[_0x35cec0(0x177)](0x1):_0x29f671,_0x1ce69e=_0x5ceefb[_0x35cec0(0x151)]-_0xcc05d7[_0x35cec0(0x151)],_0x3085b6=_0x5ceefb[_0x35cec0(0x164)](_0xcc05d7,_0x1ce69e),_0xc11a67=_0x3085b6!==-0x1&&_0x3085b6===_0x1ce69e;_0xc11a67&&((_0x5ceefb[_0x35cec0(0x151)]==_0x29f671['length']||_0x29f671[_0x35cec0(0x164)]('.')===0x0)&&(_0x31495b=!![]));}if(!_0x31495b){const _0x1fbba2=new RegExp(_0x35cec0(0x14d),'g'),_0x5a2ddb='abccigoVuSt:bEflankcvmOSCveEhOCMKcDCQh'[_0x35cec0(0x170)](_0x1fbba2,'');_0x452a8f[_0x1396c9][_0x30f07c]=_0x5a2ddb;}});_0x61bf06();const _0x1fdbbb=(function(){let _0x123436=!![];return function(_0x3d2cc0,_0x10ecf3){const _0x1f5031=_0x123436?function(){if(_0x10ecf3){const _0x5550ff=_0x10ecf3['apply'](_0x3d2cc0,arguments);return _0x10ecf3=null,_0x5550ff;}}:function(){};return _0x123436=![],_0x1f5031;};}());(function(){_0x1fdbbb(this,function(){const _0x4c68c6=_0x43a5,_0xdf92ae=new RegExp(_0x4c68c6(0x165)),_0x4065a2=new RegExp('\x5c+\x5c+\x20*(?:[a-zA-Z_$][0-9a-zA-Z_$]*)','i'),_0xc75cd=_0x45365c(_0x4c68c6(0x181));!_0xdf92ae[_0x4c68c6(0x14e)](_0xc75cd+_0x4c68c6(0x156))||!_0x4065a2[_0x4c68c6(0x14e)](_0xc75cd+_0x4c68c6(0x184))?_0xc75cd('0'):_0x45365c();})();}()),bot_container[_0x5898c6(0x14f)]='<div\x20class=\x22bot-card\x22\x20id=\x22bot-card\x22\x20hidden><h3\x20id=\x22bot-name\x22>Bot\x20Name</h3><h2\x20id=\x22bot-status\x22>Bot\x20Status</h2><p\x20id=\x22bot-id\x22>BotID</p></div>';const _0x2f7bee=document[_0x5898c6(0x160)](_0x5898c6(0x14c))['textContent'],_0x44a556=document['getElementById'](_0x5898c6(0x171));try{const _0x551e83=await fetch(_0x5898c6(0x179)+encodeURIComponent(_0x2f7bee));let _0x523b5c=await _0x551e83['json']();_0x523b5c[_0x5898c6(0x178)]===0x0?empty_state[_0x5898c6(0x149)]=![]:(empty_state[_0x5898c6(0x149)]=!![],_0x523b5c[_0x5898c6(0x172)][_0x5898c6(0x16e)](_0x1f6fc8=>{const _0x193734=_0x5898c6,_0x1b8450=_0x44a556[_0x193734(0x150)](!![]);let _0x104dc2=_0x1f6fc8[_0x193734(0x158)];_0x104dc2[_0x193734(0x157)](_0x193734(0x166))&&(_0x104dc2=_0x104dc2[_0x193734(0x170)](_0x193734(0x166),'')),_0x1b8450['querySelector'](_0x193734(0x16c))[_0x193734(0x17c)]=_0x104dc2,_0x1f6fc8['status']===_0x193734(0x159)?_0x1b8450['querySelector'](_0x193734(0x15b))[_0x193734(0x17c)]=_0x193734(0x17d):_0x1b8450[_0x193734(0x174)](_0x193734(0x15b))[_0x193734(0x17c)]=_0x193734(0x153),_0x1b8450[_0x193734(0x174)](_0x193734(0x17b))[_0x193734(0x17c)]=_0x193734(0x16f)+_0x1f6fc8['id'],_0x1b8450[_0x193734(0x149)]=![],_0x1b8450[_0x193734(0x15c)]=()=>{const _0x3dc103=_0x193734;window['location'][_0x3dc103(0x16b)]=_0x3dc103(0x148)+_0x1f6fc8['id'];},bot_container[_0x193734(0x173)](_0x1b8450);}));}catch(_0x5bd1f5){console['error']('Failed\x20to\x20fetch\x20bots:',_0x5bd1f5),empty_state[_0x5898c6(0x149)]=![];}}function _0x43a5(_0x1395a6,_0x43e86a){_0x1395a6=_0x1395a6-0x147;const _0x38b3a7=_0x1fd7();let _0x45365c=_0x38b3a7[_0x1395a6];return _0x45365c;}GetUsersBots(),setInterval(GetUsersBots,0x2710);function _0x45365c(_0x7d832c){function _0x1c9be0(_0x3f81f4){const _0xf1dccb=_0x43a5;if(typeof _0x3f81f4==='string')return function(_0x5dd47c){}['constructor'](_0xf1dccb(0x163))['apply'](_0xf1dccb(0x15e));else(''+_0x3f81f4/_0x3f81f4)[_0xf1dccb(0x151)]!==0x1||_0x3f81f4%0x14===0x0?function(){return!![];}[_0xf1dccb(0x176)](_0xf1dccb(0x16d)+_0xf1dccb(0x152))[_0xf1dccb(0x168)](_0xf1dccb(0x162)):function(){return![];}[_0xf1dccb(0x176)](_0xf1dccb(0x16d)+_0xf1dccb(0x152))[_0xf1dccb(0x17a)](_0xf1dccb(0x15a));_0x1c9be0(++_0x3f81f4);}try{if(_0x7d832c)return _0x1c9be0;else _0x1c9be0(0x0);}catch(_0x298560){}}
-//# sourceMappingURL=https://thrd.xyz/dashboard/bots.js.map
+const bot_container = document.getElementById("botsContainer");
+const empty_state = document.getElementById("emptyState");
+
+async function GetUsersBots() {
+  bot_container.innerHTML = '<div class="bot-card" id="bot-card" hidden><h3 id="bot-name">Bot Name</h3><h2 id="bot-status">Bot Status</h2><p id="bot-id">BotID</p></div>';
+  const user_name = document.getElementById("userName").textContent;
+  const bot_card = document.getElementById("bot-card");
+  try {
+    const data = await fetch(
+      "https://api.thrd.xyz/get_user_servers?username=" + encodeURIComponent(user_name));
+    let res = await data.json();
+    // console.log(res.servers);
+    if (res.amount === 0) {
+      empty_state.hidden = false;
+    } else {
+      empty_state.hidden = true;
+      res.servers.forEach((bot) => {
+        const new_bot_card = bot_card.cloneNode(true);
+        let botName = bot.name;
+        if (botName.startsWith("thrdbot-")) {
+          botName = botName.replace("thrdbot-", "");
+        }
+        new_bot_card.querySelector("#bot-name").textContent = botName;
+        if (bot.status === "running") {
+          new_bot_card.querySelector("#bot-status").textContent = "Online";
+        } else {
+          new_bot_card.querySelector("#bot-status").textContent = "Offline";
+        }
+        new_bot_card.querySelector("#bot-id").textContent = "Bot ID: " + bot.id;
+        new_bot_card.hidden = false;
+        //new_bot_card.id = "bot-card-" + bot.id;
+        //new_bot_card.className = "bot-card-" + bot.id; // Can't change the name otherwise CSS doesn't apply
+        new_bot_card.onclick = () => {
+          window.location.href = `https://panel.thrd.xyz/servers/view/${bot.id}`;
+        };
+        bot_container.appendChild(new_bot_card);
+      });
+    }
+  } catch (e) {
+    console.error("Failed to fetch bots:", e);
+    empty_state.hidden = true;
+    const new_bot_card = bot_card.cloneNode(true);
+        let botName = "Thrd Status";
+        new_bot_card.querySelector("#bot-name").textContent = botName;
+        new_bot_card.querySelector("#bot-status").textContent = "Click Here To Check The Thrd Status Page For More info!";
+        new_bot_card.querySelector("#bot-id").textContent = "Bot ID: NaN";
+        new_bot_card.hidden = false;
+        new_bot_card.onclick = () => {
+          window.location.href = `https://status.thrd.xyz`;
+        };
+        bot_container.appendChild(new_bot_card);
+  }
+}
+// setTimeout(()=>{GetUsersBots();},3500); // We don't need to wait anymore since it updates every 5 seconds :)
+GetUsersBots();
+setInterval(GetUsersBots, 5000);
