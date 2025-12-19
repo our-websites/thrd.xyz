@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -231,6 +232,15 @@ a {text-decoration:none;color:inherit;}
 .empty-state-btn:active {
   transform:translateY(-1px);
 }
+
+.toast {
+  position:fixed;bottom:-60px;left:50%;transform:translateX(-50%);
+  background:linear-gradient(90deg,#ff7518,#ffb347);color:#1a1a1a;
+  padding:1rem 1.5rem;border-radius:10px;font-weight:600;
+  opacity:0;transition:all 0.3s ease;z-index:100;
+  box-shadow:0 8px 20px rgba(255,117,24,0.3);
+}
+.toast.show {bottom:20px;opacity:1;}
 
 .loading-overlay {
   position:fixed;inset:0;background:rgba(0,0,0,0.8);
