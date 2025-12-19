@@ -293,7 +293,7 @@ a {text-decoration:none;color:inherit;}
 
   <div class="user-card">
     <img id="userAvatar" src="https://cdn.discordapp.com/embed/avatars/0.png" alt="Avatar">
-    <h2 id="userName">Loading...</h2>
+    <h2 id="userName"></h2>
     <p id="userEmail"></p>
   </div>
 
@@ -328,7 +328,7 @@ a {text-decoration:none;color:inherit;}
   <div class="main-header">
     <div>
       <h1 id="greeting">Welcome back!</h1>
-      <div class="time-greeting" id="timeGreeting">Good morning</div>
+      <div class="time-greeting" id="timeGreeting"></div>
     </div>
   </div>
 
@@ -338,7 +338,7 @@ a {text-decoration:none;color:inherit;}
         <i class="fas fa-robot"></i>
       </div>
       <div class="stat-label">Online Bots</div>
-      <div class="stat-value" id="onlineBots">Loading...</div>
+      <div class="stat-value" id="onlineBots"></div>
     </div>
 
     <div class="stat-card">
@@ -346,7 +346,7 @@ a {text-decoration:none;color:inherit;}
         <i class="fas fa-list"></i>
       </div>
       <div class="stat-label">Total Bots</div>
-      <div class="stat-value" id="totalBots">Loading...</div>
+      <div class="stat-value" id="totalBots"></div>
     </div>
 
     <div class="stat-card">
@@ -354,7 +354,7 @@ a {text-decoration:none;color:inherit;}
         <i class="fas fa-inbox"></i>
       </div>
       <div class="stat-label">Bot Slots</div>
-      <div class="stat-value" id="botSlots">Loading.../Loading...</div>
+      <div class="stat-value" id="botSlots"></div>
     </div>
   </div>
 </div>
@@ -369,22 +369,19 @@ const { url: SUPABASE_URL, key: SUPABASE_KEY } = await fetch('/supabase.json')
   .catch(() => ({ url: '', key: '' }));
 
 if (!SUPABASE_URL || !SUPABASE_KEY) {
-  window.location.href = "https://thrd.xyz/";
+  window.location.href = "https://thrd.xyz/login";
 }
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
 function updateGreeting() {
   const hour = new Date().getHours();
-  const greetingEl = document.getElementById('timeGreeting');
-  const mainGreeting = document.getElementById('greeting');
-  
-  let greeting = 'Good morning';
-  if (hour >= 12 && hour < 18) greeting = 'Good afternoon';
-  else if (hour >= 18) greeting = 'Good evening';
+  const greetingEl = document.getElementById('timeGreeting');  
+  let greeting = 'Good Morning!';
+  if (hour >= 12 && hour < 18) greeting = 'Good Afternoon!';
+  else if (hour >= 18) greeting = 'Good Night!';
   
   greetingEl.textContent = greeting;
-  mainGreeting.textContent = `${greeting}!`;
 }
 
 (async function() {
@@ -463,6 +460,9 @@ function updateGreeting() {
       document.getElementById('botSlots').textContent = `${total_bots}/${maxBots}`;
     } catch (e) {
       console.error("Failed to fetch bots:", e);
+      document.getElementById('onlineBots').textContent = "67";
+      document.getElementById('totalBots').textContent = "67";
+      document.getElementById('botSlots').textContent = "67/67";
     }
   }, 1000);
 
