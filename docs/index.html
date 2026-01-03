@@ -546,13 +546,18 @@ footer a:hover {
         </ins>
     <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
 <footer>
-    <p>&copy; 2025 Spooky Inc. All rights reserved.</p>
+    <p id="footer-text"></p>
     <div class="social-links">
         <a href="https://discord.gg/DaNhygzkJe" target="_blank"><i class="fab fa-discord"></i> Join Discord</a>
         <a href="https://github.com/our-websites/thrd.xyz" target="_blank"><i class="fab fa-github"></i> Github</a>
         <a href="https://status.thrd.xyz" target="_blank">Status</a>
     </div>
 </footer>
+
+<script>
+    const footerText = document.getElementById("footer-text")
+    footerText.textContent = `${new Date().getFullYear();} © Spooky Inc. All Rights Reserved.`;
+</script>
 
 <script>
     document.getElementById("loginBtn").onclick = () => window.location.href = '/login';
