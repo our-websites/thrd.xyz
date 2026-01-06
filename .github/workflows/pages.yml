@@ -1,8 +1,9 @@
-name: Pages
+name: Deploy Jekyll (main + dev)
 
 on:
   push:
-    branches: [main, dev]
+    branches: ["main", "dev"]
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -11,36 +12,52 @@ permissions:
 
 concurrency:
   group: "pages"
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
 
-      - name: Prepare output
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Build with Jekyll
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./
+          destination: ./_site_build
+
+      - name: Prepare Pages output
         run: |
+          rm -rf out
           mkdir -p out
+
           if [ "${{ github.ref_name }}" = "main" ]; then
-            cp -r ./* out/
+            cp -r _site_build/* out/
             echo "thrd.xyz" > out/CNAME
           else
             mkdir -p out/dev
-            cp -r ./* out/dev/
+            cp -r _site_build/* out/dev/
             echo "dev.thrd.xyz" > out/CNAME
           fi
 
-      - uses: actions/upload-pages-artifact@v3
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
           path: out
 
   deploy:
-    needs: build
     runs-on: ubuntu-latest
+    needs: build
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+
     steps:
-      - uses: actions/deploy-pages@v4
+      - name: Deploy to GitHub Pages
         id: deployment
+        uses: actions/deploy-pages@v4
