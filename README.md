@@ -1,8 +1,8 @@
 # Thrd Hosting
 
-Thrd Hosting is a discord bot hosting service where you can quickly setup and host your own discord bot.
+Thrd Hosting is a Discord bot hosting service where you can quickly setup and host your own Discord bot.
 
-[![thrd](https://img.shields.io/badge/thrd.xyz-orange?style=for-the-badge&)](https://thrd.xyz) [![thrd's status](https://img.shields.io/badge/status.thrd.xyz-orange?style=for-the-badge&)](https://status.thrd.xyz)
+[![Thrd](https://img.shields.io/badge/thrd.xyz-orange?style=for-the-badge&)](https://thrd.xyz) [![Thrd's status](https://img.shields.io/badge/status.thrd.xyz-orange?style=for-the-badge&)](https://status.thrd.xyz)
 
 
 
